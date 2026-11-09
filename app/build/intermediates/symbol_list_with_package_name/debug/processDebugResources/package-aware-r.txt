@@ -3626,11 +3626,9 @@ id tvBlockReason
 id tvBlockTitle
 id tvDeviceAdminStatus
 id tvDomain
-id tvNeutralizedCount
 id tvPinSubtitle
 id tvPinTitle
 id tvProtectionStatus
-id tvStreakDays
 id unchecked
 id uniform
 id unlabeled

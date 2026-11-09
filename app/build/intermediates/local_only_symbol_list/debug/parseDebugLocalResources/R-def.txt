@@ -55,11 +55,9 @@ id tvBlockReason
 id tvBlockTitle
 id tvDeviceAdminStatus
 id tvDomain
-id tvNeutralizedCount
 id tvPinSubtitle
 id tvPinTitle
 id tvProtectionStatus
-id tvStreakDays
 layout activity_block_overlay
 layout activity_main
 layout item_blacklist

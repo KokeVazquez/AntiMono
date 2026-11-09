@@ -46,7 +46,6 @@ class MainActivity : AppCompatActivity() {
         super.onResume()
         if (isAuthenticated) {
             updatePermissionsStatus()
-            updateStats()
         }
     }
 
@@ -102,7 +101,6 @@ class MainActivity : AppCompatActivity() {
         binding.etPin.text?.clear()
 
         updatePermissionsStatus()
-        updateStats()
         refreshDomainsList()
         refreshAppsList()
     }
@@ -126,7 +124,6 @@ class MainActivity : AppCompatActivity() {
         binding.switchMasterProtection.setOnCheckedChangeListener { _, isChecked ->
             prefs.isProtectionEnabled = isChecked
             updateProtectionStatusLabel(isChecked)
-            updateStats()
         }
 
         // Switches de Filtros
@@ -235,12 +232,6 @@ class MainActivity : AppCompatActivity() {
         binding.btnChangePin.setOnClickListener {
             showChangePinDialog()
         }
-    }
-
-    private fun updateStats() {
-        val days = prefs.streakDays
-        binding.tvStreakDays.text = if (days == 1) "🔥 1 Día" else "🔥 $days Días"
-        binding.tvNeutralizedCount.text = "🛡️ ${prefs.blockCount} Bloqueos"
     }
 
     private fun updateProtectionStatusLabel(enabled: Boolean) {

@@ -98,9 +98,6 @@ public final class ActivityMainBinding implements ViewBinding {
   public final TextView tvDeviceAdminStatus;
 
   @NonNull
-  public final TextView tvNeutralizedCount;
-
-  @NonNull
   public final TextView tvPinSubtitle;
 
   @NonNull
@@ -108,9 +105,6 @@ public final class ActivityMainBinding implements ViewBinding {
 
   @NonNull
   public final TextView tvProtectionStatus;
-
-  @NonNull
-  public final TextView tvStreakDays;
 
   private ActivityMainBinding(@NonNull CoordinatorLayout rootView,
       @NonNull MaterialButton btnAddApp, @NonNull MaterialButton btnAddDomain,
@@ -125,9 +119,8 @@ public final class ActivityMainBinding implements ViewBinding {
       @NonNull RecyclerView rvBlockedApps, @NonNull MaterialSwitch switchAdultFilter,
       @NonNull MaterialSwitch switchIncognitoFilter, @NonNull MaterialSwitch switchMasterProtection,
       @NonNull TextView tvAccessibilityStatus, @NonNull TextView tvDeviceAdminStatus,
-      @NonNull TextView tvNeutralizedCount, @NonNull TextView tvPinSubtitle,
-      @NonNull TextView tvPinTitle, @NonNull TextView tvProtectionStatus,
-      @NonNull TextView tvStreakDays) {
+      @NonNull TextView tvPinSubtitle, @NonNull TextView tvPinTitle,
+      @NonNull TextView tvProtectionStatus) {
     this.rootView = rootView;
     this.btnAddApp = btnAddApp;
     this.btnAddDomain = btnAddDomain;
@@ -153,11 +146,9 @@ public final class ActivityMainBinding implements ViewBinding {
     this.switchMasterProtection = switchMasterProtection;
     this.tvAccessibilityStatus = tvAccessibilityStatus;
     this.tvDeviceAdminStatus = tvDeviceAdminStatus;
-    this.tvNeutralizedCount = tvNeutralizedCount;
     this.tvPinSubtitle = tvPinSubtitle;
     this.tvPinTitle = tvPinTitle;
     this.tvProtectionStatus = tvProtectionStatus;
-    this.tvStreakDays = tvStreakDays;
   }
 
   @Override
@@ -331,12 +322,6 @@ public final class ActivityMainBinding implements ViewBinding {
         break missingId;
       }
 
-      id = R.id.tvNeutralizedCount;
-      TextView tvNeutralizedCount = ViewBindings.findChildViewById(rootView, id);
-      if (tvNeutralizedCount == null) {
-        break missingId;
-      }
-
       id = R.id.tvPinSubtitle;
       TextView tvPinSubtitle = ViewBindings.findChildViewById(rootView, id);
       if (tvPinSubtitle == null) {
@@ -355,19 +340,12 @@ public final class ActivityMainBinding implements ViewBinding {
         break missingId;
       }
 
-      id = R.id.tvStreakDays;
-      TextView tvStreakDays = ViewBindings.findChildViewById(rootView, id);
-      if (tvStreakDays == null) {
-        break missingId;
-      }
-
       return new ActivityMainBinding((CoordinatorLayout) rootView, btnAddApp, btnAddDomain,
           btnBatteryOptimization, btnChangePin, btnEnableAccessibility, btnEnableDeviceAdmin,
           btnLockApp, btnSubmitPin, chipAddInstagram, chipAddReddit, chipAddTikTok, chipAddTwitter,
           etNewApp, etNewDomain, etPin, layoutDashboard, layoutPinAuth, rvBlacklist, rvBlockedApps,
           switchAdultFilter, switchIncognitoFilter, switchMasterProtection, tvAccessibilityStatus,
-          tvDeviceAdminStatus, tvNeutralizedCount, tvPinSubtitle, tvPinTitle, tvProtectionStatus,
-          tvStreakDays);
+          tvDeviceAdminStatus, tvPinSubtitle, tvPinTitle, tvProtectionStatus);
     }
     String missingId = rootView.getResources().getResourceName(id);
     throw new NullPointerException("Missing required view with ID: ".concat(missingId));

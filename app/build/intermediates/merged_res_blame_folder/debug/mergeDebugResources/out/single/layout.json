@@ -14,13 +14,5 @@
     {
         "merged": "C:\\Users\\Admin\\.gradle\\daemon\\8.7\\com.antimono.app-mergeDebugResources-31:\\layout\\activity_block_overlay.xml",
         "source": "C:\\Users\\Admin\\.gradle\\daemon\\8.7\\com.antimono.app-main-34:\\layout\\activity_block_overlay.xml"
-    },
-    {
-        "merged": "com.antimono.app-mergeDebugResources-31:/layout/item_blacklist.xml",
-        "source": "com.antimono.app-main-34:/layout/item_blacklist.xml"
-    },
-    {
-        "merged": "com.antimono.app-mergeDebugResources-31:/layout/activity_block_overlay.xml",
-        "source": "com.antimono.app-main-34:/layout/activity_block_overlay.xml"
     }
 ]
