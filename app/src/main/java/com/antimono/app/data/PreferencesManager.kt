@@ -24,7 +24,8 @@ class PreferencesManager(context: Context) {
             "porno", "porn", "xxx", "xvideos", "xnxx", "pornhub",
             "redtube", "erotic", "hentai", "onlyfans", "chaturbate",
             "stripchat", "cam4", "brazzers", "youporn", "spankbang",
-            "xhamster", "rule34", "nude", "tits", "sexo", "erotico"
+            "xhamster", "rule34", "nude", "tits", "sexo", "erotico",
+            "sex", "sexy", "boobs", "milf", "nsfw"
         )
 
         val DEFAULT_BLACKLIST_DOMAINS = setOf(

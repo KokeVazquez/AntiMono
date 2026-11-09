@@ -1,7 +1,13 @@
 package com.antimono.app.service
 
 import android.accessibilityservice.AccessibilityService
+import android.content.Context
 import android.content.Intent
+import android.os.Build
+import android.os.Bundle
+import android.os.VibrationEffect
+import android.os.Vibrator
+import android.os.VibratorManager
 import android.view.accessibility.AccessibilityEvent
 import android.view.accessibility.AccessibilityNodeInfo
 import android.widget.Toast
@@ -42,29 +48,91 @@ class AntiMonoAccessibilityService : AccessibilityService() {
         // Si el interruptor maestro está apagado, la app es completamente invisible
         if (!prefs.isProtectionEnabled) return
 
-        val rootNode = rootInActiveWindow ?: return
-        val packageName = event?.packageName?.toString() ?: rootNode.packageName?.toString() ?: ""
+        val packageName = event?.packageName?.toString() ?: ""
 
-        // 1. Proteger contra desinstalación o alteración de permisos
-        if (settingsPackages.contains(packageName)) {
+        // No interferir con la propia app AntiMono
+        if (packageName == applicationContext.packageName) return
+
+        // 1. CENTINELA DE TECLADO: Borrado automático de palabras prohibidas en tiempo real
+        if (event?.eventType == AccessibilityEvent.TYPE_VIEW_TEXT_CHANGED) {
+            handleLiveTextInput(event)
+            return
+        }
+
+        val rootNode = rootInActiveWindow ?: return
+        val activePkg = packageName.ifEmpty { rootNode.packageName?.toString() ?: "" }
+
+        // 2. Proteger contra desinstalación o alteración de permisos
+        if (settingsPackages.contains(activePkg)) {
             handleSettingsProtection(rootNode)
             return
         }
 
-        // 2. Bloquear Google Play Store si intentan descargar una app restringida
-        if (packageName == playStorePackage) {
+        // 3. Bloquear Google Play Store si intentan descargar una app restringida
+        if (activePkg == playStorePackage) {
             handlePlayStoreInspection(rootNode)
             return
         }
 
-        // 3. Bloquear APPS instaladas que estén en la lista negra
-        if (handleInstalledAppBlock(packageName)) {
+        // 4. Bloquear APPS instaladas que estén en la lista negra
+        if (handleInstalledAppBlock(activePkg)) {
             return
         }
 
-        // 4. Filtrado de navegadores web
-        if (browserPackages.contains(packageName)) {
+        // 5. Filtrado de navegadores web
+        if (browserPackages.contains(activePkg)) {
             handleBrowserInspection(rootNode)
+        }
+    }
+
+    /**
+     * Centinela de Teclado: Detecta cuando se teclean palabras prohibidas y vacía el campo al instante
+     */
+    private fun handleLiveTextInput(event: AccessibilityEvent) {
+        val sourceNode = event.source ?: return
+        val eventTexts = event.text
+        val combinedText = eventTexts?.joinToString(" ")?.lowercase()
+            ?: sourceNode.text?.toString()?.lowercase()
+            ?: ""
+
+        if (combinedText.isBlank()) return
+
+        val forbiddenWords = PreferencesManager.DEFAULT_ADULT_KEYWORDS
+        for (keyword in forbiddenWords) {
+            if (containsIsolatedKeyword(combinedText, keyword)) {
+                // Borrar inmediatamente el texto tecleado en el campo
+                val clearBundle = Bundle().apply {
+                    putCharSequence(AccessibilityNodeInfo.ACTION_ARGUMENT_SET_TEXT_CHARSEQUENCE, "")
+                }
+                val cleared = sourceNode.performAction(AccessibilityNodeInfo.ACTION_SET_TEXT, clearBundle)
+
+                if (cleared) {
+                    triggerKeyboardHaptic()
+                    Toast.makeText(this, "⚠️ Palabra prohibida borrada: \"$keyword\"", Toast.LENGTH_SHORT).show()
+                }
+                return
+            }
+        }
+    }
+
+    private fun triggerKeyboardHaptic() {
+        try {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+                val vibratorManager = getSystemService(Context.VIBRATOR_MANAGER_SERVICE) as VibratorManager
+                val vibrator = vibratorManager.defaultVibrator
+                vibrator.vibrate(VibrationEffect.createOneShot(80, VibrationEffect.DEFAULT_AMPLITUDE))
+            } else {
+                @Suppress("DEPRECATION")
+                val vibrator = getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                    vibrator.vibrate(VibrationEffect.createOneShot(80, VibrationEffect.DEFAULT_AMPLITUDE))
+                } else {
+                    @Suppress("DEPRECATION")
+                    vibrator.vibrate(80)
+                }
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
         }
     }
 

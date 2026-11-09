@@ -11,8 +11,8 @@ android {
         applicationId = "com.antimono.app"
         minSdk = 26
         targetSdk = 34
-        versionCode = 4
-        versionName = "2.0.1"
+        versionCode = 5
+        versionName = "2.1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
