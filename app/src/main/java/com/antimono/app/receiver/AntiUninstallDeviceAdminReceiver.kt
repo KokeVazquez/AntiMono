@@ -8,6 +8,7 @@ import android.content.Intent
 import android.os.UserManager
 import android.widget.Toast
 import com.antimono.app.R
+import com.antimono.app.data.PreferencesManager
 
 class AntiUninstallDeviceAdminReceiver : DeviceAdminReceiver() {
 
