@@ -36,7 +36,17 @@ class PreferencesManager(context: Context) {
             "com.twitter.android",
             "com.instagram.android",
             "com.zhiliaoapp.musically",
-            "com.ss.android.ugc.trill"
+            "com.ss.android.ugc.trill",
+            "com.reddit.frontpage",
+            "org.telegram.messenger",
+            "com.viber.voip",
+            "jp.naver.line.android",
+            "com.discord",
+            "com.tinder",
+            "com.bumble.app",
+            "com.badoo.mobile",
+            "com.ometv.android",
+            "com.samsung.knox.securefolder"
         )
 
         val DEFAULT_MONITORED_KEYBOARD_APPS = setOf(

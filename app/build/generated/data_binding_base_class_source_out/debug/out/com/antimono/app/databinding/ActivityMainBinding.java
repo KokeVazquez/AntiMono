@@ -59,13 +59,22 @@ public final class ActivityMainBinding implements ViewBinding {
   public final MaterialButton chipAddInstagram;
 
   @NonNull
+  public final MaterialButton chipAddLine;
+
+  @NonNull
   public final MaterialButton chipAddReddit;
+
+  @NonNull
+  public final MaterialButton chipAddTelegram;
 
   @NonNull
   public final MaterialButton chipAddTikTok;
 
   @NonNull
   public final MaterialButton chipAddTwitter;
+
+  @NonNull
+  public final MaterialButton chipAddViber;
 
   @NonNull
   public final TextInputEditText etNewApp;
@@ -127,17 +136,19 @@ public final class ActivityMainBinding implements ViewBinding {
       @NonNull MaterialButton btnChangePin, @NonNull MaterialButton btnConfigureMonitoredApps,
       @NonNull MaterialButton btnEnableAccessibility, @NonNull MaterialButton btnEnableDeviceAdmin,
       @NonNull MaterialButton btnLockApp, @NonNull MaterialButton btnSubmitPin,
-      @NonNull MaterialButton chipAddInstagram, @NonNull MaterialButton chipAddReddit,
+      @NonNull MaterialButton chipAddInstagram, @NonNull MaterialButton chipAddLine,
+      @NonNull MaterialButton chipAddReddit, @NonNull MaterialButton chipAddTelegram,
       @NonNull MaterialButton chipAddTikTok, @NonNull MaterialButton chipAddTwitter,
-      @NonNull TextInputEditText etNewApp, @NonNull TextInputEditText etNewDomain,
-      @NonNull TextInputEditText etNewKeyword, @NonNull TextInputEditText etPin,
-      @NonNull NestedScrollView layoutDashboard, @NonNull LinearLayout layoutPinAuth,
-      @NonNull RecyclerView rvBlacklist, @NonNull RecyclerView rvBlockedApps,
-      @NonNull RecyclerView rvKeywords, @NonNull MaterialSwitch switchAdultFilter,
-      @NonNull MaterialSwitch switchIncognitoFilter, @NonNull MaterialSwitch switchKeywordGuardian,
-      @NonNull MaterialSwitch switchMasterProtection, @NonNull TextView tvAccessibilityStatus,
-      @NonNull TextView tvDeviceAdminStatus, @NonNull TextView tvPinSubtitle,
-      @NonNull TextView tvPinTitle, @NonNull TextView tvProtectionStatus) {
+      @NonNull MaterialButton chipAddViber, @NonNull TextInputEditText etNewApp,
+      @NonNull TextInputEditText etNewDomain, @NonNull TextInputEditText etNewKeyword,
+      @NonNull TextInputEditText etPin, @NonNull NestedScrollView layoutDashboard,
+      @NonNull LinearLayout layoutPinAuth, @NonNull RecyclerView rvBlacklist,
+      @NonNull RecyclerView rvBlockedApps, @NonNull RecyclerView rvKeywords,
+      @NonNull MaterialSwitch switchAdultFilter, @NonNull MaterialSwitch switchIncognitoFilter,
+      @NonNull MaterialSwitch switchKeywordGuardian, @NonNull MaterialSwitch switchMasterProtection,
+      @NonNull TextView tvAccessibilityStatus, @NonNull TextView tvDeviceAdminStatus,
+      @NonNull TextView tvPinSubtitle, @NonNull TextView tvPinTitle,
+      @NonNull TextView tvProtectionStatus) {
     this.rootView = rootView;
     this.btnAddApp = btnAddApp;
     this.btnAddDomain = btnAddDomain;
@@ -150,9 +161,12 @@ public final class ActivityMainBinding implements ViewBinding {
     this.btnLockApp = btnLockApp;
     this.btnSubmitPin = btnSubmitPin;
     this.chipAddInstagram = chipAddInstagram;
+    this.chipAddLine = chipAddLine;
     this.chipAddReddit = chipAddReddit;
+    this.chipAddTelegram = chipAddTelegram;
     this.chipAddTikTok = chipAddTikTok;
     this.chipAddTwitter = chipAddTwitter;
+    this.chipAddViber = chipAddViber;
     this.etNewApp = etNewApp;
     this.etNewDomain = etNewDomain;
     this.etNewKeyword = etNewKeyword;
@@ -266,9 +280,21 @@ public final class ActivityMainBinding implements ViewBinding {
         break missingId;
       }
 
+      id = R.id.chipAddLine;
+      MaterialButton chipAddLine = ViewBindings.findChildViewById(rootView, id);
+      if (chipAddLine == null) {
+        break missingId;
+      }
+
       id = R.id.chipAddReddit;
       MaterialButton chipAddReddit = ViewBindings.findChildViewById(rootView, id);
       if (chipAddReddit == null) {
+        break missingId;
+      }
+
+      id = R.id.chipAddTelegram;
+      MaterialButton chipAddTelegram = ViewBindings.findChildViewById(rootView, id);
+      if (chipAddTelegram == null) {
         break missingId;
       }
 
@@ -281,6 +307,12 @@ public final class ActivityMainBinding implements ViewBinding {
       id = R.id.chipAddTwitter;
       MaterialButton chipAddTwitter = ViewBindings.findChildViewById(rootView, id);
       if (chipAddTwitter == null) {
+        break missingId;
+      }
+
+      id = R.id.chipAddViber;
+      MaterialButton chipAddViber = ViewBindings.findChildViewById(rootView, id);
+      if (chipAddViber == null) {
         break missingId;
       }
 
@@ -395,11 +427,11 @@ public final class ActivityMainBinding implements ViewBinding {
       return new ActivityMainBinding((CoordinatorLayout) rootView, btnAddApp, btnAddDomain,
           btnAddKeyword, btnBatteryOptimization, btnChangePin, btnConfigureMonitoredApps,
           btnEnableAccessibility, btnEnableDeviceAdmin, btnLockApp, btnSubmitPin, chipAddInstagram,
-          chipAddReddit, chipAddTikTok, chipAddTwitter, etNewApp, etNewDomain, etNewKeyword, etPin,
-          layoutDashboard, layoutPinAuth, rvBlacklist, rvBlockedApps, rvKeywords, switchAdultFilter,
-          switchIncognitoFilter, switchKeywordGuardian, switchMasterProtection,
-          tvAccessibilityStatus, tvDeviceAdminStatus, tvPinSubtitle, tvPinTitle,
-          tvProtectionStatus);
+          chipAddLine, chipAddReddit, chipAddTelegram, chipAddTikTok, chipAddTwitter, chipAddViber,
+          etNewApp, etNewDomain, etNewKeyword, etPin, layoutDashboard, layoutPinAuth, rvBlacklist,
+          rvBlockedApps, rvKeywords, switchAdultFilter, switchIncognitoFilter,
+          switchKeywordGuardian, switchMasterProtection, tvAccessibilityStatus, tvDeviceAdminStatus,
+          tvPinSubtitle, tvPinTitle, tvProtectionStatus);
     }
     String missingId = rootView.getResources().getResourceName(id);
     throw new NullPointerException("Missing required view with ID: ".concat(missingId));

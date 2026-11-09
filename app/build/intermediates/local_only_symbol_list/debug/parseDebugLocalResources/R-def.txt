@@ -38,9 +38,12 @@ id btnSubmitPin
 id btnUnderstood
 id cardMonkey
 id chipAddInstagram
+id chipAddLine
 id chipAddReddit
+id chipAddTelegram
 id chipAddTikTok
 id chipAddTwitter
+id chipAddViber
 id etNewApp
 id etNewDomain
 id etNewKeyword

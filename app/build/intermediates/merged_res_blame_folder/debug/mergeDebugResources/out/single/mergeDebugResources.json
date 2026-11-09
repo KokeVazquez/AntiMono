@@ -12,10 +12,6 @@
         "source": "C:\\Users\\Admin\\.gradle\\daemon\\8.7\\com.antimono.app-main-34:\\mipmap-xxhdpi\\ic_launcher_round.png"
     },
     {
-        "merged": "com.antimono.app-debug-32:/layout_activity_block_overlay.xml.flat",
-        "source": "com.antimono.app-main-34:/layout/activity_block_overlay.xml"
-    },
-    {
         "merged": "C:\\Users\\Admin\\.gradle\\daemon\\8.7\\com.antimono.app-debug-32:\\xml_device_admin_policies.xml.flat",
         "source": "C:\\Users\\Admin\\.gradle\\daemon\\8.7\\com.antimono.app-main-34:\\xml\\device_admin_policies.xml"
     },

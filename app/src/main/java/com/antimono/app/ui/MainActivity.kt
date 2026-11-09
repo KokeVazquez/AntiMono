@@ -233,6 +233,24 @@ class MainActivity : AppCompatActivity() {
             refreshAppsList()
             Toast.makeText(this, "Reddit añadida", Toast.LENGTH_SHORT).show()
         }
+        binding.chipAddTelegram.setOnClickListener {
+            prefs.addBlockedApp("org.telegram.messenger")
+            prefs.addBlockedApp("telegram")
+            refreshAppsList()
+            Toast.makeText(this, "Telegram añadida", Toast.LENGTH_SHORT).show()
+        }
+        binding.chipAddViber.setOnClickListener {
+            prefs.addBlockedApp("com.viber.voip")
+            prefs.addBlockedApp("viber")
+            refreshAppsList()
+            Toast.makeText(this, "Viber añadida", Toast.LENGTH_SHORT).show()
+        }
+        binding.chipAddLine.setOnClickListener {
+            prefs.addBlockedApp("jp.naver.line.android")
+            prefs.addBlockedApp("line")
+            refreshAppsList()
+            Toast.makeText(this, "LINE añadida", Toast.LENGTH_SHORT).show()
+        }
 
         // 3. Sitios Web Bloqueados
         domainsAdapter = BlacklistAdapter { domain ->
