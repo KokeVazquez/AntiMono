@@ -26,6 +26,9 @@ public final class ActivityMainBinding implements ViewBinding {
   private final CoordinatorLayout rootView;
 
   @NonNull
+  public final MaterialButton btnAddApp;
+
+  @NonNull
   public final MaterialButton btnAddDomain;
 
   @NonNull
@@ -47,6 +50,21 @@ public final class ActivityMainBinding implements ViewBinding {
   public final MaterialButton btnSubmitPin;
 
   @NonNull
+  public final MaterialButton chipAddInstagram;
+
+  @NonNull
+  public final MaterialButton chipAddReddit;
+
+  @NonNull
+  public final MaterialButton chipAddTikTok;
+
+  @NonNull
+  public final MaterialButton chipAddTwitter;
+
+  @NonNull
+  public final TextInputEditText etNewApp;
+
+  @NonNull
   public final TextInputEditText etNewDomain;
 
   @NonNull
@@ -60,6 +78,9 @@ public final class ActivityMainBinding implements ViewBinding {
 
   @NonNull
   public final RecyclerView rvBlacklist;
+
+  @NonNull
+  public final RecyclerView rvBlockedApps;
 
   @NonNull
   public final MaterialSwitch switchAdultFilter;
@@ -77,6 +98,9 @@ public final class ActivityMainBinding implements ViewBinding {
   public final TextView tvDeviceAdminStatus;
 
   @NonNull
+  public final TextView tvNeutralizedCount;
+
+  @NonNull
   public final TextView tvPinSubtitle;
 
   @NonNull
@@ -85,18 +109,27 @@ public final class ActivityMainBinding implements ViewBinding {
   @NonNull
   public final TextView tvProtectionStatus;
 
+  @NonNull
+  public final TextView tvStreakDays;
+
   private ActivityMainBinding(@NonNull CoordinatorLayout rootView,
-      @NonNull MaterialButton btnAddDomain, @NonNull MaterialButton btnBatteryOptimization,
-      @NonNull MaterialButton btnChangePin, @NonNull MaterialButton btnEnableAccessibility,
-      @NonNull MaterialButton btnEnableDeviceAdmin, @NonNull MaterialButton btnLockApp,
-      @NonNull MaterialButton btnSubmitPin, @NonNull TextInputEditText etNewDomain,
+      @NonNull MaterialButton btnAddApp, @NonNull MaterialButton btnAddDomain,
+      @NonNull MaterialButton btnBatteryOptimization, @NonNull MaterialButton btnChangePin,
+      @NonNull MaterialButton btnEnableAccessibility, @NonNull MaterialButton btnEnableDeviceAdmin,
+      @NonNull MaterialButton btnLockApp, @NonNull MaterialButton btnSubmitPin,
+      @NonNull MaterialButton chipAddInstagram, @NonNull MaterialButton chipAddReddit,
+      @NonNull MaterialButton chipAddTikTok, @NonNull MaterialButton chipAddTwitter,
+      @NonNull TextInputEditText etNewApp, @NonNull TextInputEditText etNewDomain,
       @NonNull TextInputEditText etPin, @NonNull NestedScrollView layoutDashboard,
       @NonNull LinearLayout layoutPinAuth, @NonNull RecyclerView rvBlacklist,
-      @NonNull MaterialSwitch switchAdultFilter, @NonNull MaterialSwitch switchIncognitoFilter,
-      @NonNull MaterialSwitch switchMasterProtection, @NonNull TextView tvAccessibilityStatus,
-      @NonNull TextView tvDeviceAdminStatus, @NonNull TextView tvPinSubtitle,
-      @NonNull TextView tvPinTitle, @NonNull TextView tvProtectionStatus) {
+      @NonNull RecyclerView rvBlockedApps, @NonNull MaterialSwitch switchAdultFilter,
+      @NonNull MaterialSwitch switchIncognitoFilter, @NonNull MaterialSwitch switchMasterProtection,
+      @NonNull TextView tvAccessibilityStatus, @NonNull TextView tvDeviceAdminStatus,
+      @NonNull TextView tvNeutralizedCount, @NonNull TextView tvPinSubtitle,
+      @NonNull TextView tvPinTitle, @NonNull TextView tvProtectionStatus,
+      @NonNull TextView tvStreakDays) {
     this.rootView = rootView;
+    this.btnAddApp = btnAddApp;
     this.btnAddDomain = btnAddDomain;
     this.btnBatteryOptimization = btnBatteryOptimization;
     this.btnChangePin = btnChangePin;
@@ -104,19 +137,27 @@ public final class ActivityMainBinding implements ViewBinding {
     this.btnEnableDeviceAdmin = btnEnableDeviceAdmin;
     this.btnLockApp = btnLockApp;
     this.btnSubmitPin = btnSubmitPin;
+    this.chipAddInstagram = chipAddInstagram;
+    this.chipAddReddit = chipAddReddit;
+    this.chipAddTikTok = chipAddTikTok;
+    this.chipAddTwitter = chipAddTwitter;
+    this.etNewApp = etNewApp;
     this.etNewDomain = etNewDomain;
     this.etPin = etPin;
     this.layoutDashboard = layoutDashboard;
     this.layoutPinAuth = layoutPinAuth;
     this.rvBlacklist = rvBlacklist;
+    this.rvBlockedApps = rvBlockedApps;
     this.switchAdultFilter = switchAdultFilter;
     this.switchIncognitoFilter = switchIncognitoFilter;
     this.switchMasterProtection = switchMasterProtection;
     this.tvAccessibilityStatus = tvAccessibilityStatus;
     this.tvDeviceAdminStatus = tvDeviceAdminStatus;
+    this.tvNeutralizedCount = tvNeutralizedCount;
     this.tvPinSubtitle = tvPinSubtitle;
     this.tvPinTitle = tvPinTitle;
     this.tvProtectionStatus = tvProtectionStatus;
+    this.tvStreakDays = tvStreakDays;
   }
 
   @Override
@@ -146,6 +187,12 @@ public final class ActivityMainBinding implements ViewBinding {
     // This is done to optimize the compiled bytecode for size and performance.
     int id;
     missingId: {
+      id = R.id.btnAddApp;
+      MaterialButton btnAddApp = ViewBindings.findChildViewById(rootView, id);
+      if (btnAddApp == null) {
+        break missingId;
+      }
+
       id = R.id.btnAddDomain;
       MaterialButton btnAddDomain = ViewBindings.findChildViewById(rootView, id);
       if (btnAddDomain == null) {
@@ -188,6 +235,36 @@ public final class ActivityMainBinding implements ViewBinding {
         break missingId;
       }
 
+      id = R.id.chipAddInstagram;
+      MaterialButton chipAddInstagram = ViewBindings.findChildViewById(rootView, id);
+      if (chipAddInstagram == null) {
+        break missingId;
+      }
+
+      id = R.id.chipAddReddit;
+      MaterialButton chipAddReddit = ViewBindings.findChildViewById(rootView, id);
+      if (chipAddReddit == null) {
+        break missingId;
+      }
+
+      id = R.id.chipAddTikTok;
+      MaterialButton chipAddTikTok = ViewBindings.findChildViewById(rootView, id);
+      if (chipAddTikTok == null) {
+        break missingId;
+      }
+
+      id = R.id.chipAddTwitter;
+      MaterialButton chipAddTwitter = ViewBindings.findChildViewById(rootView, id);
+      if (chipAddTwitter == null) {
+        break missingId;
+      }
+
+      id = R.id.etNewApp;
+      TextInputEditText etNewApp = ViewBindings.findChildViewById(rootView, id);
+      if (etNewApp == null) {
+        break missingId;
+      }
+
       id = R.id.etNewDomain;
       TextInputEditText etNewDomain = ViewBindings.findChildViewById(rootView, id);
       if (etNewDomain == null) {
@@ -215,6 +292,12 @@ public final class ActivityMainBinding implements ViewBinding {
       id = R.id.rvBlacklist;
       RecyclerView rvBlacklist = ViewBindings.findChildViewById(rootView, id);
       if (rvBlacklist == null) {
+        break missingId;
+      }
+
+      id = R.id.rvBlockedApps;
+      RecyclerView rvBlockedApps = ViewBindings.findChildViewById(rootView, id);
+      if (rvBlockedApps == null) {
         break missingId;
       }
 
@@ -248,6 +331,12 @@ public final class ActivityMainBinding implements ViewBinding {
         break missingId;
       }
 
+      id = R.id.tvNeutralizedCount;
+      TextView tvNeutralizedCount = ViewBindings.findChildViewById(rootView, id);
+      if (tvNeutralizedCount == null) {
+        break missingId;
+      }
+
       id = R.id.tvPinSubtitle;
       TextView tvPinSubtitle = ViewBindings.findChildViewById(rootView, id);
       if (tvPinSubtitle == null) {
@@ -266,11 +355,19 @@ public final class ActivityMainBinding implements ViewBinding {
         break missingId;
       }
 
-      return new ActivityMainBinding((CoordinatorLayout) rootView, btnAddDomain,
+      id = R.id.tvStreakDays;
+      TextView tvStreakDays = ViewBindings.findChildViewById(rootView, id);
+      if (tvStreakDays == null) {
+        break missingId;
+      }
+
+      return new ActivityMainBinding((CoordinatorLayout) rootView, btnAddApp, btnAddDomain,
           btnBatteryOptimization, btnChangePin, btnEnableAccessibility, btnEnableDeviceAdmin,
-          btnLockApp, btnSubmitPin, etNewDomain, etPin, layoutDashboard, layoutPinAuth, rvBlacklist,
+          btnLockApp, btnSubmitPin, chipAddInstagram, chipAddReddit, chipAddTikTok, chipAddTwitter,
+          etNewApp, etNewDomain, etPin, layoutDashboard, layoutPinAuth, rvBlacklist, rvBlockedApps,
           switchAdultFilter, switchIncognitoFilter, switchMasterProtection, tvAccessibilityStatus,
-          tvDeviceAdminStatus, tvPinSubtitle, tvPinTitle, tvProtectionStatus);
+          tvDeviceAdminStatus, tvNeutralizedCount, tvPinSubtitle, tvPinTitle, tvProtectionStatus,
+          tvStreakDays);
     }
     String missingId = rootView.getResources().getResourceName(id);
     throw new NullPointerException("Missing required view with ID: ".concat(missingId));

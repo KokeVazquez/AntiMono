@@ -1,16 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="primary">#1E293B</color>
-    <color name="primary_variant">#0F172A</color>
-    <color name="accent">#3B82F6</color>
-    <color name="background">#0F172A</color>
-    <color name="surface">#1E293B</color>
-    <color name="surface_card">#334155</color>
+    <color name="primary">#101B2F</color>
+    <color name="primary_variant">#090E17</color>
+    <color name="accent">#0A84FF</color>
+    <color name="background">#090E17</color>
+    <color name="surface">#131F37</color>
+    <color name="surface_card">#1C2A47</color>
+    <color name="surface_pill">#26385C</color>
     <color name="text_primary">#F8FAFC</color>
     <color name="text_secondary">#94A3B8</color>
-    <color name="status_green">#10B981</color>
-    <color name="status_red">#EF4444</color>
-    <color name="danger">#DC2626</color>
+    
+    <!-- iOS Palette -->
+    <color name="ios_green">#34C759</color>
+    <color name="ios_red">#FF453A</color>
+    <color name="ios_gray">#3A3A3C</color>
+    <color name="ios_card">#162238</color>
+    
+    <color name="status_green">#34C759</color>
+    <color name="status_red">#FF453A</color>
+    <color name="danger">#FF453A</color>
     <color name="white">#FFFFFF</color>
     <color name="black">#000000</color>
 </resources>

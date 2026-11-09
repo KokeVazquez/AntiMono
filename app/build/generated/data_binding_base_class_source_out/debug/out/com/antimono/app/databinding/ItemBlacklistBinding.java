@@ -4,7 +4,6 @@ package com.antimono.app.databinding;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -12,13 +11,14 @@ import androidx.viewbinding.ViewBinding;
 import androidx.viewbinding.ViewBindings;
 import com.antimono.app.R;
 import com.google.android.material.button.MaterialButton;
+import com.google.android.material.card.MaterialCardView;
 import java.lang.NullPointerException;
 import java.lang.Override;
 import java.lang.String;
 
 public final class ItemBlacklistBinding implements ViewBinding {
   @NonNull
-  private final LinearLayout rootView;
+  private final MaterialCardView rootView;
 
   @NonNull
   public final MaterialButton btnDelete;
@@ -26,8 +26,8 @@ public final class ItemBlacklistBinding implements ViewBinding {
   @NonNull
   public final TextView tvDomain;
 
-  private ItemBlacklistBinding(@NonNull LinearLayout rootView, @NonNull MaterialButton btnDelete,
-      @NonNull TextView tvDomain) {
+  private ItemBlacklistBinding(@NonNull MaterialCardView rootView,
+      @NonNull MaterialButton btnDelete, @NonNull TextView tvDomain) {
     this.rootView = rootView;
     this.btnDelete = btnDelete;
     this.tvDomain = tvDomain;
@@ -35,7 +35,7 @@ public final class ItemBlacklistBinding implements ViewBinding {
 
   @Override
   @NonNull
-  public LinearLayout getRoot() {
+  public MaterialCardView getRoot() {
     return rootView;
   }
 
@@ -72,7 +72,7 @@ public final class ItemBlacklistBinding implements ViewBinding {
         break missingId;
       }
 
-      return new ItemBlacklistBinding((LinearLayout) rootView, btnDelete, tvDomain);
+      return new ItemBlacklistBinding((MaterialCardView) rootView, btnDelete, tvDomain);
     }
     String missingId = rootView.getResources().getResourceName(id);
     throw new NullPointerException("Missing required view with ID: ".concat(missingId));

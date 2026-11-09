@@ -4,6 +4,7 @@ package com.antimono.app.databinding;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
@@ -12,6 +13,7 @@ import androidx.viewbinding.ViewBinding;
 import androidx.viewbinding.ViewBindings;
 import com.antimono.app.R;
 import com.google.android.material.button.MaterialButton;
+import com.google.android.material.card.MaterialCardView;
 import java.lang.NullPointerException;
 import java.lang.Override;
 import java.lang.String;
@@ -24,13 +26,27 @@ public final class ActivityBlockOverlayBinding implements ViewBinding {
   public final MaterialButton btnUnderstood;
 
   @NonNull
+  public final MaterialCardView cardMonkey;
+
+  @NonNull
+  public final ImageView ivMonkey;
+
+  @NonNull
   public final TextView tvBlockReason;
 
+  @NonNull
+  public final TextView tvBlockTitle;
+
   private ActivityBlockOverlayBinding(@NonNull LinearLayout rootView,
-      @NonNull MaterialButton btnUnderstood, @NonNull TextView tvBlockReason) {
+      @NonNull MaterialButton btnUnderstood, @NonNull MaterialCardView cardMonkey,
+      @NonNull ImageView ivMonkey, @NonNull TextView tvBlockReason,
+      @NonNull TextView tvBlockTitle) {
     this.rootView = rootView;
     this.btnUnderstood = btnUnderstood;
+    this.cardMonkey = cardMonkey;
+    this.ivMonkey = ivMonkey;
     this.tvBlockReason = tvBlockReason;
+    this.tvBlockTitle = tvBlockTitle;
   }
 
   @Override
@@ -66,13 +82,32 @@ public final class ActivityBlockOverlayBinding implements ViewBinding {
         break missingId;
       }
 
+      id = R.id.cardMonkey;
+      MaterialCardView cardMonkey = ViewBindings.findChildViewById(rootView, id);
+      if (cardMonkey == null) {
+        break missingId;
+      }
+
+      id = R.id.ivMonkey;
+      ImageView ivMonkey = ViewBindings.findChildViewById(rootView, id);
+      if (ivMonkey == null) {
+        break missingId;
+      }
+
       id = R.id.tvBlockReason;
       TextView tvBlockReason = ViewBindings.findChildViewById(rootView, id);
       if (tvBlockReason == null) {
         break missingId;
       }
 
-      return new ActivityBlockOverlayBinding((LinearLayout) rootView, btnUnderstood, tvBlockReason);
+      id = R.id.tvBlockTitle;
+      TextView tvBlockTitle = ViewBindings.findChildViewById(rootView, id);
+      if (tvBlockTitle == null) {
+        break missingId;
+      }
+
+      return new ActivityBlockOverlayBinding((LinearLayout) rootView, btnUnderstood, cardMonkey,
+          ivMonkey, tvBlockReason, tvBlockTitle);
     }
     String missingId = rootView.getResources().getResourceName(id);
     throw new NullPointerException("Missing required view with ID: ".concat(missingId));

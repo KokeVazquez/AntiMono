@@ -8,4 +8,11 @@
         <item name="android:statusBarColor">@color/background</item>
         <item name="android:navigationBarColor">@color/background</item>
     </style>
+
+    <!-- iOS Switch Style -->
+    <style name="Widget.AntiMono.Switch.IOS" parent="Widget.Material3.CompoundButton.MaterialSwitch">
+        <item name="trackTint">@color/switch_track_selector</item>
+        <item name="thumbTint">@color/switch_thumb_selector</item>
+        <item name="thumbIcon">@null</item>
+    </style>
 </resources>

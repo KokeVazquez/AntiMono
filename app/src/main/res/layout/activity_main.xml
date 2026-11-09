@@ -13,38 +13,53 @@
         android:gravity="center"
         android:orientation="vertical"
         android:padding="32dp"
+        android:animateLayoutChanges="true"
         android:visibility="visible">
 
-        <ImageView
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:src="@drawable/ic_logo"
-            android:contentDescription="@string/app_name" />
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            app:cardBackgroundColor="@color/surface_card"
+            app:cardCornerRadius="36dp"
+            app:strokeColor="@color/surface_pill"
+            app:strokeWidth="1dp">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="12dp"
+                android:src="@drawable/ic_logo"
+                android:contentDescription="@string/app_name" />
+        </com.google.android.material.card.MaterialCardView>
 
         <TextView
             android:id="@+id/tvPinTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="20dp"
             android:text="AntiMono"
             android:textColor="@color/text_primary"
-            android:textSize="28sp"
+            android:textSize="26sp"
             android:textStyle="bold" />
 
         <TextView
             android:id="@+id/tvPinSubtitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="Ingresa tu PIN de seguridad"
+            android:layout_marginTop="6dp"
+            android:text="Ingresa el PIN de 6 a 8 dígitos"
             android:textColor="@color/text_secondary"
-            android:textSize="15sp" />
+            android:textSize="14sp" />
 
         <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="220dp"
+            android:layout_width="240dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
+            android:layout_marginTop="28dp"
             app:boxBackgroundColor="@color/surface"
+            app:boxCornerRadiusBottomEnd="20dp"
+            app:boxCornerRadiusBottomStart="20dp"
+            app:boxCornerRadiusTopEnd="20dp"
+            app:boxCornerRadiusTopStart="20dp"
             app:boxStrokeColor="@color/accent"
             app:hintTextColor="@color/accent">
 
@@ -53,7 +68,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:hint="PIN (6 a 8 dígitos)"
+                android:hint="••••••"
                 android:imeOptions="actionDone"
                 android:inputType="numberPassword"
                 android:maxLength="8"
@@ -63,13 +78,15 @@
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnSubmitPin"
-            android:layout_width="220dp"
-            android:layout_height="wrap_content"
+            android:layout_width="240dp"
+            android:layout_height="52dp"
             android:layout_marginTop="20dp"
             android:backgroundTint="@color/accent"
+            app:cornerRadius="26dp"
             android:text="Desbloquear"
             android:textAllCaps="false"
-            android:textColor="@color/white" />
+            android:textColor="@color/white"
+            android:textSize="16sp" />
 
     </LinearLayout>
 
@@ -84,9 +101,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="20dp">
+            android:paddingHorizontal="20dp"
+            android:paddingTop="24dp"
+            android:paddingBottom="40dp"
+            android:animateLayoutChanges="true">
 
-            <!-- Encabezado -->
+            <!-- Encabezado con Perfil y Botón Bloquear -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -94,45 +114,139 @@
                 android:orientation="horizontal">
 
                 <ImageView
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
+                    android:layout_width="44dp"
+                    android:layout_height="44dp"
                     android:src="@drawable/ic_logo"
                     android:contentDescription="@string/app_name" />
 
-                <TextView
+                <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="12dp"
                     android:layout_weight="1"
-                    android:text="AntiMono"
-                    android:textColor="@color/text_primary"
-                    android:textSize="22sp"
-                    android:textStyle="bold" />
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="AntiMono"
+                        android:textColor="@color/text_primary"
+                        android:textSize="22sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Autocontrol Activo"
+                        android:textColor="@color/ios_green"
+                        android:textSize="12sp" />
+                </LinearLayout>
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btnLockApp"
-                    style="@style/Widget.Material3.Button.TextButton"
+                    style="@style/Widget.Material3.Button.TonalButton"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="40dp"
+                    app:cornerRadius="20dp"
                     android:text="Bloquear"
-                    android:textColor="@color/accent" />
+                    android:textColor="@color/accent"
+                    android:textSize="13sp" />
             </LinearLayout>
 
-            <!-- Card Estado Maestro -->
+            <!-- Píldoras de Estadísticas (Racha y Neutralizados) -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="18dp"
+                android:orientation="horizontal">
+
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="6dp"
+                    android:layout_weight="1"
+                    app:cardBackgroundColor="@color/surface_card"
+                    app:cardCornerRadius="22dp"
+                    app:strokeWidth="0dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        android:padding="12dp">
+
+                        <TextView
+                            android:id="@+id/tvStreakDays"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="🔥 1 Día"
+                            android:textColor="@color/text_primary"
+                            android:textSize="17sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="2dp"
+                            android:text="Racha Libre"
+                            android:textColor="@color/text_secondary"
+                            android:textSize="11sp" />
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="6dp"
+                    android:layout_weight="1"
+                    app:cardBackgroundColor="@color/surface_card"
+                    app:cardCornerRadius="22dp"
+                    app:strokeWidth="0dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        android:padding="12dp">
+
+                        <TextView
+                            android:id="@+id/tvNeutralizedCount"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="🛡️ 0 Bloqueos"
+                            android:textColor="@color/text_primary"
+                            android:textSize="17sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="2dp"
+                            android:text="Impulsos Frenados"
+                            android:textColor="@color/text_secondary"
+                            android:textSize="11sp" />
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+            </LinearLayout>
+
+            <!-- Card Píldora: Interruptor Maestro (Estilo iOS) -->
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 app:cardBackgroundColor="@color/surface"
-                app:cardCornerRadius="16dp"
-                app:strokeWidth="0dp">
+                app:cardCornerRadius="28dp"
+                app:strokeColor="@color/surface_pill"
+                app:strokeWidth="1dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center_vertical"
                     android:orientation="horizontal"
-                    android:padding="16dp">
+                    android:padding="20dp">
 
                     <LinearLayout
                         android:layout_width="0dp"
@@ -144,47 +258,49 @@
                             android:id="@+id/tvProtectionStatus"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Protección Activa"
-                            android:textColor="@color/status_green"
+                            android:text="Protección Armada"
+                            android:textColor="@color/ios_green"
                             android:textSize="18sp"
                             android:textStyle="bold" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="4dp"
-                            android:text="Vigilando páginas y desinstalación"
+                            android:layout_marginTop="3dp"
+                            android:text="Búnker total activado"
                             android:textColor="@color/text_secondary"
                             android:textSize="13sp" />
                     </LinearLayout>
 
                     <com.google.android.material.materialswitch.MaterialSwitch
                         android:id="@+id/switchMasterProtection"
+                        style="@style/Widget.AntiMono.Switch.IOS"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:checked="true" />
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 
-            <!-- Card Permisos Críticos del Teléfono -->
+            <!-- Card Píldora: Permisos del Sistema -->
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 app:cardBackgroundColor="@color/surface"
-                app:cardCornerRadius="16dp"
-                app:strokeWidth="0dp">
+                app:cardCornerRadius="28dp"
+                app:strokeColor="@color/surface_pill"
+                app:strokeWidth="1dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:padding="16dp">
+                    android:padding="20dp">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Permisos del Sistema"
+                        android:text="Escudos del Sistema"
                         android:textColor="@color/text_primary"
                         android:textSize="16sp"
                         android:textStyle="bold" />
@@ -193,7 +309,7 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="12dp"
+                        android:layout_marginTop="14dp"
                         android:gravity="center_vertical"
                         android:orientation="horizontal">
 
@@ -203,22 +319,24 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:text="1. Accesibilidad: Inactivo"
-                            android:textColor="@color/status_red"
+                            android:textColor="@color/ios_red"
                             android:textSize="14sp" />
 
                         <com.google.android.material.button.MaterialButton
                             android:id="@+id/btnEnableAccessibility"
                             style="@style/Widget.Material3.Button.TonalButton"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Activar" />
+                            android:layout_height="38dp"
+                            app:cornerRadius="19dp"
+                            android:text="Activar"
+                            android:textSize="12sp" />
                     </LinearLayout>
 
-                    <!-- Permiso Administrador de Dispositivo -->
+                    <!-- Permiso Device Admin -->
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
+                        android:layout_marginTop="12dp"
                         android:gravity="center_vertical"
                         android:orientation="horizontal">
 
@@ -228,18 +346,20 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:text="2. Anti-Desinstalación: Inactivo"
-                            android:textColor="@color/status_red"
+                            android:textColor="@color/ios_red"
                             android:textSize="14sp" />
 
                         <com.google.android.material.button.MaterialButton
                             android:id="@+id/btnEnableDeviceAdmin"
                             style="@style/Widget.Material3.Button.TonalButton"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Activar" />
+                            android:layout_height="38dp"
+                            app:cornerRadius="19dp"
+                            android:text="Activar"
+                            android:textSize="12sp" />
                     </LinearLayout>
 
-                    <!-- Batería -->
+                    <!-- Optimización de batería -->
                     <com.google.android.material.button.MaterialButton
                         android:id="@+id/btnBatteryOptimization"
                         style="@style/Widget.Material3.Button.TextButton"
@@ -252,20 +372,21 @@
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 
-            <!-- Card Filtros Inteligentes -->
+            <!-- Card Píldora: Filtros de Contenido (Switches estilo iOS) -->
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 app:cardBackgroundColor="@color/surface"
-                app:cardCornerRadius="16dp"
-                app:strokeWidth="0dp">
+                app:cardCornerRadius="28dp"
+                app:strokeColor="@color/surface_pill"
+                app:strokeWidth="1dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:padding="16dp">
+                    android:padding="20dp">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -275,10 +396,11 @@
                         android:textSize="16sp"
                         android:textStyle="bold" />
 
+                    <!-- Filtro Adultos -->
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="12dp"
+                        android:layout_marginTop="14dp"
                         android:gravity="center_vertical"
                         android:orientation="horizontal">
 
@@ -292,14 +414,16 @@
 
                         <com.google.android.material.materialswitch.MaterialSwitch
                             android:id="@+id/switchAdultFilter"
+                            style="@style/Widget.AntiMono.Switch.IOS"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content" />
                     </LinearLayout>
 
+                    <!-- Filtro Incógnito -->
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
+                        android:layout_marginTop="12dp"
                         android:gravity="center_vertical"
                         android:orientation="horizontal">
 
@@ -307,37 +431,39 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="Bloquear Modo Incógnito / Pestañas secretas"
+                            android:text="Bloquear Modo Incógnito / Secreto"
                             android:textColor="@color/text_primary"
                             android:textSize="14sp" />
 
                         <com.google.android.material.materialswitch.MaterialSwitch
                             android:id="@+id/switchIncognitoFilter"
+                            style="@style/Widget.AntiMono.Switch.IOS"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content" />
                     </LinearLayout>
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 
-            <!-- Card Lista Negra Personalizada -->
+            <!-- Card Píldora: BLOQUEO DE APLICACIONES (NUEVO) -->
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 app:cardBackgroundColor="@color/surface"
-                app:cardCornerRadius="16dp"
-                app:strokeWidth="0dp">
+                app:cardCornerRadius="28dp"
+                app:strokeColor="@color/surface_pill"
+                app:strokeWidth="1dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:padding="16dp">
+                    android:padding="20dp">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Lista Negra Personalizada"
+                        android:text="📱 Aplicaciones Prohibidas"
                         android:textColor="@color/text_primary"
                         android:textSize="16sp"
                         android:textStyle="bold" />
@@ -345,10 +471,137 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="2dp"
-                        android:text="Sitios específicos que deseas restringir"
+                        android:layout_marginTop="3dp"
+                        android:text="Bloqueadas al abrir y antes de descargar en Play Store"
                         android:textColor="@color/text_secondary"
                         android:textSize="12sp" />
+
+                    <!-- Atajos rápidos tipo Píldoras -->
+                    <HorizontalScrollView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        android:scrollbars="none">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <com.google.android.material.button.MaterialButton
+                                android:id="@+id/chipAddTwitter"
+                                style="@style/Widget.Material3.Button.TonalButton"
+                                android:layout_width="wrap_content"
+                                android:layout_height="36dp"
+                                android:layout_marginEnd="6dp"
+                                app:cornerRadius="18dp"
+                                android:text="+ X (Twitter)"
+                                android:textSize="11sp" />
+
+                            <com.google.android.material.button.MaterialButton
+                                android:id="@+id/chipAddTikTok"
+                                style="@style/Widget.Material3.Button.TonalButton"
+                                android:layout_width="wrap_content"
+                                android:layout_height="36dp"
+                                android:layout_marginEnd="6dp"
+                                app:cornerRadius="18dp"
+                                android:text="+ TikTok"
+                                android:textSize="11sp" />
+
+                            <com.google.android.material.button.MaterialButton
+                                android:id="@+id/chipAddInstagram"
+                                style="@style/Widget.Material3.Button.TonalButton"
+                                android:layout_width="wrap_content"
+                                android:layout_height="36dp"
+                                android:layout_marginEnd="6dp"
+                                app:cornerRadius="18dp"
+                                android:text="+ Instagram"
+                                android:textSize="11sp" />
+
+                            <com.google.android.material.button.MaterialButton
+                                android:id="@+id/chipAddReddit"
+                                style="@style/Widget.Material3.Button.TonalButton"
+                                android:layout_width="wrap_content"
+                                android:layout_height="36dp"
+                                app:cornerRadius="18dp"
+                                android:text="+ Reddit"
+                                android:textSize="11sp" />
+                        </LinearLayout>
+                    </HorizontalScrollView>
+
+                    <!-- Input para app personalizada -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        android:orientation="horizontal">
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            app:boxBackgroundColor="@color/surface_card"
+                            app:boxCornerRadiusBottomEnd="16dp"
+                            app:boxCornerRadiusBottomStart="16dp"
+                            app:boxCornerRadiusTopEnd="16dp"
+                            app:boxCornerRadiusTopStart="16dp"
+                            app:boxStrokeColor="@color/accent"
+                            app:hintTextColor="@color/accent">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/etNewApp"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="Nombre o paquete (ej. tiktok)"
+                                android:imeOptions="actionDone"
+                                android:inputType="text"
+                                android:textColor="@color/text_primary"
+                                android:textSize="13sp" />
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/btnAddApp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="52dp"
+                            android:layout_marginStart="8dp"
+                            android:backgroundTint="@color/accent"
+                            app:cornerRadius="16dp"
+                            android:text="Añadir"
+                            android:textAllCaps="false" />
+                    </LinearLayout>
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rvBlockedApps"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        android:nestedScrollingEnabled="false" />
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- Card Píldora: Lista Negra de Páginas Web -->
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                app:cardBackgroundColor="@color/surface"
+                app:cardCornerRadius="28dp"
+                app:strokeColor="@color/surface_pill"
+                app:strokeWidth="1dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="20dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="🌐 Sitios Web Bloqueados"
+                        android:textColor="@color/text_primary"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -361,6 +614,10 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             app:boxBackgroundColor="@color/surface_card"
+                            app:boxCornerRadiusBottomEnd="16dp"
+                            app:boxCornerRadiusBottomStart="16dp"
+                            app:boxCornerRadiusTopEnd="16dp"
+                            app:boxCornerRadiusTopStart="16dp"
                             app:boxStrokeColor="@color/accent"
                             app:hintTextColor="@color/accent">
 
@@ -368,19 +625,20 @@
                                 android:id="@+id/etNewDomain"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:hint="ej. x.com, tiktok.com"
+                                android:hint="ej. x.com, facebook.com"
                                 android:imeOptions="actionDone"
                                 android:inputType="textUri"
                                 android:textColor="@color/text_primary"
-                                android:textSize="14sp" />
+                                android:textSize="13sp" />
                         </com.google.android.material.textfield.TextInputLayout>
 
                         <com.google.android.material.button.MaterialButton
                             android:id="@+id/btnAddDomain"
                             android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
+                            android:layout_height="52dp"
                             android:layout_marginStart="8dp"
                             android:backgroundTint="@color/accent"
+                            app:cornerRadius="16dp"
                             android:text="Añadir"
                             android:textAllCaps="false" />
                     </LinearLayout>
@@ -389,20 +647,20 @@
                         android:id="@+id/rvBlacklist"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="16dp"
+                        android:layout_marginTop="12dp"
                         android:nestedScrollingEnabled="false" />
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 
-            <!-- Cambiar PIN -->
+            <!-- Botón Cambiar PIN estilo Píldora -->
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnChangePin"
                 style="@style/Widget.Material3.Button.OutlinedButton"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="52dp"
                 android:layout_marginTop="24dp"
-                android:layout_marginBottom="40dp"
-                android:text="Cambiar PIN de seguridad"
+                app:cornerRadius="26dp"
+                android:text="Cambiar PIN de Seguridad"
                 android:textAllCaps="false"
                 android:textColor="@color/text_secondary" />
 

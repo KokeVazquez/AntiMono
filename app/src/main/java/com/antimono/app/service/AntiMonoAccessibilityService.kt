@@ -31,12 +31,15 @@ class AntiMonoAccessibilityService : AccessibilityService() {
         "com.google.android.packageinstaller"
     )
 
+    private val playStorePackage = "com.android.vending"
+
     override fun onCreate() {
         super.onCreate()
         prefs = PreferencesManager(this)
     }
 
     override fun onAccessibilityEvent(event: AccessibilityEvent?) {
+        // Si el interruptor maestro está apagado, la app es completamente invisible
         if (!prefs.isProtectionEnabled) return
 
         val rootNode = rootInActiveWindow ?: return
@@ -48,21 +51,88 @@ class AntiMonoAccessibilityService : AccessibilityService() {
             return
         }
 
-        // 2. Filtrado de navegadores web
+        // 2. Bloquear Google Play Store si intentan descargar una app restringida
+        if (packageName == playStorePackage) {
+            handlePlayStoreInspection(rootNode)
+            return
+        }
+
+        // 3. Bloquear APPS instaladas que estén en la lista negra
+        if (handleInstalledAppBlock(packageName)) {
+            return
+        }
+
+        // 4. Filtrado de navegadores web
         if (browserPackages.contains(packageName)) {
             handleBrowserInspection(rootNode)
         }
     }
 
     /**
-     * Inspecciona pantallas de Ajustes/Desinstalador para evitar que quiten permisos sin PIN
+     * Revisa si la app abierta está en la lista de aplicaciones bloqueadas
      */
-    private fun handleSettingsProtection(rootNode: AccessibilityNodeInfo) {
-        if (prefs.isTempUnlocked()) {
-            // El usuario puso su PIN en la app recientemente y tiene permiso temporal
-            return
+    private fun handleInstalledAppBlock(packageName: String): Boolean {
+        val blockedApps = prefs.getBlockedApps()
+        val pkgLower = packageName.lowercase()
+
+        for (blocked in blockedApps) {
+            if (pkgLower == blocked || pkgLower.contains(blocked)) {
+                prefs.incrementBlockCount()
+                blockCurrentItem("App Bloqueada", "El changuito neutralizó esta aplicación.")
+                return true
+            }
+        }
+        return false
+    }
+
+    /**
+     * Inspecciona la Google Play Store para impedir descargar apps prohibidas
+     */
+    private fun handlePlayStoreInspection(rootNode: AccessibilityNodeInfo) {
+        val allTexts = mutableListOf<String>()
+        collectAllText(rootNode, allTexts)
+        val combinedText = allTexts.joinToString(" ").lowercase()
+
+        val blockedApps = prefs.getBlockedApps()
+        val dangerousKeywords = setOf("twitter", "x.com", "tiktok", "instagram", "reddit")
+
+        var foundBlockedApp = false
+        for (blocked in blockedApps) {
+            if (combinedText.contains(blocked)) {
+                foundBlockedApp = true
+                break
+            }
+        }
+        if (!foundBlockedApp) {
+            for (kw in dangerousKeywords) {
+                if (combinedText.contains(kw)) {
+                    foundBlockedApp = true
+                    break
+                }
+            }
         }
 
+        // Si está en la página de la app prohibida o frente al botón de instalar
+        val hasInstallAction = combinedText.contains("instalar") ||
+                combinedText.contains("install") ||
+                combinedText.contains("actualizar") ||
+                combinedText.contains("update") ||
+                combinedText.contains("habilitar") ||
+                combinedText.contains("enable")
+
+        if (foundBlockedApp && hasInstallAction) {
+            prefs.incrementBlockCount()
+            blockCurrentItem(
+                "Descarga Bloqueada",
+                "AntiMono te impide descargar aplicaciones no deseadas de la Play Store."
+            )
+        }
+    }
+
+    /**
+     * Inspecciona pantallas de Ajustes/Desinstalador para evitar que quiten permisos
+     */
+    private fun handleSettingsProtection(rootNode: AccessibilityNodeInfo) {
         val allTexts = mutableListOf<String>()
         collectAllText(rootNode, allTexts)
         val combinedText = allTexts.joinToString(" ").lowercase()
@@ -94,14 +164,15 @@ class AntiMonoAccessibilityService : AccessibilityService() {
         val isSafeModeTampering = combinedText.contains("modo seguro") ||
                 combinedText.contains("safe mode")
 
-        if ((mentionsAntiMono && mentionsDangerousAction) || 
-            (mentionsAntiMono && isDeviceAdminScreen) || 
-            isDeveloperTampering || 
-            isSafeModeTampering) {
+        if ((mentionsAntiMono && mentionsDangerousAction) ||
+            (mentionsAntiMono && isDeviceAdminScreen) ||
+            isDeveloperTampering ||
+            isSafeModeTampering
+        ) {
             performGlobalAction(GLOBAL_ACTION_HOME)
             Toast.makeText(
                 this,
-                "Acción bloqueada: Requiere autorización con PIN en AntiMono.",
+                "Acción bloqueada: Para modificar permisos desactiva el interruptor en AntiMono.",
                 Toast.LENGTH_LONG
             ).show()
         }
@@ -122,7 +193,8 @@ class AntiMonoAccessibilityService : AccessibilityService() {
                 if (lower.contains("incógnito") || lower.contains("incognito") ||
                     lower.contains("pestaña secreta") || lower.contains("modo secreto")
                 ) {
-                    blockCurrentPage("Modo Incógnito no permitido")
+                    prefs.incrementBlockCount()
+                    blockCurrentItem("Modo Incógnito no permitido", "Pestaña secreta cerrada.")
                     return
                 }
             }
@@ -131,7 +203,8 @@ class AntiMonoAccessibilityService : AccessibilityService() {
             val blacklist = prefs.getBlacklist()
             for (domain in blacklist) {
                 if (lower.contains(domain)) {
-                    blockCurrentPage("Sitio restringido por lista negra: $domain")
+                    prefs.incrementBlockCount()
+                    blockCurrentItem("Sitio Restringido", "Dominio bloqueado: $domain")
                     return
                 }
             }
@@ -139,9 +212,9 @@ class AntiMonoAccessibilityService : AccessibilityService() {
             // C) Detección de Contenido para Adultos (Porno / NSFW)
             if (prefs.isAdultBlockEnabled) {
                 for (keyword in PreferencesManager.DEFAULT_ADULT_KEYWORDS) {
-                    // Evitamos falsos positivos verificando que no sea una palabra común más larga
                     if (containsIsolatedKeyword(lower, keyword)) {
-                        blockCurrentPage("Contenido para adultos bloqueado: $keyword")
+                        prefs.incrementBlockCount()
+                        blockCurrentItem("Contenido Adulto Bloqueado", "Filtro NSFW activado.")
                         return
                     }
                 }
@@ -149,32 +222,26 @@ class AntiMonoAccessibilityService : AccessibilityService() {
         }
     }
 
-    /**
-     * Comprueba si la palabra clave aparece como dominio o palabra aislada
-     */
     private fun containsIsolatedKeyword(text: String, keyword: String): Boolean {
         if (!text.contains(keyword)) return false
-        // Si aparece como parte de una URL o palabra separada
         val regex = Regex("""(?i)(?:^|[\W_])${Regex.escape(keyword)}(?:[\W_]|$)""")
         return regex.containsMatchIn(text)
     }
 
     /**
-     * Acción de bloqueo: expulsa a la pantalla de inicio y muestra la pantalla informativa
+     * Acción de bloqueo: expulsa a la pantalla de inicio y muestra la pantalla interactiva
      */
-    private fun blockCurrentPage(reason: String) {
+    private fun blockCurrentItem(title: String, reason: String) {
         performGlobalAction(GLOBAL_ACTION_HOME)
 
         val intent = Intent(this, BlockOverlayActivity::class.java).apply {
             addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP)
+            putExtra("EXTRA_TITLE", title)
             putExtra("EXTRA_REASON", reason)
         }
         startActivity(intent)
     }
 
-    /**
-     * Recorre recursivamente el árbol de vistas para extraer todo el texto visible
-     */
     private fun collectAllText(node: AccessibilityNodeInfo?, list: MutableList<String>) {
         if (node == null) return
 
@@ -187,7 +254,5 @@ class AntiMonoAccessibilityService : AccessibilityService() {
         }
     }
 
-    override fun onInterrupt() {
-        // Callback si el servicio es interrumpido por el sistema
-    }
+    override fun onInterrupt() {}
 }
