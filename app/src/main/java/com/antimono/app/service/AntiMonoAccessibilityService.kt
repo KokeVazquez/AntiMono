@@ -86,8 +86,8 @@ class AntiMonoAccessibilityService : AccessibilityService() {
     }
 
     /**
-     * Centinela de Teclado: Detecta cuando se teclean palabras prohibidas y vacía el campo al instante
-     * ÚNICAMENTE en las aplicaciones elegidas por el usuario (WhatsApp queda 100% excluido por privacidad)
+     * Centinela de Teclado: Detecta palabras restringidas y limpia el campo al instante
+     * en las aplicaciones seleccionadas por el usuario.
      */
     private fun handleLiveTextInput(event: AccessibilityEvent) {
         if (!prefs.isKeywordGuardianEnabled) return
@@ -95,19 +95,13 @@ class AntiMonoAccessibilityService : AccessibilityService() {
         val sourceNode = event.source ?: return
         val activePkg = event.packageName?.toString() ?: sourceNode.packageName?.toString() ?: ""
 
-        // EXCLUSIÓN ESTRICTA: WhatsApp nunca es vigilado bajo ninguna circunstancia
-        if (activePkg.contains("com.whatsapp")) return
-
-        // Verificar si la app actual está en la lista de apps vigiladas o es un navegador
+        // Verificar si la aplicación actual está en la lista de apps vigiladas o es un navegador
         val monitoredApps = prefs.getMonitoredKeyboardApps()
         val isMonitored = monitoredApps.contains(activePkg) || 
                           monitoredApps.any { activePkg.contains(it) } ||
                           browserPackages.contains(activePkg)
 
-        if (!isMonitored) {
-            // Si la app no fue seleccionada por el usuario, dejamos escribir con total libertad
-            return
-        }
+        if (!isMonitored) return
 
         val eventTexts = event.text
         val combinedText = eventTexts.joinToString(" ").lowercase()
@@ -115,10 +109,9 @@ class AntiMonoAccessibilityService : AccessibilityService() {
 
         if (combinedText.isBlank()) return
 
-        val forbiddenWords = PreferencesManager.DEFAULT_ADULT_KEYWORDS
-        for (keyword in forbiddenWords) {
+        val prohibitedWords = prefs.getProhibitedKeywords()
+        for (keyword in prohibitedWords) {
             if (containsIsolatedKeyword(combinedText, keyword)) {
-                // Borrar inmediatamente el texto tecleado en el campo
                 val clearBundle = Bundle().apply {
                     putCharSequence(AccessibilityNodeInfo.ACTION_ARGUMENT_SET_TEXT_CHARSEQUENCE, "")
                 }
@@ -126,7 +119,7 @@ class AntiMonoAccessibilityService : AccessibilityService() {
 
                 if (cleared) {
                     triggerKeyboardHaptic()
-                    Toast.makeText(this, "⚠️ Palabra prohibida borrada: \"$keyword\"", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, "Restricción activa: \"$keyword\"", Toast.LENGTH_SHORT).show()
                 }
                 return
             }
@@ -291,11 +284,11 @@ class AntiMonoAccessibilityService : AccessibilityService() {
                 }
             }
 
-            // C) Detección de Contenido para Adultos (Porno / NSFW)
+            // C) Detección de Contenido para Adultos (Palabras Prohibidas)
             if (prefs.isAdultBlockEnabled) {
-                for (keyword in PreferencesManager.DEFAULT_ADULT_KEYWORDS) {
+                for (keyword in prefs.getProhibitedKeywords()) {
                     if (containsIsolatedKeyword(lower, keyword)) {
-                        blockCurrentItem("Contenido Adulto Bloqueado", "Filtro NSFW activado.")
+                        blockCurrentItem("Contenido Restringido", "Filtro activo para: $keyword")
                         return
                     }
                 }

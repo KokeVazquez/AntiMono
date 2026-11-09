@@ -8,21 +8,21 @@
     android:orientation="vertical"
     android:padding="32dp">
 
-    <!-- Card Píldora del Changuito -->
+    <!-- Card Píldora del Logo -->
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/cardMonkey"
-        android:layout_width="160dp"
-        android:layout_height="160dp"
+        android:layout_width="140dp"
+        android:layout_height="140dp"
         app:cardBackgroundColor="@color/surface_card"
-        app:cardCornerRadius="40dp"
-        app:strokeColor="@color/ios_red"
-        app:strokeWidth="2dp">
+        app:cardCornerRadius="42dp"
+        app:strokeColor="@color/surface_pill"
+        app:strokeWidth="1dp">
 
         <ImageView
             android:id="@+id/ivMonkey"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:padding="16dp"
+            android:padding="12dp"
             android:src="@drawable/ic_logo"
             android:contentDescription="@string/app_name" />
     </com.google.android.material.card.MaterialCardView>
@@ -32,8 +32,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="28dp"
-        android:text="¡Changuito al Calabozo! 🐵⛓️"
-        android:textColor="@color/ios_red"
+        android:text="Acceso Restringido"
+        android:textColor="@color/text_primary"
         android:textSize="24sp"
         android:textStyle="bold" />
 
@@ -41,19 +41,19 @@
         android:id="@+id/tvBlockReason"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:text="El impulso fue neutralizado con éxito."
+        android:layout_marginTop="10dp"
+        android:text="Contenido bloqueado por las políticas de seguridad activas."
         android:textAlignment="center"
         android:textColor="@color/text_secondary"
         android:textSize="15sp" />
 
-    <!-- Píldora motivadora -->
+    <!-- Píldora de estado minimalista -->
     <com.google.android.material.card.MaterialCardView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
         app:cardBackgroundColor="@color/surface_pill"
-        app:cardCornerRadius="20dp"
+        app:cardCornerRadius="18dp"
         app:strokeWidth="0dp">
 
         <TextView
@@ -61,9 +61,10 @@
             android:layout_height="wrap_content"
             android:paddingHorizontal="16dp"
             android:paddingVertical="8dp"
-            android:text="✨ Respira profundo. Tú tienes el control."
-            android:textColor="@color/text_primary"
-            android:textSize="13sp" />
+            android:text="AntiMono • Escudo Activo"
+            android:textColor="@color/ios_green"
+            android:textSize="13sp"
+            android:textStyle="bold" />
     </com.google.android.material.card.MaterialCardView>
 
     <com.google.android.material.button.MaterialButton
@@ -73,7 +74,7 @@
         android:layout_marginTop="36dp"
         android:backgroundTint="@color/accent"
         app:cornerRadius="26dp"
-        android:text="Volver al Inicio"
+        android:text="Cerrar"
         android:textAllCaps="false"
         android:textColor="@color/white"
         android:textSize="16sp" />

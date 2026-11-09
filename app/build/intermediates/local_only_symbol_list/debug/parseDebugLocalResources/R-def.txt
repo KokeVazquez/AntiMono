@@ -26,6 +26,7 @@ drawable ic_logo
 drawable ic_shield
 id btnAddApp
 id btnAddDomain
+id btnAddKeyword
 id btnBatteryOptimization
 id btnChangePin
 id btnConfigureMonitoredApps
@@ -42,12 +43,14 @@ id chipAddTikTok
 id chipAddTwitter
 id etNewApp
 id etNewDomain
+id etNewKeyword
 id etPin
 id ivMonkey
 id layoutDashboard
 id layoutPinAuth
 id rvBlacklist
 id rvBlockedApps
+id rvKeywords
 id switchAdultFilter
 id switchIncognitoFilter
 id switchKeywordGuardian

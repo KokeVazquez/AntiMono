@@ -32,6 +32,9 @@ public final class ActivityMainBinding implements ViewBinding {
   public final MaterialButton btnAddDomain;
 
   @NonNull
+  public final MaterialButton btnAddKeyword;
+
+  @NonNull
   public final MaterialButton btnBatteryOptimization;
 
   @NonNull
@@ -71,6 +74,9 @@ public final class ActivityMainBinding implements ViewBinding {
   public final TextInputEditText etNewDomain;
 
   @NonNull
+  public final TextInputEditText etNewKeyword;
+
+  @NonNull
   public final TextInputEditText etPin;
 
   @NonNull
@@ -84,6 +90,9 @@ public final class ActivityMainBinding implements ViewBinding {
 
   @NonNull
   public final RecyclerView rvBlockedApps;
+
+  @NonNull
+  public final RecyclerView rvKeywords;
 
   @NonNull
   public final MaterialSwitch switchAdultFilter;
@@ -114,16 +123,17 @@ public final class ActivityMainBinding implements ViewBinding {
 
   private ActivityMainBinding(@NonNull CoordinatorLayout rootView,
       @NonNull MaterialButton btnAddApp, @NonNull MaterialButton btnAddDomain,
-      @NonNull MaterialButton btnBatteryOptimization, @NonNull MaterialButton btnChangePin,
-      @NonNull MaterialButton btnConfigureMonitoredApps,
+      @NonNull MaterialButton btnAddKeyword, @NonNull MaterialButton btnBatteryOptimization,
+      @NonNull MaterialButton btnChangePin, @NonNull MaterialButton btnConfigureMonitoredApps,
       @NonNull MaterialButton btnEnableAccessibility, @NonNull MaterialButton btnEnableDeviceAdmin,
       @NonNull MaterialButton btnLockApp, @NonNull MaterialButton btnSubmitPin,
       @NonNull MaterialButton chipAddInstagram, @NonNull MaterialButton chipAddReddit,
       @NonNull MaterialButton chipAddTikTok, @NonNull MaterialButton chipAddTwitter,
       @NonNull TextInputEditText etNewApp, @NonNull TextInputEditText etNewDomain,
-      @NonNull TextInputEditText etPin, @NonNull NestedScrollView layoutDashboard,
-      @NonNull LinearLayout layoutPinAuth, @NonNull RecyclerView rvBlacklist,
-      @NonNull RecyclerView rvBlockedApps, @NonNull MaterialSwitch switchAdultFilter,
+      @NonNull TextInputEditText etNewKeyword, @NonNull TextInputEditText etPin,
+      @NonNull NestedScrollView layoutDashboard, @NonNull LinearLayout layoutPinAuth,
+      @NonNull RecyclerView rvBlacklist, @NonNull RecyclerView rvBlockedApps,
+      @NonNull RecyclerView rvKeywords, @NonNull MaterialSwitch switchAdultFilter,
       @NonNull MaterialSwitch switchIncognitoFilter, @NonNull MaterialSwitch switchKeywordGuardian,
       @NonNull MaterialSwitch switchMasterProtection, @NonNull TextView tvAccessibilityStatus,
       @NonNull TextView tvDeviceAdminStatus, @NonNull TextView tvPinSubtitle,
@@ -131,6 +141,7 @@ public final class ActivityMainBinding implements ViewBinding {
     this.rootView = rootView;
     this.btnAddApp = btnAddApp;
     this.btnAddDomain = btnAddDomain;
+    this.btnAddKeyword = btnAddKeyword;
     this.btnBatteryOptimization = btnBatteryOptimization;
     this.btnChangePin = btnChangePin;
     this.btnConfigureMonitoredApps = btnConfigureMonitoredApps;
@@ -144,11 +155,13 @@ public final class ActivityMainBinding implements ViewBinding {
     this.chipAddTwitter = chipAddTwitter;
     this.etNewApp = etNewApp;
     this.etNewDomain = etNewDomain;
+    this.etNewKeyword = etNewKeyword;
     this.etPin = etPin;
     this.layoutDashboard = layoutDashboard;
     this.layoutPinAuth = layoutPinAuth;
     this.rvBlacklist = rvBlacklist;
     this.rvBlockedApps = rvBlockedApps;
+    this.rvKeywords = rvKeywords;
     this.switchAdultFilter = switchAdultFilter;
     this.switchIncognitoFilter = switchIncognitoFilter;
     this.switchKeywordGuardian = switchKeywordGuardian;
@@ -196,6 +209,12 @@ public final class ActivityMainBinding implements ViewBinding {
       id = R.id.btnAddDomain;
       MaterialButton btnAddDomain = ViewBindings.findChildViewById(rootView, id);
       if (btnAddDomain == null) {
+        break missingId;
+      }
+
+      id = R.id.btnAddKeyword;
+      MaterialButton btnAddKeyword = ViewBindings.findChildViewById(rootView, id);
+      if (btnAddKeyword == null) {
         break missingId;
       }
 
@@ -277,6 +296,12 @@ public final class ActivityMainBinding implements ViewBinding {
         break missingId;
       }
 
+      id = R.id.etNewKeyword;
+      TextInputEditText etNewKeyword = ViewBindings.findChildViewById(rootView, id);
+      if (etNewKeyword == null) {
+        break missingId;
+      }
+
       id = R.id.etPin;
       TextInputEditText etPin = ViewBindings.findChildViewById(rootView, id);
       if (etPin == null) {
@@ -304,6 +329,12 @@ public final class ActivityMainBinding implements ViewBinding {
       id = R.id.rvBlockedApps;
       RecyclerView rvBlockedApps = ViewBindings.findChildViewById(rootView, id);
       if (rvBlockedApps == null) {
+        break missingId;
+      }
+
+      id = R.id.rvKeywords;
+      RecyclerView rvKeywords = ViewBindings.findChildViewById(rootView, id);
+      if (rvKeywords == null) {
         break missingId;
       }
 
@@ -362,12 +393,13 @@ public final class ActivityMainBinding implements ViewBinding {
       }
 
       return new ActivityMainBinding((CoordinatorLayout) rootView, btnAddApp, btnAddDomain,
-          btnBatteryOptimization, btnChangePin, btnConfigureMonitoredApps, btnEnableAccessibility,
-          btnEnableDeviceAdmin, btnLockApp, btnSubmitPin, chipAddInstagram, chipAddReddit,
-          chipAddTikTok, chipAddTwitter, etNewApp, etNewDomain, etPin, layoutDashboard,
-          layoutPinAuth, rvBlacklist, rvBlockedApps, switchAdultFilter, switchIncognitoFilter,
-          switchKeywordGuardian, switchMasterProtection, tvAccessibilityStatus, tvDeviceAdminStatus,
-          tvPinSubtitle, tvPinTitle, tvProtectionStatus);
+          btnAddKeyword, btnBatteryOptimization, btnChangePin, btnConfigureMonitoredApps,
+          btnEnableAccessibility, btnEnableDeviceAdmin, btnLockApp, btnSubmitPin, chipAddInstagram,
+          chipAddReddit, chipAddTikTok, chipAddTwitter, etNewApp, etNewDomain, etNewKeyword, etPin,
+          layoutDashboard, layoutPinAuth, rvBlacklist, rvBlockedApps, rvKeywords, switchAdultFilter,
+          switchIncognitoFilter, switchKeywordGuardian, switchMasterProtection,
+          tvAccessibilityStatus, tvDeviceAdminStatus, tvPinSubtitle, tvPinTitle,
+          tvProtectionStatus);
     }
     String missingId = rootView.getResources().getResourceName(id);
     throw new NullPointerException("Missing required view with ID: ".concat(missingId));

@@ -18,22 +18,8 @@ class PreferencesManager(context: Context) {
         private const val KEY_BLOCKED_APPS = "key_blocked_apps"
         private const val KEY_KEYWORD_GUARDIAN_ENABLED = "key_keyword_guardian_enabled"
         private const val KEY_MONITORED_KEYBOARD_APPS = "key_monitored_keyboard_apps"
+        private const val KEY_PROHIBITED_KEYWORDS = "key_prohibited_keywords"
 
-        // Apps vigiladas por el Centinela de Teclado por defecto (WhatsApp EXCLUIDO por privacidad)
-        val DEFAULT_MONITORED_KEYBOARD_APPS = setOf(
-            "com.facebook.katana",
-            "com.facebook.lite",
-            "com.instagram.android",
-            "com.android.chrome",
-            "com.sec.android.app.sbrowser",
-            "com.google.android.youtube",
-            "com.twitter.android",
-            "com.zhiliaoapp.musically",
-            "com.ss.android.ugc.trill",
-            "com.reddit.frontpage"
-        )
-
-        // Lista por defecto de dominios y palabras clave para adultos
         val DEFAULT_ADULT_KEYWORDS = setOf(
             "porno", "porn", "xxx", "xvideos", "xnxx", "pornhub",
             "redtube", "erotic", "hentai", "onlyfans", "chaturbate",
@@ -46,7 +32,6 @@ class PreferencesManager(context: Context) {
             "x.com", "twitter.com"
         )
 
-        // Paquetes y nombres de apps bloqueadas por defecto
         val DEFAULT_BLOCKED_APPS = setOf(
             "com.twitter.android",
             "com.instagram.android",
@@ -54,12 +39,17 @@ class PreferencesManager(context: Context) {
             "com.ss.android.ugc.trill"
         )
 
-        // Palabras clave en Play Store para apps bloqueadas
-        val DEFAULT_PLAYSTORE_APP_KEYWORDS = mapOf(
-            "com.twitter.android" to listOf("x", "twitter"),
-            "com.instagram.android" to listOf("instagram"),
-            "com.zhiliaoapp.musically" to listOf("tiktok"),
-            "com.reddit.frontpage" to listOf("reddit")
+        val DEFAULT_MONITORED_KEYBOARD_APPS = setOf(
+            "com.facebook.katana",
+            "com.facebook.lite",
+            "com.instagram.android",
+            "com.android.chrome",
+            "com.sec.android.app.sbrowser",
+            "com.google.android.youtube",
+            "com.twitter.android",
+            "com.zhiliaoapp.musically",
+            "com.ss.android.ugc.trill",
+            "com.reddit.frontpage"
         )
     }
 
@@ -133,6 +123,26 @@ class PreferencesManager(context: Context) {
         val current = getBlockedApps().toMutableSet()
         current.remove(pkgOrKeyword)
         prefs.edit().putStringSet(KEY_BLOCKED_APPS, current).apply()
+    }
+
+    // --- Prohibited Keywords Management ---
+    fun getProhibitedKeywords(): Set<String> {
+        return prefs.getStringSet(KEY_PROHIBITED_KEYWORDS, null) ?: DEFAULT_ADULT_KEYWORDS
+    }
+
+    fun addProhibitedKeyword(word: String) {
+        val clean = word.trim().lowercase()
+        if (clean.isNotEmpty()) {
+            val current = getProhibitedKeywords().toMutableSet()
+            current.add(clean)
+            prefs.edit().putStringSet(KEY_PROHIBITED_KEYWORDS, current).apply()
+        }
+    }
+
+    fun removeProhibitedKeyword(word: String) {
+        val current = getProhibitedKeywords().toMutableSet()
+        current.remove(word.lowercase().trim())
+        prefs.edit().putStringSet(KEY_PROHIBITED_KEYWORDS, current).apply()
     }
 
     // --- Centinela de Teclado (Filtro selectivo por Apps) ---

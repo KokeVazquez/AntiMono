@@ -3216,6 +3216,7 @@ id bounceEnd
 id bounceStart
 id btnAddApp
 id btnAddDomain
+id btnAddKeyword
 id btnBatteryOptimization
 id btnChangePin
 id btnConfigureMonitoredApps
@@ -3314,6 +3315,7 @@ id enterAlwaysCollapsed
 id escape
 id etNewApp
 id etNewDomain
+id etNewKeyword
 id etPin
 id exitUntilCollapsed
 id expand_activities_button
@@ -3509,6 +3511,7 @@ id rounded
 id row_index_key
 id rvBlacklist
 id rvBlockedApps
+id rvKeywords
 id save_non_transition_alpha
 id save_overlay_view
 id sawtooth

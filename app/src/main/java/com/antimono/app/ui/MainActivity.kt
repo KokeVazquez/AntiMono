@@ -29,6 +29,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var prefs: PreferencesManager
     private lateinit var domainsAdapter: BlacklistAdapter
     private lateinit var appsAdapter: BlacklistAdapter
+    private lateinit var keywordsAdapter: BlacklistAdapter
     private var isAuthenticated = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -49,17 +50,17 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    // --- 1. Autenticación por PIN (6 a 8 dígitos) ---
+    // --- 1. Autenticación por Código de Acceso ---
     private fun setupPinView() {
         val hasPin = prefs.hasPin()
 
         if (!hasPin) {
             binding.tvPinTitle.text = "Configuración Inicial"
-            binding.tvPinSubtitle.text = "Tu esposa debe ingresar un PIN de 6 a 8 dígitos"
-            binding.btnSubmitPin.text = "Guardar PIN y Activar"
+            binding.tvPinSubtitle.text = "Define un código de acceso de 6 a 8 dígitos"
+            binding.btnSubmitPin.text = "Guardar y Activar"
         } else {
             binding.tvPinTitle.text = "AntiMono"
-            binding.tvPinSubtitle.text = "Ingresa el PIN de 6 a 8 dígitos para acceder"
+            binding.tvPinSubtitle.text = "Introduce el código de acceso"
             binding.btnSubmitPin.text = "Desbloquear"
         }
 
@@ -67,22 +68,20 @@ class MainActivity : AppCompatActivity() {
             hideKeyboard(binding.etPin)
             val pin = binding.etPin.text?.toString()?.trim() ?: ""
             if (pin.length !in 6..8) {
-                Toast.makeText(this, "El PIN debe tener entre 6 y 8 dígitos", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "El código debe tener entre 6 y 8 dígitos", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
 
             if (!prefs.hasPin()) {
-                // Registro inicial por la esposa
                 prefs.setPin(pin)
                 prefs.isProtectionEnabled = true
-                Toast.makeText(this, "PIN guardado y protección armada", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Código guardado y protección activada", Toast.LENGTH_SHORT).show()
                 unlockDashboard()
             } else {
-                // Verificación
                 if (prefs.verifyPin(pin)) {
                     unlockDashboard()
                 } else {
-                    Toast.makeText(this, "PIN incorrecto", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, "Código incorrecto", Toast.LENGTH_SHORT).show()
                     binding.etPin.text?.clear()
                 }
             }
@@ -103,6 +102,7 @@ class MainActivity : AppCompatActivity() {
         updatePermissionsStatus()
         refreshDomainsList()
         refreshAppsList()
+        refreshKeywordsList()
     }
 
     private fun lockDashboard() {
@@ -113,12 +113,11 @@ class MainActivity : AppCompatActivity() {
 
     // --- 2. Panel de Control y Ajustes ---
     private fun setupDashboard() {
-        // Botón Bloquear
         binding.btnLockApp.setOnClickListener {
             lockDashboard()
         }
 
-        // Switch Maestro (Estilo iOS)
+        // Switch Maestro
         binding.switchMasterProtection.isChecked = prefs.isProtectionEnabled
         updateProtectionStatusLabel(prefs.isProtectionEnabled)
         binding.switchMasterProtection.setOnCheckedChangeListener { _, isChecked ->
@@ -137,25 +136,23 @@ class MainActivity : AppCompatActivity() {
             prefs.isIncognitoBlockEnabled = isChecked
         }
 
-        // Switch Centinela de Teclado
+        // Centinela de Teclado
         binding.switchKeywordGuardian.isChecked = prefs.isKeywordGuardianEnabled
         binding.switchKeywordGuardian.setOnCheckedChangeListener { _, isChecked ->
             prefs.isKeywordGuardianEnabled = isChecked
         }
 
-        // Botón para elegir apps vigiladas del teclado
         binding.btnConfigureMonitoredApps.setOnClickListener {
             showChooseMonitoredAppsDialog()
         }
 
-        // Permiso Accesibilidad
+        // Permisos del Sistema
         binding.btnEnableAccessibility.setOnClickListener {
             val intent = Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS)
             startActivity(intent)
-            Toast.makeText(this, "Busca 'AntiMono' y activa el servicio", Toast.LENGTH_LONG).show()
+            Toast.makeText(this, "Selecciona 'AntiMono' y activa el servicio", Toast.LENGTH_LONG).show()
         }
 
-        // Permiso Device Admin
         binding.btnEnableDeviceAdmin.setOnClickListener {
             val component = ComponentName(this, AntiUninstallDeviceAdminReceiver::class.java)
             val intent = Intent(DevicePolicyManager.ACTION_ADD_DEVICE_ADMIN).apply {
@@ -168,32 +165,31 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-        // Batería Samsung
         binding.btnBatteryOptimization.setOnClickListener {
             requestIgnoreBatteryOptimization()
         }
 
-        // Lista Negra de Páginas Web
-        domainsAdapter = BlacklistAdapter { domain ->
-            prefs.removeBlacklistDomain(domain)
-            refreshDomainsList()
-            Toast.makeText(this, "Eliminado: $domain", Toast.LENGTH_SHORT).show()
+        // 1. Palabras Prohibidas (Keywords)
+        keywordsAdapter = BlacklistAdapter { word ->
+            prefs.removeProhibitedKeyword(word)
+            refreshKeywordsList()
+            Toast.makeText(this, "Eliminada: $word", Toast.LENGTH_SHORT).show()
         }
-        binding.rvBlacklist.layoutManager = LinearLayoutManager(this)
-        binding.rvBlacklist.adapter = domainsAdapter
+        binding.rvKeywords.layoutManager = LinearLayoutManager(this)
+        binding.rvKeywords.adapter = keywordsAdapter
 
-        binding.btnAddDomain.setOnClickListener {
-            hideKeyboard(binding.etNewDomain)
-            val domain = binding.etNewDomain.text?.toString()?.trim() ?: ""
-            if (domain.isNotEmpty()) {
-                prefs.addBlacklistDomain(domain)
-                binding.etNewDomain.text?.clear()
-                refreshDomainsList()
-                Toast.makeText(this, "Sitio agregado", Toast.LENGTH_SHORT).show()
+        binding.btnAddKeyword.setOnClickListener {
+            hideKeyboard(binding.etNewKeyword)
+            val word = binding.etNewKeyword.text?.toString()?.trim() ?: ""
+            if (word.isNotEmpty()) {
+                prefs.addProhibitedKeyword(word)
+                binding.etNewKeyword.text?.clear()
+                refreshKeywordsList()
+                Toast.makeText(this, "Palabra añadida al filtro", Toast.LENGTH_SHORT).show()
             }
         }
 
-        // Lista de Apps Bloqueadas
+        // 2. Apps Bloqueadas
         appsAdapter = BlacklistAdapter { app ->
             prefs.removeBlockedApp(app)
             refreshAppsList()
@@ -209,34 +205,53 @@ class MainActivity : AppCompatActivity() {
                 prefs.addBlockedApp(app)
                 binding.etNewApp.text?.clear()
                 refreshAppsList()
-                Toast.makeText(this, "App agregada al bloqueo", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Aplicación añadida a la restricción", Toast.LENGTH_SHORT).show()
             }
         }
 
-        // Chips rápidos para apps
         binding.chipAddTwitter.setOnClickListener {
             prefs.addBlockedApp("com.twitter.android")
             prefs.addBlockedApp("twitter")
             refreshAppsList()
-            Toast.makeText(this, "X / Twitter bloqueada", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "X añadida", Toast.LENGTH_SHORT).show()
         }
         binding.chipAddTikTok.setOnClickListener {
             prefs.addBlockedApp("com.zhiliaoapp.musically")
             prefs.addBlockedApp("tiktok")
             refreshAppsList()
-            Toast.makeText(this, "TikTok bloqueada", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "TikTok añadida", Toast.LENGTH_SHORT).show()
         }
         binding.chipAddInstagram.setOnClickListener {
             prefs.addBlockedApp("com.instagram.android")
             prefs.addBlockedApp("instagram")
             refreshAppsList()
-            Toast.makeText(this, "Instagram bloqueada", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Instagram añadida", Toast.LENGTH_SHORT).show()
         }
         binding.chipAddReddit.setOnClickListener {
             prefs.addBlockedApp("com.reddit.frontpage")
             prefs.addBlockedApp("reddit")
             refreshAppsList()
-            Toast.makeText(this, "Reddit bloqueada", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Reddit añadida", Toast.LENGTH_SHORT).show()
+        }
+
+        // 3. Sitios Web Bloqueados
+        domainsAdapter = BlacklistAdapter { domain ->
+            prefs.removeBlacklistDomain(domain)
+            refreshDomainsList()
+            Toast.makeText(this, "Eliminado: $domain", Toast.LENGTH_SHORT).show()
+        }
+        binding.rvBlacklist.layoutManager = LinearLayoutManager(this)
+        binding.rvBlacklist.adapter = domainsAdapter
+
+        binding.btnAddDomain.setOnClickListener {
+            hideKeyboard(binding.etNewDomain)
+            val domain = binding.etNewDomain.text?.toString()?.trim() ?: ""
+            if (domain.isNotEmpty()) {
+                prefs.addBlacklistDomain(domain)
+                binding.etNewDomain.text?.clear()
+                refreshDomainsList()
+                Toast.makeText(this, "Dominio añadido", Toast.LENGTH_SHORT).show()
+            }
         }
 
         // Cambiar PIN
@@ -250,7 +265,7 @@ class MainActivity : AppCompatActivity() {
             binding.tvProtectionStatus.text = "Protección Armada"
             binding.tvProtectionStatus.setTextColor(ContextCompat.getColor(this, R.color.ios_green))
         } else {
-            binding.tvProtectionStatus.text = "Protección Apagada"
+            binding.tvProtectionStatus.text = "Protección Desactivada"
             binding.tvProtectionStatus.setTextColor(ContextCompat.getColor(this, R.color.text_secondary))
         }
     }
@@ -258,11 +273,11 @@ class MainActivity : AppCompatActivity() {
     private fun updatePermissionsStatus() {
         val accessibilityActive = isAccessibilityServiceEnabled()
         if (accessibilityActive) {
-            binding.tvAccessibilityStatus.text = "1. Accesibilidad: ACTIVO ✓"
+            binding.tvAccessibilityStatus.text = "Servicio de Accesibilidad: ACTIVO ✓"
             binding.tvAccessibilityStatus.setTextColor(ContextCompat.getColor(this, R.color.ios_green))
             binding.btnEnableAccessibility.visibility = View.GONE
         } else {
-            binding.tvAccessibilityStatus.text = "1. Accesibilidad: INACTIVO ✗"
+            binding.tvAccessibilityStatus.text = "Servicio de Accesibilidad: INACTIVO ✗"
             binding.tvAccessibilityStatus.setTextColor(ContextCompat.getColor(this, R.color.ios_red))
             binding.btnEnableAccessibility.visibility = View.VISIBLE
         }
@@ -271,11 +286,11 @@ class MainActivity : AppCompatActivity() {
         val adminComponent = ComponentName(this, AntiUninstallDeviceAdminReceiver::class.java)
         val adminActive = dpm.isAdminActive(adminComponent)
         if (adminActive) {
-            binding.tvDeviceAdminStatus.text = "2. Anti-Desinstalación: ACTIVO ✓"
+            binding.tvDeviceAdminStatus.text = "Administrador de Dispositivo: ACTIVO ✓"
             binding.tvDeviceAdminStatus.setTextColor(ContextCompat.getColor(this, R.color.ios_green))
             binding.btnEnableDeviceAdmin.visibility = View.GONE
         } else {
-            binding.tvDeviceAdminStatus.text = "2. Anti-Desinstalación: INACTIVO ✗"
+            binding.tvDeviceAdminStatus.text = "Administrador de Dispositivo: INACTIVO ✗"
             binding.tvDeviceAdminStatus.setTextColor(ContextCompat.getColor(this, R.color.ios_red))
             binding.btnEnableDeviceAdmin.visibility = View.VISIBLE
         }
@@ -302,8 +317,13 @@ class MainActivity : AppCompatActivity() {
             }
             startActivity(intent)
         } else {
-            Toast.makeText(this, "La optimización de batería ya está desactivada", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Exclusión de batería ya configurada", Toast.LENGTH_SHORT).show()
         }
+    }
+
+    private fun refreshKeywordsList() {
+        val list = prefs.getProhibitedKeywords().sorted()
+        keywordsAdapter.submitList(list)
     }
 
     private fun refreshDomainsList() {
@@ -325,14 +345,12 @@ class MainActivity : AppCompatActivity() {
         }
         val resolveInfos = pm.queryIntentActivities(mainIntent, 0)
 
-        // Excluir AntiMono y ordenar alfabéticamente
         val apps = resolveInfos
             .filter { it.activityInfo.packageName != packageName }
             .map {
                 val label = it.loadLabel(pm).toString()
                 val pkg = it.activityInfo.packageName
-                val displayLabel = if (pkg.contains("whatsapp")) "$label (Excluido por privacidad)" else label
-                InstalledAppItem(displayLabel, pkg)
+                InstalledAppItem(label, pkg)
             }
             .distinctBy { it.packageName }
             .sortedBy { it.name.lowercase() }
@@ -345,31 +363,23 @@ class MainActivity : AppCompatActivity() {
         val currentMonitored = prefs.getMonitoredKeyboardApps()
         val appNames = apps.map { it.name }.toTypedArray()
         val checkedItems = apps.map { item ->
-            // WhatsApp NUNCA puede estar marcado
-            if (item.packageName.contains("whatsapp")) false
-            else currentMonitored.contains(item.packageName)
+            currentMonitored.contains(item.packageName)
         }.toBooleanArray()
 
         AlertDialog.Builder(this)
-            .setTitle("Vigilar Teclado en Apps")
+            .setTitle("Vigilar Teclado en Aplicaciones")
             .setMultiChoiceItems(appNames, checkedItems) { _, which, isChecked ->
-                val chosen = apps[which]
-                if (chosen.packageName.contains("whatsapp")) {
-                    checkedItems[which] = false
-                    Toast.makeText(this, "WhatsApp no se vigila para proteger tu privacidad conyugal.", Toast.LENGTH_SHORT).show()
-                } else {
-                    checkedItems[which] = isChecked
-                }
+                checkedItems[which] = isChecked
             }
             .setPositiveButton("Guardar") { _, _ ->
                 val newSelected = mutableSetOf<String>()
                 for (i in apps.indices) {
-                    if (checkedItems[i] && !apps[i].packageName.contains("whatsapp")) {
+                    if (checkedItems[i]) {
                         newSelected.add(apps[i].packageName)
                     }
                 }
                 prefs.setMonitoredKeyboardApps(newSelected)
-                Toast.makeText(this, "Apps vigiladas actualizadas (${newSelected.size} apps)", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Configuración guardada (${newSelected.size} apps)", Toast.LENGTH_SHORT).show()
             }
             .setNegativeButton("Cancelar", null)
             .show()
@@ -378,19 +388,18 @@ class MainActivity : AppCompatActivity() {
     private fun showChangePinDialog() {
         val input = com.google.android.material.textfield.TextInputEditText(this).apply {
             inputType = android.text.InputType.TYPE_CLASS_NUMBER or android.text.InputType.TYPE_NUMBER_VARIATION_PASSWORD
-            hint = "Nuevo PIN (6 a 8 dígitos)"
+            hint = "Código de acceso (6 a 8 dígitos)"
         }
         AlertDialog.Builder(this)
-            .setTitle("Cambiar PIN de Seguridad")
-            .setMessage("Este PIN solo debe conocerlo tu esposa para evitar desactivar la protección por impulso.")
+            .setTitle("Cambiar Código de Acceso")
             .setView(input)
             .setPositiveButton("Guardar") { _, _ ->
                 val newPin = input.text?.toString()?.trim() ?: ""
                 if (newPin.length in 6..8) {
                     prefs.setPin(newPin)
-                    Toast.makeText(this, "PIN actualizado con éxito", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, "Código actualizado correctamente", Toast.LENGTH_SHORT).show()
                 } else {
-                    Toast.makeText(this, "El PIN debe tener entre 6 y 8 dígitos", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, "El código debe tener entre 6 y 8 dígitos", Toast.LENGTH_SHORT).show()
                 }
             }
             .setNegativeButton("Cancelar", null)

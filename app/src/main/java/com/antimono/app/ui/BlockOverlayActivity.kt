@@ -24,8 +24,8 @@ class BlockOverlayActivity : AppCompatActivity() {
         binding = ActivityBlockOverlayBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val title = intent.getStringExtra("EXTRA_TITLE") ?: "¡Changuito al Calabozo! 🐵⛓️"
-        val reason = intent.getStringExtra("EXTRA_REASON") ?: "El impulso fue neutralizado con éxito."
+        val title = intent.getStringExtra("EXTRA_TITLE") ?: "Acceso Restringido"
+        val reason = intent.getStringExtra("EXTRA_REASON") ?: "Contenido bloqueado por las políticas de seguridad activas."
 
         binding.tvBlockTitle.text = title
         binding.tvBlockReason.text = reason
