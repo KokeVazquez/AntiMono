@@ -38,6 +38,9 @@ public final class ActivityMainBinding implements ViewBinding {
   public final MaterialButton btnChangePin;
 
   @NonNull
+  public final MaterialButton btnConfigureMonitoredApps;
+
+  @NonNull
   public final MaterialButton btnEnableAccessibility;
 
   @NonNull
@@ -89,6 +92,9 @@ public final class ActivityMainBinding implements ViewBinding {
   public final MaterialSwitch switchIncognitoFilter;
 
   @NonNull
+  public final MaterialSwitch switchKeywordGuardian;
+
+  @NonNull
   public final MaterialSwitch switchMasterProtection;
 
   @NonNull
@@ -109,6 +115,7 @@ public final class ActivityMainBinding implements ViewBinding {
   private ActivityMainBinding(@NonNull CoordinatorLayout rootView,
       @NonNull MaterialButton btnAddApp, @NonNull MaterialButton btnAddDomain,
       @NonNull MaterialButton btnBatteryOptimization, @NonNull MaterialButton btnChangePin,
+      @NonNull MaterialButton btnConfigureMonitoredApps,
       @NonNull MaterialButton btnEnableAccessibility, @NonNull MaterialButton btnEnableDeviceAdmin,
       @NonNull MaterialButton btnLockApp, @NonNull MaterialButton btnSubmitPin,
       @NonNull MaterialButton chipAddInstagram, @NonNull MaterialButton chipAddReddit,
@@ -117,15 +124,16 @@ public final class ActivityMainBinding implements ViewBinding {
       @NonNull TextInputEditText etPin, @NonNull NestedScrollView layoutDashboard,
       @NonNull LinearLayout layoutPinAuth, @NonNull RecyclerView rvBlacklist,
       @NonNull RecyclerView rvBlockedApps, @NonNull MaterialSwitch switchAdultFilter,
-      @NonNull MaterialSwitch switchIncognitoFilter, @NonNull MaterialSwitch switchMasterProtection,
-      @NonNull TextView tvAccessibilityStatus, @NonNull TextView tvDeviceAdminStatus,
-      @NonNull TextView tvPinSubtitle, @NonNull TextView tvPinTitle,
-      @NonNull TextView tvProtectionStatus) {
+      @NonNull MaterialSwitch switchIncognitoFilter, @NonNull MaterialSwitch switchKeywordGuardian,
+      @NonNull MaterialSwitch switchMasterProtection, @NonNull TextView tvAccessibilityStatus,
+      @NonNull TextView tvDeviceAdminStatus, @NonNull TextView tvPinSubtitle,
+      @NonNull TextView tvPinTitle, @NonNull TextView tvProtectionStatus) {
     this.rootView = rootView;
     this.btnAddApp = btnAddApp;
     this.btnAddDomain = btnAddDomain;
     this.btnBatteryOptimization = btnBatteryOptimization;
     this.btnChangePin = btnChangePin;
+    this.btnConfigureMonitoredApps = btnConfigureMonitoredApps;
     this.btnEnableAccessibility = btnEnableAccessibility;
     this.btnEnableDeviceAdmin = btnEnableDeviceAdmin;
     this.btnLockApp = btnLockApp;
@@ -143,6 +151,7 @@ public final class ActivityMainBinding implements ViewBinding {
     this.rvBlockedApps = rvBlockedApps;
     this.switchAdultFilter = switchAdultFilter;
     this.switchIncognitoFilter = switchIncognitoFilter;
+    this.switchKeywordGuardian = switchKeywordGuardian;
     this.switchMasterProtection = switchMasterProtection;
     this.tvAccessibilityStatus = tvAccessibilityStatus;
     this.tvDeviceAdminStatus = tvDeviceAdminStatus;
@@ -199,6 +208,12 @@ public final class ActivityMainBinding implements ViewBinding {
       id = R.id.btnChangePin;
       MaterialButton btnChangePin = ViewBindings.findChildViewById(rootView, id);
       if (btnChangePin == null) {
+        break missingId;
+      }
+
+      id = R.id.btnConfigureMonitoredApps;
+      MaterialButton btnConfigureMonitoredApps = ViewBindings.findChildViewById(rootView, id);
+      if (btnConfigureMonitoredApps == null) {
         break missingId;
       }
 
@@ -304,6 +319,12 @@ public final class ActivityMainBinding implements ViewBinding {
         break missingId;
       }
 
+      id = R.id.switchKeywordGuardian;
+      MaterialSwitch switchKeywordGuardian = ViewBindings.findChildViewById(rootView, id);
+      if (switchKeywordGuardian == null) {
+        break missingId;
+      }
+
       id = R.id.switchMasterProtection;
       MaterialSwitch switchMasterProtection = ViewBindings.findChildViewById(rootView, id);
       if (switchMasterProtection == null) {
@@ -341,11 +362,12 @@ public final class ActivityMainBinding implements ViewBinding {
       }
 
       return new ActivityMainBinding((CoordinatorLayout) rootView, btnAddApp, btnAddDomain,
-          btnBatteryOptimization, btnChangePin, btnEnableAccessibility, btnEnableDeviceAdmin,
-          btnLockApp, btnSubmitPin, chipAddInstagram, chipAddReddit, chipAddTikTok, chipAddTwitter,
-          etNewApp, etNewDomain, etPin, layoutDashboard, layoutPinAuth, rvBlacklist, rvBlockedApps,
-          switchAdultFilter, switchIncognitoFilter, switchMasterProtection, tvAccessibilityStatus,
-          tvDeviceAdminStatus, tvPinSubtitle, tvPinTitle, tvProtectionStatus);
+          btnBatteryOptimization, btnChangePin, btnConfigureMonitoredApps, btnEnableAccessibility,
+          btnEnableDeviceAdmin, btnLockApp, btnSubmitPin, chipAddInstagram, chipAddReddit,
+          chipAddTikTok, chipAddTwitter, etNewApp, etNewDomain, etPin, layoutDashboard,
+          layoutPinAuth, rvBlacklist, rvBlockedApps, switchAdultFilter, switchIncognitoFilter,
+          switchKeywordGuardian, switchMasterProtection, tvAccessibilityStatus, tvDeviceAdminStatus,
+          tvPinSubtitle, tvPinTitle, tvProtectionStatus);
     }
     String missingId = rootView.getResources().getResourceName(id);
     throw new NullPointerException("Missing required view with ID: ".concat(missingId));

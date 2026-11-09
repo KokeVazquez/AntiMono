@@ -28,6 +28,7 @@ id btnAddApp
 id btnAddDomain
 id btnBatteryOptimization
 id btnChangePin
+id btnConfigureMonitoredApps
 id btnDelete
 id btnEnableAccessibility
 id btnEnableDeviceAdmin
@@ -49,6 +50,7 @@ id rvBlacklist
 id rvBlockedApps
 id switchAdultFilter
 id switchIncognitoFilter
+id switchKeywordGuardian
 id switchMasterProtection
 id tvAccessibilityStatus
 id tvBlockReason

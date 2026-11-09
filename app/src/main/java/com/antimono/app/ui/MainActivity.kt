@@ -137,6 +137,17 @@ class MainActivity : AppCompatActivity() {
             prefs.isIncognitoBlockEnabled = isChecked
         }
 
+        // Switch Centinela de Teclado
+        binding.switchKeywordGuardian.isChecked = prefs.isKeywordGuardianEnabled
+        binding.switchKeywordGuardian.setOnCheckedChangeListener { _, isChecked ->
+            prefs.isKeywordGuardianEnabled = isChecked
+        }
+
+        // Botón para elegir apps vigiladas del teclado
+        binding.btnConfigureMonitoredApps.setOnClickListener {
+            showChooseMonitoredAppsDialog()
+        }
+
         // Permiso Accesibilidad
         binding.btnEnableAccessibility.setOnClickListener {
             val intent = Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS)
@@ -303,6 +314,65 @@ class MainActivity : AppCompatActivity() {
     private fun refreshAppsList() {
         val list = prefs.getBlockedApps().sorted()
         appsAdapter.submitList(list)
+    }
+
+    private data class InstalledAppItem(val name: String, val packageName: String)
+
+    private fun showChooseMonitoredAppsDialog() {
+        val pm = packageManager
+        val mainIntent = Intent(Intent.ACTION_MAIN, null).apply {
+            addCategory(Intent.CATEGORY_LAUNCHER)
+        }
+        val resolveInfos = pm.queryIntentActivities(mainIntent, 0)
+
+        // Excluir AntiMono y ordenar alfabéticamente
+        val apps = resolveInfos
+            .filter { it.activityInfo.packageName != packageName }
+            .map {
+                val label = it.loadLabel(pm).toString()
+                val pkg = it.activityInfo.packageName
+                val displayLabel = if (pkg.contains("whatsapp")) "$label (Excluido por privacidad)" else label
+                InstalledAppItem(displayLabel, pkg)
+            }
+            .distinctBy { it.packageName }
+            .sortedBy { it.name.lowercase() }
+
+        if (apps.isEmpty()) {
+            Toast.makeText(this, "No se encontraron aplicaciones", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        val currentMonitored = prefs.getMonitoredKeyboardApps()
+        val appNames = apps.map { it.name }.toTypedArray()
+        val checkedItems = apps.map { item ->
+            // WhatsApp NUNCA puede estar marcado
+            if (item.packageName.contains("whatsapp")) false
+            else currentMonitored.contains(item.packageName)
+        }.toBooleanArray()
+
+        AlertDialog.Builder(this)
+            .setTitle("Vigilar Teclado en Apps")
+            .setMultiChoiceItems(appNames, checkedItems) { _, which, isChecked ->
+                val chosen = apps[which]
+                if (chosen.packageName.contains("whatsapp")) {
+                    checkedItems[which] = false
+                    Toast.makeText(this, "WhatsApp no se vigila para proteger tu privacidad conyugal.", Toast.LENGTH_SHORT).show()
+                } else {
+                    checkedItems[which] = isChecked
+                }
+            }
+            .setPositiveButton("Guardar") { _, _ ->
+                val newSelected = mutableSetOf<String>()
+                for (i in apps.indices) {
+                    if (checkedItems[i] && !apps[i].packageName.contains("whatsapp")) {
+                        newSelected.add(apps[i].packageName)
+                    }
+                }
+                prefs.setMonitoredKeyboardApps(newSelected)
+                Toast.makeText(this, "Apps vigiladas actualizadas (${newSelected.size} apps)", Toast.LENGTH_SHORT).show()
+            }
+            .setNegativeButton("Cancelar", null)
+            .show()
     }
 
     private fun showChangePinDialog() {

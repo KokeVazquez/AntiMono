@@ -1,8 +1,8 @@
 1<?xml version="1.0" encoding="utf-8"?>
 2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
 3    package="com.antimono.app"
-4    android:versionCode="5"
-5    android:versionName="2.1.0" >
+4    android:versionCode="6"
+5    android:versionName="2.2.0" >
 6
 7    <uses-sdk
 8        android:minSdkVersion="26"
@@ -17,191 +17,194 @@
 13    <uses-permission android:name="android.permission.VIBRATE" />
 13-->C:\Users\Admin\Desktop\PRACTICA PYTHON\AntiMono\app\src\main\AndroidManifest.xml:6:5-66
 13-->C:\Users\Admin\Desktop\PRACTICA PYTHON\AntiMono\app\src\main\AndroidManifest.xml:6:22-63
-14
-15    <permission
-15-->[androidx.core:core:1.13.1] C:\Users\Admin\.gradle\caches\transforms-4\931a813c0b1c56b2e997d06cbf8e44a0\transformed\core-1.13.1\AndroidManifest.xml:22:5-24:47
-16        android:name="com.antimono.app.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
-16-->[androidx.core:core:1.13.1] C:\Users\Admin\.gradle\caches\transforms-4\931a813c0b1c56b2e997d06cbf8e44a0\transformed\core-1.13.1\AndroidManifest.xml:23:9-81
-17        android:protectionLevel="signature" />
-17-->[androidx.core:core:1.13.1] C:\Users\Admin\.gradle\caches\transforms-4\931a813c0b1c56b2e997d06cbf8e44a0\transformed\core-1.13.1\AndroidManifest.xml:24:9-44
-18
-19    <uses-permission android:name="com.antimono.app.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION" />
-19-->[androidx.core:core:1.13.1] C:\Users\Admin\.gradle\caches\transforms-4\931a813c0b1c56b2e997d06cbf8e44a0\transformed\core-1.13.1\AndroidManifest.xml:26:5-97
-19-->[androidx.core:core:1.13.1] C:\Users\Admin\.gradle\caches\transforms-4\931a813c0b1c56b2e997d06cbf8e44a0\transformed\core-1.13.1\AndroidManifest.xml:26:22-94
-20
-21    <application
-21-->C:\Users\Admin\Desktop\PRACTICA PYTHON\AntiMono\app\src\main\AndroidManifest.xml:8:5-63:19
-22        android:name="com.antimono.app.AntiMonoApp"
-22-->C:\Users\Admin\Desktop\PRACTICA PYTHON\AntiMono\app\src\main\AndroidManifest.xml:9:9-36
-23        android:allowBackup="false"
+14    <uses-permission android:name="android.permission.QUERY_ALL_PACKAGES" />
+14-->C:\Users\Admin\Desktop\PRACTICA PYTHON\AntiMono\app\src\main\AndroidManifest.xml:7:5-77
+14-->C:\Users\Admin\Desktop\PRACTICA PYTHON\AntiMono\app\src\main\AndroidManifest.xml:7:22-74
+15
+16    <permission
+16-->[androidx.core:core:1.13.1] C:\Users\Admin\.gradle\caches\transforms-4\931a813c0b1c56b2e997d06cbf8e44a0\transformed\core-1.13.1\AndroidManifest.xml:22:5-24:47
+17        android:name="com.antimono.app.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
+17-->[androidx.core:core:1.13.1] C:\Users\Admin\.gradle\caches\transforms-4\931a813c0b1c56b2e997d06cbf8e44a0\transformed\core-1.13.1\AndroidManifest.xml:23:9-81
+18        android:protectionLevel="signature" />
+18-->[androidx.core:core:1.13.1] C:\Users\Admin\.gradle\caches\transforms-4\931a813c0b1c56b2e997d06cbf8e44a0\transformed\core-1.13.1\AndroidManifest.xml:24:9-44
+19
+20    <uses-permission android:name="com.antimono.app.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION" />
+20-->[androidx.core:core:1.13.1] C:\Users\Admin\.gradle\caches\transforms-4\931a813c0b1c56b2e997d06cbf8e44a0\transformed\core-1.13.1\AndroidManifest.xml:26:5-97
+20-->[androidx.core:core:1.13.1] C:\Users\Admin\.gradle\caches\transforms-4\931a813c0b1c56b2e997d06cbf8e44a0\transformed\core-1.13.1\AndroidManifest.xml:26:22-94
+21
+22    <application
+22-->C:\Users\Admin\Desktop\PRACTICA PYTHON\AntiMono\app\src\main\AndroidManifest.xml:9:5-64:19
+23        android:name="com.antimono.app.AntiMonoApp"
 23-->C:\Users\Admin\Desktop\PRACTICA PYTHON\AntiMono\app\src\main\AndroidManifest.xml:10:9-36
-24        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
-24-->[androidx.core:core:1.13.1] C:\Users\Admin\.gradle\caches\transforms-4\931a813c0b1c56b2e997d06cbf8e44a0\transformed\core-1.13.1\AndroidManifest.xml:28:18-86
-25        android:debuggable="true"
-26        android:extractNativeLibs="false"
-27        android:icon="@mipmap/ic_launcher"
-27-->C:\Users\Admin\Desktop\PRACTICA PYTHON\AntiMono\app\src\main\AndroidManifest.xml:11:9-43
-28        android:label="@string/app_name"
-28-->C:\Users\Admin\Desktop\PRACTICA PYTHON\AntiMono\app\src\main\AndroidManifest.xml:12:9-41
-29        android:roundIcon="@mipmap/ic_launcher_round"
-29-->C:\Users\Admin\Desktop\PRACTICA PYTHON\AntiMono\app\src\main\AndroidManifest.xml:13:9-54
-30        android:supportsRtl="true"
-30-->C:\Users\Admin\Desktop\PRACTICA PYTHON\AntiMono\app\src\main\AndroidManifest.xml:14:9-35
-31        android:theme="@style/Theme.AntiMono" >
-31-->C:\Users\Admin\Desktop\PRACTICA PYTHON\AntiMono\app\src\main\AndroidManifest.xml:15:9-46
-32        <activity
-32-->C:\Users\Admin\Desktop\PRACTICA PYTHON\AntiMono\app\src\main\AndroidManifest.xml:17:9-25:20
-33            android:name="com.antimono.app.ui.MainActivity"
-33-->C:\Users\Admin\Desktop\PRACTICA PYTHON\AntiMono\app\src\main\AndroidManifest.xml:18:13-44
-34            android:exported="true"
-34-->C:\Users\Admin\Desktop\PRACTICA PYTHON\AntiMono\app\src\main\AndroidManifest.xml:19:13-36
-35            android:windowSoftInputMode="adjustResize" >
-35-->C:\Users\Admin\Desktop\PRACTICA PYTHON\AntiMono\app\src\main\AndroidManifest.xml:20:13-55
-36            <intent-filter>
-36-->C:\Users\Admin\Desktop\PRACTICA PYTHON\AntiMono\app\src\main\AndroidManifest.xml:21:13-24:29
-37                <action android:name="android.intent.action.MAIN" />
-37-->C:\Users\Admin\Desktop\PRACTICA PYTHON\AntiMono\app\src\main\AndroidManifest.xml:22:17-69
-37-->C:\Users\Admin\Desktop\PRACTICA PYTHON\AntiMono\app\src\main\AndroidManifest.xml:22:25-66
-38
-39                <category android:name="android.intent.category.LAUNCHER" />
-39-->C:\Users\Admin\Desktop\PRACTICA PYTHON\AntiMono\app\src\main\AndroidManifest.xml:23:17-77
-39-->C:\Users\Admin\Desktop\PRACTICA PYTHON\AntiMono\app\src\main\AndroidManifest.xml:23:27-74
-40            </intent-filter>
-41        </activity>
-42        <activity
-42-->C:\Users\Admin\Desktop\PRACTICA PYTHON\AntiMono\app\src\main\AndroidManifest.xml:27:9-32:49
-43            android:name="com.antimono.app.ui.BlockOverlayActivity"
-43-->C:\Users\Admin\Desktop\PRACTICA PYTHON\AntiMono\app\src\main\AndroidManifest.xml:28:13-52
-44            android:excludeFromRecents="true"
-44-->C:\Users\Admin\Desktop\PRACTICA PYTHON\AntiMono\app\src\main\AndroidManifest.xml:32:13-46
-45            android:exported="false"
-45-->C:\Users\Admin\Desktop\PRACTICA PYTHON\AntiMono\app\src\main\AndroidManifest.xml:29:13-37
-46            android:launchMode="singleTask"
-46-->C:\Users\Admin\Desktop\PRACTICA PYTHON\AntiMono\app\src\main\AndroidManifest.xml:31:13-44
-47            android:theme="@style/Theme.AntiMono" />
-47-->C:\Users\Admin\Desktop\PRACTICA PYTHON\AntiMono\app\src\main\AndroidManifest.xml:30:13-50
-48
-49        <!-- Servicio de accesibilidad para vigilar URLs y proteger contra desinstalación -->
-50        <service
-50-->C:\Users\Admin\Desktop\PRACTICA PYTHON\AntiMono\app\src\main\AndroidManifest.xml:35:9-46:19
-51            android:name="com.antimono.app.service.AntiMonoAccessibilityService"
-51-->C:\Users\Admin\Desktop\PRACTICA PYTHON\AntiMono\app\src\main\AndroidManifest.xml:36:13-65
-52            android:exported="true"
-52-->C:\Users\Admin\Desktop\PRACTICA PYTHON\AntiMono\app\src\main\AndroidManifest.xml:37:13-36
-53            android:label="@string/app_name"
-53-->C:\Users\Admin\Desktop\PRACTICA PYTHON\AntiMono\app\src\main\AndroidManifest.xml:38:13-45
-54            android:permission="android.permission.BIND_ACCESSIBILITY_SERVICE" >
-54-->C:\Users\Admin\Desktop\PRACTICA PYTHON\AntiMono\app\src\main\AndroidManifest.xml:39:13-79
-55            <intent-filter>
-55-->C:\Users\Admin\Desktop\PRACTICA PYTHON\AntiMono\app\src\main\AndroidManifest.xml:40:13-42:29
-56                <action android:name="android.accessibilityservice.AccessibilityService" />
-56-->C:\Users\Admin\Desktop\PRACTICA PYTHON\AntiMono\app\src\main\AndroidManifest.xml:41:17-92
-56-->C:\Users\Admin\Desktop\PRACTICA PYTHON\AntiMono\app\src\main\AndroidManifest.xml:41:25-89
-57            </intent-filter>
-58
-59            <meta-data
-59-->C:\Users\Admin\Desktop\PRACTICA PYTHON\AntiMono\app\src\main\AndroidManifest.xml:43:13-45:72
-60                android:name="android.accessibilityservice"
-60-->C:\Users\Admin\Desktop\PRACTICA PYTHON\AntiMono\app\src\main\AndroidManifest.xml:44:17-60
-61                android:resource="@xml/accessibility_service_config" />
-61-->C:\Users\Admin\Desktop\PRACTICA PYTHON\AntiMono\app\src\main\AndroidManifest.xml:45:17-69
-62        </service>
-63
-64        <!-- Receptor de Administrador del Dispositivo para evitar desinstalación directa -->
-65        <receiver
-65-->C:\Users\Admin\Desktop\PRACTICA PYTHON\AntiMono\app\src\main\AndroidManifest.xml:49:9-61:20
-66            android:name="com.antimono.app.receiver.AntiUninstallDeviceAdminReceiver"
-66-->C:\Users\Admin\Desktop\PRACTICA PYTHON\AntiMono\app\src\main\AndroidManifest.xml:50:13-70
-67            android:exported="true"
-67-->C:\Users\Admin\Desktop\PRACTICA PYTHON\AntiMono\app\src\main\AndroidManifest.xml:51:13-36
-68            android:permission="android.permission.BIND_DEVICE_ADMIN" >
-68-->C:\Users\Admin\Desktop\PRACTICA PYTHON\AntiMono\app\src\main\AndroidManifest.xml:52:13-70
-69            <meta-data
-69-->C:\Users\Admin\Desktop\PRACTICA PYTHON\AntiMono\app\src\main\AndroidManifest.xml:53:13-55:65
-70                android:name="android.app.device_admin"
-70-->C:\Users\Admin\Desktop\PRACTICA PYTHON\AntiMono\app\src\main\AndroidManifest.xml:54:17-56
-71                android:resource="@xml/device_admin_policies" />
-71-->C:\Users\Admin\Desktop\PRACTICA PYTHON\AntiMono\app\src\main\AndroidManifest.xml:55:17-62
-72
-73            <intent-filter>
-73-->C:\Users\Admin\Desktop\PRACTICA PYTHON\AntiMono\app\src\main\AndroidManifest.xml:56:13-60:29
-74                <action android:name="android.app.action.DEVICE_ADMIN_ENABLED" />
-74-->C:\Users\Admin\Desktop\PRACTICA PYTHON\AntiMono\app\src\main\AndroidManifest.xml:57:17-82
-74-->C:\Users\Admin\Desktop\PRACTICA PYTHON\AntiMono\app\src\main\AndroidManifest.xml:57:25-79
-75                <action android:name="android.app.action.DEVICE_ADMIN_DISABLE_REQUESTED" />
-75-->C:\Users\Admin\Desktop\PRACTICA PYTHON\AntiMono\app\src\main\AndroidManifest.xml:58:17-92
-75-->C:\Users\Admin\Desktop\PRACTICA PYTHON\AntiMono\app\src\main\AndroidManifest.xml:58:25-89
-76                <action android:name="android.app.action.DEVICE_ADMIN_DISABLED" />
-76-->C:\Users\Admin\Desktop\PRACTICA PYTHON\AntiMono\app\src\main\AndroidManifest.xml:59:17-83
-76-->C:\Users\Admin\Desktop\PRACTICA PYTHON\AntiMono\app\src\main\AndroidManifest.xml:59:25-80
-77            </intent-filter>
-78        </receiver>
-79
-80        <provider
-80-->[androidx.emoji2:emoji2:1.3.0] C:\Users\Admin\.gradle\caches\transforms-4\1a8dd8b586000eded0416f6cc0011877\transformed\emoji2-1.3.0\AndroidManifest.xml:24:9-32:20
-81            android:name="androidx.startup.InitializationProvider"
-81-->[androidx.emoji2:emoji2:1.3.0] C:\Users\Admin\.gradle\caches\transforms-4\1a8dd8b586000eded0416f6cc0011877\transformed\emoji2-1.3.0\AndroidManifest.xml:25:13-67
-82            android:authorities="com.antimono.app.androidx-startup"
-82-->[androidx.emoji2:emoji2:1.3.0] C:\Users\Admin\.gradle\caches\transforms-4\1a8dd8b586000eded0416f6cc0011877\transformed\emoji2-1.3.0\AndroidManifest.xml:26:13-68
-83            android:exported="false" >
-83-->[androidx.emoji2:emoji2:1.3.0] C:\Users\Admin\.gradle\caches\transforms-4\1a8dd8b586000eded0416f6cc0011877\transformed\emoji2-1.3.0\AndroidManifest.xml:27:13-37
-84            <meta-data
-84-->[androidx.emoji2:emoji2:1.3.0] C:\Users\Admin\.gradle\caches\transforms-4\1a8dd8b586000eded0416f6cc0011877\transformed\emoji2-1.3.0\AndroidManifest.xml:29:13-31:52
-85                android:name="androidx.emoji2.text.EmojiCompatInitializer"
-85-->[androidx.emoji2:emoji2:1.3.0] C:\Users\Admin\.gradle\caches\transforms-4\1a8dd8b586000eded0416f6cc0011877\transformed\emoji2-1.3.0\AndroidManifest.xml:30:17-75
-86                android:value="androidx.startup" />
-86-->[androidx.emoji2:emoji2:1.3.0] C:\Users\Admin\.gradle\caches\transforms-4\1a8dd8b586000eded0416f6cc0011877\transformed\emoji2-1.3.0\AndroidManifest.xml:31:17-49
-87            <meta-data
-87-->[androidx.lifecycle:lifecycle-process:2.6.2] C:\Users\Admin\.gradle\caches\transforms-4\d1cf4ca3ccde81b23858a9d997c6a88d\transformed\lifecycle-process-2.6.2\AndroidManifest.xml:29:13-31:52
-88                android:name="androidx.lifecycle.ProcessLifecycleInitializer"
-88-->[androidx.lifecycle:lifecycle-process:2.6.2] C:\Users\Admin\.gradle\caches\transforms-4\d1cf4ca3ccde81b23858a9d997c6a88d\transformed\lifecycle-process-2.6.2\AndroidManifest.xml:30:17-78
-89                android:value="androidx.startup" />
-89-->[androidx.lifecycle:lifecycle-process:2.6.2] C:\Users\Admin\.gradle\caches\transforms-4\d1cf4ca3ccde81b23858a9d997c6a88d\transformed\lifecycle-process-2.6.2\AndroidManifest.xml:31:17-49
-90            <meta-data
-90-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\Admin\.gradle\caches\transforms-4\b27660ccabe04d5560de9b5a64cfc747\transformed\profileinstaller-1.3.1\AndroidManifest.xml:29:13-31:52
-91                android:name="androidx.profileinstaller.ProfileInstallerInitializer"
-91-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\Admin\.gradle\caches\transforms-4\b27660ccabe04d5560de9b5a64cfc747\transformed\profileinstaller-1.3.1\AndroidManifest.xml:30:17-85
-92                android:value="androidx.startup" />
-92-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\Admin\.gradle\caches\transforms-4\b27660ccabe04d5560de9b5a64cfc747\transformed\profileinstaller-1.3.1\AndroidManifest.xml:31:17-49
-93        </provider>
-94
-95        <receiver
-95-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\Admin\.gradle\caches\transforms-4\b27660ccabe04d5560de9b5a64cfc747\transformed\profileinstaller-1.3.1\AndroidManifest.xml:34:9-52:20
-96            android:name="androidx.profileinstaller.ProfileInstallReceiver"
-96-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\Admin\.gradle\caches\transforms-4\b27660ccabe04d5560de9b5a64cfc747\transformed\profileinstaller-1.3.1\AndroidManifest.xml:35:13-76
-97            android:directBootAware="false"
-97-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\Admin\.gradle\caches\transforms-4\b27660ccabe04d5560de9b5a64cfc747\transformed\profileinstaller-1.3.1\AndroidManifest.xml:36:13-44
-98            android:enabled="true"
-98-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\Admin\.gradle\caches\transforms-4\b27660ccabe04d5560de9b5a64cfc747\transformed\profileinstaller-1.3.1\AndroidManifest.xml:37:13-35
-99            android:exported="true"
-99-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\Admin\.gradle\caches\transforms-4\b27660ccabe04d5560de9b5a64cfc747\transformed\profileinstaller-1.3.1\AndroidManifest.xml:38:13-36
-100            android:permission="android.permission.DUMP" >
-100-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\Admin\.gradle\caches\transforms-4\b27660ccabe04d5560de9b5a64cfc747\transformed\profileinstaller-1.3.1\AndroidManifest.xml:39:13-57
-101            <intent-filter>
-101-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\Admin\.gradle\caches\transforms-4\b27660ccabe04d5560de9b5a64cfc747\transformed\profileinstaller-1.3.1\AndroidManifest.xml:40:13-42:29
-102                <action android:name="androidx.profileinstaller.action.INSTALL_PROFILE" />
-102-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\Admin\.gradle\caches\transforms-4\b27660ccabe04d5560de9b5a64cfc747\transformed\profileinstaller-1.3.1\AndroidManifest.xml:41:17-91
-102-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\Admin\.gradle\caches\transforms-4\b27660ccabe04d5560de9b5a64cfc747\transformed\profileinstaller-1.3.1\AndroidManifest.xml:41:25-88
-103            </intent-filter>
-104            <intent-filter>
-104-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\Admin\.gradle\caches\transforms-4\b27660ccabe04d5560de9b5a64cfc747\transformed\profileinstaller-1.3.1\AndroidManifest.xml:43:13-45:29
-105                <action android:name="androidx.profileinstaller.action.SKIP_FILE" />
-105-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\Admin\.gradle\caches\transforms-4\b27660ccabe04d5560de9b5a64cfc747\transformed\profileinstaller-1.3.1\AndroidManifest.xml:44:17-85
-105-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\Admin\.gradle\caches\transforms-4\b27660ccabe04d5560de9b5a64cfc747\transformed\profileinstaller-1.3.1\AndroidManifest.xml:44:25-82
-106            </intent-filter>
-107            <intent-filter>
-107-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\Admin\.gradle\caches\transforms-4\b27660ccabe04d5560de9b5a64cfc747\transformed\profileinstaller-1.3.1\AndroidManifest.xml:46:13-48:29
-108                <action android:name="androidx.profileinstaller.action.SAVE_PROFILE" />
-108-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\Admin\.gradle\caches\transforms-4\b27660ccabe04d5560de9b5a64cfc747\transformed\profileinstaller-1.3.1\AndroidManifest.xml:47:17-88
-108-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\Admin\.gradle\caches\transforms-4\b27660ccabe04d5560de9b5a64cfc747\transformed\profileinstaller-1.3.1\AndroidManifest.xml:47:25-85
-109            </intent-filter>
-110            <intent-filter>
-110-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\Admin\.gradle\caches\transforms-4\b27660ccabe04d5560de9b5a64cfc747\transformed\profileinstaller-1.3.1\AndroidManifest.xml:49:13-51:29
-111                <action android:name="androidx.profileinstaller.action.BENCHMARK_OPERATION" />
-111-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\Admin\.gradle\caches\transforms-4\b27660ccabe04d5560de9b5a64cfc747\transformed\profileinstaller-1.3.1\AndroidManifest.xml:50:17-95
-111-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\Admin\.gradle\caches\transforms-4\b27660ccabe04d5560de9b5a64cfc747\transformed\profileinstaller-1.3.1\AndroidManifest.xml:50:25-92
-112            </intent-filter>
-113        </receiver>
-114    </application>
-115
-116</manifest>
+24        android:allowBackup="false"
+24-->C:\Users\Admin\Desktop\PRACTICA PYTHON\AntiMono\app\src\main\AndroidManifest.xml:11:9-36
+25        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
+25-->[androidx.core:core:1.13.1] C:\Users\Admin\.gradle\caches\transforms-4\931a813c0b1c56b2e997d06cbf8e44a0\transformed\core-1.13.1\AndroidManifest.xml:28:18-86
+26        android:debuggable="true"
+27        android:extractNativeLibs="false"
+28        android:icon="@mipmap/ic_launcher"
+28-->C:\Users\Admin\Desktop\PRACTICA PYTHON\AntiMono\app\src\main\AndroidManifest.xml:12:9-43
+29        android:label="@string/app_name"
+29-->C:\Users\Admin\Desktop\PRACTICA PYTHON\AntiMono\app\src\main\AndroidManifest.xml:13:9-41
+30        android:roundIcon="@mipmap/ic_launcher_round"
+30-->C:\Users\Admin\Desktop\PRACTICA PYTHON\AntiMono\app\src\main\AndroidManifest.xml:14:9-54
+31        android:supportsRtl="true"
+31-->C:\Users\Admin\Desktop\PRACTICA PYTHON\AntiMono\app\src\main\AndroidManifest.xml:15:9-35
+32        android:theme="@style/Theme.AntiMono" >
+32-->C:\Users\Admin\Desktop\PRACTICA PYTHON\AntiMono\app\src\main\AndroidManifest.xml:16:9-46
+33        <activity
+33-->C:\Users\Admin\Desktop\PRACTICA PYTHON\AntiMono\app\src\main\AndroidManifest.xml:18:9-26:20
+34            android:name="com.antimono.app.ui.MainActivity"
+34-->C:\Users\Admin\Desktop\PRACTICA PYTHON\AntiMono\app\src\main\AndroidManifest.xml:19:13-44
+35            android:exported="true"
+35-->C:\Users\Admin\Desktop\PRACTICA PYTHON\AntiMono\app\src\main\AndroidManifest.xml:20:13-36
+36            android:windowSoftInputMode="adjustResize" >
+36-->C:\Users\Admin\Desktop\PRACTICA PYTHON\AntiMono\app\src\main\AndroidManifest.xml:21:13-55
+37            <intent-filter>
+37-->C:\Users\Admin\Desktop\PRACTICA PYTHON\AntiMono\app\src\main\AndroidManifest.xml:22:13-25:29
+38                <action android:name="android.intent.action.MAIN" />
+38-->C:\Users\Admin\Desktop\PRACTICA PYTHON\AntiMono\app\src\main\AndroidManifest.xml:23:17-69
+38-->C:\Users\Admin\Desktop\PRACTICA PYTHON\AntiMono\app\src\main\AndroidManifest.xml:23:25-66
+39
+40                <category android:name="android.intent.category.LAUNCHER" />
+40-->C:\Users\Admin\Desktop\PRACTICA PYTHON\AntiMono\app\src\main\AndroidManifest.xml:24:17-77
+40-->C:\Users\Admin\Desktop\PRACTICA PYTHON\AntiMono\app\src\main\AndroidManifest.xml:24:27-74
+41            </intent-filter>
+42        </activity>
+43        <activity
+43-->C:\Users\Admin\Desktop\PRACTICA PYTHON\AntiMono\app\src\main\AndroidManifest.xml:28:9-33:49
+44            android:name="com.antimono.app.ui.BlockOverlayActivity"
+44-->C:\Users\Admin\Desktop\PRACTICA PYTHON\AntiMono\app\src\main\AndroidManifest.xml:29:13-52
+45            android:excludeFromRecents="true"
+45-->C:\Users\Admin\Desktop\PRACTICA PYTHON\AntiMono\app\src\main\AndroidManifest.xml:33:13-46
+46            android:exported="false"
+46-->C:\Users\Admin\Desktop\PRACTICA PYTHON\AntiMono\app\src\main\AndroidManifest.xml:30:13-37
+47            android:launchMode="singleTask"
+47-->C:\Users\Admin\Desktop\PRACTICA PYTHON\AntiMono\app\src\main\AndroidManifest.xml:32:13-44
+48            android:theme="@style/Theme.AntiMono" />
+48-->C:\Users\Admin\Desktop\PRACTICA PYTHON\AntiMono\app\src\main\AndroidManifest.xml:31:13-50
+49
+50        <!-- Servicio de accesibilidad para vigilar URLs y proteger contra desinstalación -->
+51        <service
+51-->C:\Users\Admin\Desktop\PRACTICA PYTHON\AntiMono\app\src\main\AndroidManifest.xml:36:9-47:19
+52            android:name="com.antimono.app.service.AntiMonoAccessibilityService"
+52-->C:\Users\Admin\Desktop\PRACTICA PYTHON\AntiMono\app\src\main\AndroidManifest.xml:37:13-65
+53            android:exported="true"
+53-->C:\Users\Admin\Desktop\PRACTICA PYTHON\AntiMono\app\src\main\AndroidManifest.xml:38:13-36
+54            android:label="@string/app_name"
+54-->C:\Users\Admin\Desktop\PRACTICA PYTHON\AntiMono\app\src\main\AndroidManifest.xml:39:13-45
+55            android:permission="android.permission.BIND_ACCESSIBILITY_SERVICE" >
+55-->C:\Users\Admin\Desktop\PRACTICA PYTHON\AntiMono\app\src\main\AndroidManifest.xml:40:13-79
+56            <intent-filter>
+56-->C:\Users\Admin\Desktop\PRACTICA PYTHON\AntiMono\app\src\main\AndroidManifest.xml:41:13-43:29
+57                <action android:name="android.accessibilityservice.AccessibilityService" />
+57-->C:\Users\Admin\Desktop\PRACTICA PYTHON\AntiMono\app\src\main\AndroidManifest.xml:42:17-92
+57-->C:\Users\Admin\Desktop\PRACTICA PYTHON\AntiMono\app\src\main\AndroidManifest.xml:42:25-89
+58            </intent-filter>
+59
+60            <meta-data
+60-->C:\Users\Admin\Desktop\PRACTICA PYTHON\AntiMono\app\src\main\AndroidManifest.xml:44:13-46:72
+61                android:name="android.accessibilityservice"
+61-->C:\Users\Admin\Desktop\PRACTICA PYTHON\AntiMono\app\src\main\AndroidManifest.xml:45:17-60
+62                android:resource="@xml/accessibility_service_config" />
+62-->C:\Users\Admin\Desktop\PRACTICA PYTHON\AntiMono\app\src\main\AndroidManifest.xml:46:17-69
+63        </service>
+64
+65        <!-- Receptor de Administrador del Dispositivo para evitar desinstalación directa -->
+66        <receiver
+66-->C:\Users\Admin\Desktop\PRACTICA PYTHON\AntiMono\app\src\main\AndroidManifest.xml:50:9-62:20
+67            android:name="com.antimono.app.receiver.AntiUninstallDeviceAdminReceiver"
+67-->C:\Users\Admin\Desktop\PRACTICA PYTHON\AntiMono\app\src\main\AndroidManifest.xml:51:13-70
+68            android:exported="true"
+68-->C:\Users\Admin\Desktop\PRACTICA PYTHON\AntiMono\app\src\main\AndroidManifest.xml:52:13-36
+69            android:permission="android.permission.BIND_DEVICE_ADMIN" >
+69-->C:\Users\Admin\Desktop\PRACTICA PYTHON\AntiMono\app\src\main\AndroidManifest.xml:53:13-70
+70            <meta-data
+70-->C:\Users\Admin\Desktop\PRACTICA PYTHON\AntiMono\app\src\main\AndroidManifest.xml:54:13-56:65
+71                android:name="android.app.device_admin"
+71-->C:\Users\Admin\Desktop\PRACTICA PYTHON\AntiMono\app\src\main\AndroidManifest.xml:55:17-56
+72                android:resource="@xml/device_admin_policies" />
+72-->C:\Users\Admin\Desktop\PRACTICA PYTHON\AntiMono\app\src\main\AndroidManifest.xml:56:17-62
+73
+74            <intent-filter>
+74-->C:\Users\Admin\Desktop\PRACTICA PYTHON\AntiMono\app\src\main\AndroidManifest.xml:57:13-61:29
+75                <action android:name="android.app.action.DEVICE_ADMIN_ENABLED" />
+75-->C:\Users\Admin\Desktop\PRACTICA PYTHON\AntiMono\app\src\main\AndroidManifest.xml:58:17-82
+75-->C:\Users\Admin\Desktop\PRACTICA PYTHON\AntiMono\app\src\main\AndroidManifest.xml:58:25-79
+76                <action android:name="android.app.action.DEVICE_ADMIN_DISABLE_REQUESTED" />
+76-->C:\Users\Admin\Desktop\PRACTICA PYTHON\AntiMono\app\src\main\AndroidManifest.xml:59:17-92
+76-->C:\Users\Admin\Desktop\PRACTICA PYTHON\AntiMono\app\src\main\AndroidManifest.xml:59:25-89
+77                <action android:name="android.app.action.DEVICE_ADMIN_DISABLED" />
+77-->C:\Users\Admin\Desktop\PRACTICA PYTHON\AntiMono\app\src\main\AndroidManifest.xml:60:17-83
+77-->C:\Users\Admin\Desktop\PRACTICA PYTHON\AntiMono\app\src\main\AndroidManifest.xml:60:25-80
+78            </intent-filter>
+79        </receiver>
+80
+81        <provider
+81-->[androidx.emoji2:emoji2:1.3.0] C:\Users\Admin\.gradle\caches\transforms-4\1a8dd8b586000eded0416f6cc0011877\transformed\emoji2-1.3.0\AndroidManifest.xml:24:9-32:20
+82            android:name="androidx.startup.InitializationProvider"
+82-->[androidx.emoji2:emoji2:1.3.0] C:\Users\Admin\.gradle\caches\transforms-4\1a8dd8b586000eded0416f6cc0011877\transformed\emoji2-1.3.0\AndroidManifest.xml:25:13-67
+83            android:authorities="com.antimono.app.androidx-startup"
+83-->[androidx.emoji2:emoji2:1.3.0] C:\Users\Admin\.gradle\caches\transforms-4\1a8dd8b586000eded0416f6cc0011877\transformed\emoji2-1.3.0\AndroidManifest.xml:26:13-68
+84            android:exported="false" >
+84-->[androidx.emoji2:emoji2:1.3.0] C:\Users\Admin\.gradle\caches\transforms-4\1a8dd8b586000eded0416f6cc0011877\transformed\emoji2-1.3.0\AndroidManifest.xml:27:13-37
+85            <meta-data
+85-->[androidx.emoji2:emoji2:1.3.0] C:\Users\Admin\.gradle\caches\transforms-4\1a8dd8b586000eded0416f6cc0011877\transformed\emoji2-1.3.0\AndroidManifest.xml:29:13-31:52
+86                android:name="androidx.emoji2.text.EmojiCompatInitializer"
+86-->[androidx.emoji2:emoji2:1.3.0] C:\Users\Admin\.gradle\caches\transforms-4\1a8dd8b586000eded0416f6cc0011877\transformed\emoji2-1.3.0\AndroidManifest.xml:30:17-75
+87                android:value="androidx.startup" />
+87-->[androidx.emoji2:emoji2:1.3.0] C:\Users\Admin\.gradle\caches\transforms-4\1a8dd8b586000eded0416f6cc0011877\transformed\emoji2-1.3.0\AndroidManifest.xml:31:17-49
+88            <meta-data
+88-->[androidx.lifecycle:lifecycle-process:2.6.2] C:\Users\Admin\.gradle\caches\transforms-4\d1cf4ca3ccde81b23858a9d997c6a88d\transformed\lifecycle-process-2.6.2\AndroidManifest.xml:29:13-31:52
+89                android:name="androidx.lifecycle.ProcessLifecycleInitializer"
+89-->[androidx.lifecycle:lifecycle-process:2.6.2] C:\Users\Admin\.gradle\caches\transforms-4\d1cf4ca3ccde81b23858a9d997c6a88d\transformed\lifecycle-process-2.6.2\AndroidManifest.xml:30:17-78
+90                android:value="androidx.startup" />
+90-->[androidx.lifecycle:lifecycle-process:2.6.2] C:\Users\Admin\.gradle\caches\transforms-4\d1cf4ca3ccde81b23858a9d997c6a88d\transformed\lifecycle-process-2.6.2\AndroidManifest.xml:31:17-49
+91            <meta-data
+91-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\Admin\.gradle\caches\transforms-4\b27660ccabe04d5560de9b5a64cfc747\transformed\profileinstaller-1.3.1\AndroidManifest.xml:29:13-31:52
+92                android:name="androidx.profileinstaller.ProfileInstallerInitializer"
+92-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\Admin\.gradle\caches\transforms-4\b27660ccabe04d5560de9b5a64cfc747\transformed\profileinstaller-1.3.1\AndroidManifest.xml:30:17-85
+93                android:value="androidx.startup" />
+93-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\Admin\.gradle\caches\transforms-4\b27660ccabe04d5560de9b5a64cfc747\transformed\profileinstaller-1.3.1\AndroidManifest.xml:31:17-49
+94        </provider>
+95
+96        <receiver
+96-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\Admin\.gradle\caches\transforms-4\b27660ccabe04d5560de9b5a64cfc747\transformed\profileinstaller-1.3.1\AndroidManifest.xml:34:9-52:20
+97            android:name="androidx.profileinstaller.ProfileInstallReceiver"
+97-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\Admin\.gradle\caches\transforms-4\b27660ccabe04d5560de9b5a64cfc747\transformed\profileinstaller-1.3.1\AndroidManifest.xml:35:13-76
+98            android:directBootAware="false"
+98-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\Admin\.gradle\caches\transforms-4\b27660ccabe04d5560de9b5a64cfc747\transformed\profileinstaller-1.3.1\AndroidManifest.xml:36:13-44
+99            android:enabled="true"
+99-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\Admin\.gradle\caches\transforms-4\b27660ccabe04d5560de9b5a64cfc747\transformed\profileinstaller-1.3.1\AndroidManifest.xml:37:13-35
+100            android:exported="true"
+100-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\Admin\.gradle\caches\transforms-4\b27660ccabe04d5560de9b5a64cfc747\transformed\profileinstaller-1.3.1\AndroidManifest.xml:38:13-36
+101            android:permission="android.permission.DUMP" >
+101-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\Admin\.gradle\caches\transforms-4\b27660ccabe04d5560de9b5a64cfc747\transformed\profileinstaller-1.3.1\AndroidManifest.xml:39:13-57
+102            <intent-filter>
+102-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\Admin\.gradle\caches\transforms-4\b27660ccabe04d5560de9b5a64cfc747\transformed\profileinstaller-1.3.1\AndroidManifest.xml:40:13-42:29
+103                <action android:name="androidx.profileinstaller.action.INSTALL_PROFILE" />
+103-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\Admin\.gradle\caches\transforms-4\b27660ccabe04d5560de9b5a64cfc747\transformed\profileinstaller-1.3.1\AndroidManifest.xml:41:17-91
+103-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\Admin\.gradle\caches\transforms-4\b27660ccabe04d5560de9b5a64cfc747\transformed\profileinstaller-1.3.1\AndroidManifest.xml:41:25-88
+104            </intent-filter>
+105            <intent-filter>
+105-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\Admin\.gradle\caches\transforms-4\b27660ccabe04d5560de9b5a64cfc747\transformed\profileinstaller-1.3.1\AndroidManifest.xml:43:13-45:29
+106                <action android:name="androidx.profileinstaller.action.SKIP_FILE" />
+106-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\Admin\.gradle\caches\transforms-4\b27660ccabe04d5560de9b5a64cfc747\transformed\profileinstaller-1.3.1\AndroidManifest.xml:44:17-85
+106-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\Admin\.gradle\caches\transforms-4\b27660ccabe04d5560de9b5a64cfc747\transformed\profileinstaller-1.3.1\AndroidManifest.xml:44:25-82
+107            </intent-filter>
+108            <intent-filter>
+108-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\Admin\.gradle\caches\transforms-4\b27660ccabe04d5560de9b5a64cfc747\transformed\profileinstaller-1.3.1\AndroidManifest.xml:46:13-48:29
+109                <action android:name="androidx.profileinstaller.action.SAVE_PROFILE" />
+109-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\Admin\.gradle\caches\transforms-4\b27660ccabe04d5560de9b5a64cfc747\transformed\profileinstaller-1.3.1\AndroidManifest.xml:47:17-88
+109-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\Admin\.gradle\caches\transforms-4\b27660ccabe04d5560de9b5a64cfc747\transformed\profileinstaller-1.3.1\AndroidManifest.xml:47:25-85
+110            </intent-filter>
+111            <intent-filter>
+111-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\Admin\.gradle\caches\transforms-4\b27660ccabe04d5560de9b5a64cfc747\transformed\profileinstaller-1.3.1\AndroidManifest.xml:49:13-51:29
+112                <action android:name="androidx.profileinstaller.action.BENCHMARK_OPERATION" />
+112-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\Admin\.gradle\caches\transforms-4\b27660ccabe04d5560de9b5a64cfc747\transformed\profileinstaller-1.3.1\AndroidManifest.xml:50:17-95
+112-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\Admin\.gradle\caches\transforms-4\b27660ccabe04d5560de9b5a64cfc747\transformed\profileinstaller-1.3.1\AndroidManifest.xml:50:25-92
+113            </intent-filter>
+114        </receiver>
+115    </application>
+116
+117</manifest>

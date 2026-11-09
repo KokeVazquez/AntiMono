@@ -16,8 +16,22 @@ class PreferencesManager(context: Context) {
         private const val KEY_INCOGNITO_BLOCK_ENABLED = "key_incognito_block_enabled"
         private const val KEY_BLACKLIST_DOMAINS = "key_blacklist"
         private const val KEY_BLOCKED_APPS = "key_blocked_apps"
-        private const val KEY_BLOCK_COUNT = "key_block_count"
-        private const val KEY_STREAK_START = "key_streak_start"
+        private const val KEY_KEYWORD_GUARDIAN_ENABLED = "key_keyword_guardian_enabled"
+        private const val KEY_MONITORED_KEYBOARD_APPS = "key_monitored_keyboard_apps"
+
+        // Apps vigiladas por el Centinela de Teclado por defecto (WhatsApp EXCLUIDO por privacidad)
+        val DEFAULT_MONITORED_KEYBOARD_APPS = setOf(
+            "com.facebook.katana",
+            "com.facebook.lite",
+            "com.instagram.android",
+            "com.android.chrome",
+            "com.sec.android.app.sbrowser",
+            "com.google.android.youtube",
+            "com.twitter.android",
+            "com.zhiliaoapp.musically",
+            "com.ss.android.ugc.trill",
+            "com.reddit.frontpage"
+        )
 
         // Lista por defecto de dominios y palabras clave para adultos
         val DEFAULT_ADULT_KEYWORDS = setOf(
@@ -65,15 +79,7 @@ class PreferencesManager(context: Context) {
     // --- Protection Master Switch ---
     var isProtectionEnabled: Boolean
         get() = prefs.getBoolean(KEY_PROTECTION_ENABLED, true)
-        set(value) {
-            if (value && !isProtectionEnabled) {
-                // Al reactivar, inicia racha
-                if (streakStartTimestamp == 0L) {
-                    streakStartTimestamp = System.currentTimeMillis()
-                }
-            }
-            prefs.edit().putBoolean(KEY_PROTECTION_ENABLED, value).apply()
-        }
+        set(value) = prefs.edit().putBoolean(KEY_PROTECTION_ENABLED, value).apply()
 
     // --- Adult Filter ---
     var isAdultBlockEnabled: Boolean
@@ -129,23 +135,28 @@ class PreferencesManager(context: Context) {
         prefs.edit().putStringSet(KEY_BLOCKED_APPS, current).apply()
     }
 
-    // --- Stats: Contador de Bloqueos y Racha ---
-    var blockCount: Int
-        get() = prefs.getInt(KEY_BLOCK_COUNT, 0)
-        set(value) = prefs.edit().putInt(KEY_BLOCK_COUNT, value).apply()
+    // --- Centinela de Teclado (Filtro selectivo por Apps) ---
+    var isKeywordGuardianEnabled: Boolean
+        get() = prefs.getBoolean(KEY_KEYWORD_GUARDIAN_ENABLED, true)
+        set(value) = prefs.edit().putBoolean(KEY_KEYWORD_GUARDIAN_ENABLED, value).apply()
 
-    fun incrementBlockCount() {
-        blockCount += 1
+    fun getMonitoredKeyboardApps(): Set<String> {
+        return prefs.getStringSet(KEY_MONITORED_KEYBOARD_APPS, null) ?: DEFAULT_MONITORED_KEYBOARD_APPS
     }
 
-    var streakStartTimestamp: Long
-        get() = prefs.getLong(KEY_STREAK_START, System.currentTimeMillis())
-        set(value) = prefs.edit().putLong(KEY_STREAK_START, value).apply()
+    fun setMonitoredKeyboardApps(apps: Set<String>) {
+        prefs.edit().putStringSet(KEY_MONITORED_KEYBOARD_APPS, apps).apply()
+    }
 
-    val streakDays: Int
-        get() {
-            val elapsed = System.currentTimeMillis() - streakStartTimestamp
-            val days = (elapsed / (1000 * 60 * 60 * 24)).toInt()
-            return if (days < 1) 1 else days
-        }
+    fun addMonitoredKeyboardApp(packageName: String) {
+        val current = getMonitoredKeyboardApps().toMutableSet()
+        current.add(packageName)
+        setMonitoredKeyboardApps(current)
+    }
+
+    fun removeMonitoredKeyboardApp(packageName: String) {
+        val current = getMonitoredKeyboardApps().toMutableSet()
+        current.remove(packageName)
+        setMonitoredKeyboardApps(current)
+    }
 }

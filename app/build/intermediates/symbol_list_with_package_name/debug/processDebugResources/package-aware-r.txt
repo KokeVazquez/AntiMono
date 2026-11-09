@@ -3218,6 +3218,7 @@ id btnAddApp
 id btnAddDomain
 id btnBatteryOptimization
 id btnChangePin
+id btnConfigureMonitoredApps
 id btnDelete
 id btnEnableAccessibility
 id btnEnableDeviceAdmin
@@ -3571,6 +3572,7 @@ id submit_area
 id supportScrollUp
 id switchAdultFilter
 id switchIncognitoFilter
+id switchKeywordGuardian
 id switchMasterProtection
 id tabMode
 id tag_accessibility_actions

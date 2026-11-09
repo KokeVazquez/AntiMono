@@ -87,13 +87,31 @@ class AntiMonoAccessibilityService : AccessibilityService() {
 
     /**
      * Centinela de Teclado: Detecta cuando se teclean palabras prohibidas y vacía el campo al instante
+     * ÚNICAMENTE en las aplicaciones elegidas por el usuario (WhatsApp queda 100% excluido por privacidad)
      */
     private fun handleLiveTextInput(event: AccessibilityEvent) {
+        if (!prefs.isKeywordGuardianEnabled) return
+
         val sourceNode = event.source ?: return
+        val activePkg = event.packageName?.toString() ?: sourceNode.packageName?.toString() ?: ""
+
+        // EXCLUSIÓN ESTRICTA: WhatsApp nunca es vigilado bajo ninguna circunstancia
+        if (activePkg.contains("com.whatsapp")) return
+
+        // Verificar si la app actual está en la lista de apps vigiladas o es un navegador
+        val monitoredApps = prefs.getMonitoredKeyboardApps()
+        val isMonitored = monitoredApps.contains(activePkg) || 
+                          monitoredApps.any { activePkg.contains(it) } ||
+                          browserPackages.contains(activePkg)
+
+        if (!isMonitored) {
+            // Si la app no fue seleccionada por el usuario, dejamos escribir con total libertad
+            return
+        }
+
         val eventTexts = event.text
-        val combinedText = eventTexts?.joinToString(" ")?.lowercase()
-            ?: sourceNode.text?.toString()?.lowercase()
-            ?: ""
+        val combinedText = eventTexts.joinToString(" ").lowercase()
+            .ifBlank { sourceNode.text?.toString()?.lowercase() ?: "" }
 
         if (combinedText.isBlank()) return
 
@@ -145,7 +163,6 @@ class AntiMonoAccessibilityService : AccessibilityService() {
 
         for (blocked in blockedApps) {
             if (pkgLower == blocked || pkgLower.contains(blocked)) {
-                prefs.incrementBlockCount()
                 blockCurrentItem("App Bloqueada", "El changuito neutralizó esta aplicación.")
                 return true
             }
@@ -189,7 +206,6 @@ class AntiMonoAccessibilityService : AccessibilityService() {
                 combinedText.contains("enable")
 
         if (foundBlockedApp && hasInstallAction) {
-            prefs.incrementBlockCount()
             blockCurrentItem(
                 "Descarga Bloqueada",
                 "AntiMono te impide descargar aplicaciones no deseadas de la Play Store."
@@ -261,7 +277,6 @@ class AntiMonoAccessibilityService : AccessibilityService() {
                 if (lower.contains("incógnito") || lower.contains("incognito") ||
                     lower.contains("pestaña secreta") || lower.contains("modo secreto")
                 ) {
-                    prefs.incrementBlockCount()
                     blockCurrentItem("Modo Incógnito no permitido", "Pestaña secreta cerrada.")
                     return
                 }
@@ -271,7 +286,6 @@ class AntiMonoAccessibilityService : AccessibilityService() {
             val blacklist = prefs.getBlacklist()
             for (domain in blacklist) {
                 if (lower.contains(domain)) {
-                    prefs.incrementBlockCount()
                     blockCurrentItem("Sitio Restringido", "Dominio bloqueado: $domain")
                     return
                 }
@@ -281,7 +295,6 @@ class AntiMonoAccessibilityService : AccessibilityService() {
             if (prefs.isAdultBlockEnabled) {
                 for (keyword in PreferencesManager.DEFAULT_ADULT_KEYWORDS) {
                     if (containsIsolatedKeyword(lower, keyword)) {
-                        prefs.incrementBlockCount()
                         blockCurrentItem("Contenido Adulto Bloqueado", "Filtro NSFW activado.")
                         return
                     }
