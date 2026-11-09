@@ -3655,8 +3655,6 @@ id tvDomain
 id tvPermissionsSummary
 id tvPinSubtitle
 id tvPinTitle
-id tvProtectionStatus
-id tvProtectionSubtitle
 id unchecked
 id uniform
 id unlabeled

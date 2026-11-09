@@ -157,10 +157,8 @@ class MainActivity : AppCompatActivity() {
 
         // SWITCH GIGANTE EN EL CENTRO
         binding.switchMasterProtection.isChecked = prefs.isProtectionEnabled
-        updateProtectionStatusLabel(prefs.isProtectionEnabled)
         binding.switchMasterProtection.setOnCheckedChangeListener { _, isChecked ->
             prefs.isProtectionEnabled = isChecked
-            updateProtectionStatusLabel(isChecked)
         }
 
         // Switches de Permisos del Sistema
@@ -331,18 +329,6 @@ class MainActivity : AppCompatActivity() {
         // Cambiar PIN
         binding.btnChangePin.setOnClickListener {
             showChangePinDialog()
-        }
-    }
-
-    private fun updateProtectionStatusLabel(enabled: Boolean) {
-        if (enabled) {
-            binding.tvProtectionStatus.text = "Protección Armada"
-            binding.tvProtectionStatus.setTextColor(ContextCompat.getColor(this, R.color.ios_green))
-            binding.tvProtectionSubtitle.text = "El dispositivo se encuentra totalmente protegido"
-        } else {
-            binding.tvProtectionStatus.text = "Protección Desactivada"
-            binding.tvProtectionStatus.setTextColor(ContextCompat.getColor(this, R.color.ios_red))
-            binding.tvProtectionSubtitle.text = "Los filtros y restricciones están en pausa"
         }
     }
 

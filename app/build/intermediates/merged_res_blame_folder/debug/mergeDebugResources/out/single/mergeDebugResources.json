@@ -40,6 +40,10 @@
         "source": "C:\\Users\\Admin\\.gradle\\daemon\\8.7\\com.antimono.app-main-34:\\mipmap-hdpi\\ic_launcher_round.png"
     },
     {
+        "merged": "C:\\Users\\Admin\\.gradle\\daemon\\8.7\\com.antimono.app-debug-32:\\drawable_ic_chevron_down.xml.flat",
+        "source": "C:\\Users\\Admin\\.gradle\\daemon\\8.7\\com.antimono.app-main-34:\\drawable\\ic_chevron_down.xml"
+    },
+    {
         "merged": "C:\\Users\\Admin\\.gradle\\daemon\\8.7\\com.antimono.app-debug-32:\\color_switch_track_selector.xml.flat",
         "source": "C:\\Users\\Admin\\.gradle\\daemon\\8.7\\com.antimono.app-main-34:\\color\\switch_track_selector.xml"
     },
@@ -76,8 +80,8 @@
         "source": "C:\\Users\\Admin\\.gradle\\daemon\\8.7\\com.antimono.app-main-34:\\mipmap-mdpi\\ic_launcher_round.png"
     },
     {
-        "merged": "com.antimono.app-debug-32:/drawable_ic_chevron_down.xml.flat",
-        "source": "com.antimono.app-main-34:/drawable/ic_chevron_down.xml"
+        "merged": "C:\\Users\\Admin\\.gradle\\daemon\\8.7\\com.antimono.app-debug-32:\\color_switch_master_track_selector.xml.flat",
+        "source": "C:\\Users\\Admin\\.gradle\\daemon\\8.7\\com.antimono.app-main-34:\\color\\switch_master_track_selector.xml"
     },
     {
         "merged": "C:\\Users\\Admin\\.gradle\\daemon\\8.7\\com.antimono.app-debug-32:\\layout_activity_main.xml.flat",
@@ -102,9 +106,5 @@
     {
         "merged": "C:\\Users\\Admin\\.gradle\\daemon\\8.7\\com.antimono.app-debug-32:\\mipmap-xxhdpi_ic_launcher.png.flat",
         "source": "C:\\Users\\Admin\\.gradle\\daemon\\8.7\\com.antimono.app-main-34:\\mipmap-xxhdpi\\ic_launcher.png"
-    },
-    {
-        "merged": "com.antimono.app-debug-32:/color_switch_master_track_selector.xml.flat",
-        "source": "com.antimono.app-main-34:/color/switch_master_track_selector.xml"
     }
 ]

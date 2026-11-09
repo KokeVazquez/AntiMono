@@ -84,8 +84,6 @@ id tvDomain
 id tvPermissionsSummary
 id tvPinSubtitle
 id tvPinTitle
-id tvProtectionStatus
-id tvProtectionSubtitle
 layout activity_block_overlay
 layout activity_main
 layout item_blacklist

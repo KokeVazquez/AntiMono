@@ -158,50 +158,31 @@
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
+                android:layout_marginTop="20dp"
                 app:cardBackgroundColor="@color/surface"
                 app:cardCornerRadius="32dp"
                 app:strokeColor="@color/surface_pill"
-                app:strokeWidth="1dp">
+                app:strokeWidth="1dp"
+                android:clipChildren="false"
+                android:clipToPadding="false">
 
-                <LinearLayout
+                <FrameLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:orientation="vertical"
-                    android:paddingHorizontal="24dp"
-                    android:paddingVertical="32dp">
+                    android:layout_height="110dp"
+                    android:clipChildren="false"
+                    android:clipToPadding="false">
 
-                    <!-- Switch con Escala Gigante estilo iOS -->
+                    <!-- Switch con Escala Gigante estilo iOS sin textos cortados -->
                     <com.google.android.material.materialswitch.MaterialSwitch
                         android:id="@+id/switchMasterProtection"
                         style="@style/Widget.AntiMono.Switch.Master"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:scaleX="1.8"
-                        android:scaleY="1.8"
+                        android:layout_gravity="center"
+                        android:scaleX="2.0"
+                        android:scaleY="2.0"
                         android:checked="true" />
-
-                    <TextView
-                        android:id="@+id/tvProtectionStatus"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="20dp"
-                        android:text="Protección Armada"
-                        android:textColor="@color/ios_green"
-                        android:textSize="20sp"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:id="@+id/tvProtectionSubtitle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="4dp"
-                        android:text="El dispositivo se encuentra totalmente protegido"
-                        android:textAlignment="center"
-                        android:textColor="@color/text_secondary"
-                        android:textSize="13sp" />
-                </LinearLayout>
+                </FrameLayout>
             </com.google.android.material.card.MaterialCardView>
 
             <!-- 3. PERMISOS DEL SISTEMA (LISTA CONTRAÍBLE / ACORDEÓN) -->

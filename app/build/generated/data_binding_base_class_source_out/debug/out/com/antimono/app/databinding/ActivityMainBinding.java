@@ -179,12 +179,6 @@ public final class ActivityMainBinding implements ViewBinding {
   @NonNull
   public final TextView tvPinTitle;
 
-  @NonNull
-  public final TextView tvProtectionStatus;
-
-  @NonNull
-  public final TextView tvProtectionSubtitle;
-
   private ActivityMainBinding(@NonNull CoordinatorLayout rootView, @NonNull LinearLayout bodyApps,
       @NonNull LinearLayout bodyDomains, @NonNull LinearLayout bodyFilters,
       @NonNull LinearLayout bodyKeywords, @NonNull LinearLayout bodyPermissions,
@@ -210,8 +204,7 @@ public final class ActivityMainBinding implements ViewBinding {
       @NonNull MaterialSwitch switchDeviceAdmin, @NonNull MaterialSwitch switchIncognitoFilter,
       @NonNull MaterialSwitch switchKeywordGuardian, @NonNull MaterialSwitch switchMasterProtection,
       @NonNull MaterialSwitch switchWebBlocking, @NonNull TextView tvPermissionsSummary,
-      @NonNull TextView tvPinSubtitle, @NonNull TextView tvPinTitle,
-      @NonNull TextView tvProtectionStatus, @NonNull TextView tvProtectionSubtitle) {
+      @NonNull TextView tvPinSubtitle, @NonNull TextView tvPinTitle) {
     this.rootView = rootView;
     this.bodyApps = bodyApps;
     this.bodyDomains = bodyDomains;
@@ -264,8 +257,6 @@ public final class ActivityMainBinding implements ViewBinding {
     this.tvPermissionsSummary = tvPermissionsSummary;
     this.tvPinSubtitle = tvPinSubtitle;
     this.tvPinTitle = tvPinTitle;
-    this.tvProtectionStatus = tvProtectionStatus;
-    this.tvProtectionSubtitle = tvProtectionSubtitle;
   }
 
   @Override
@@ -601,18 +592,6 @@ public final class ActivityMainBinding implements ViewBinding {
         break missingId;
       }
 
-      id = R.id.tvProtectionStatus;
-      TextView tvProtectionStatus = ViewBindings.findChildViewById(rootView, id);
-      if (tvProtectionStatus == null) {
-        break missingId;
-      }
-
-      id = R.id.tvProtectionSubtitle;
-      TextView tvProtectionSubtitle = ViewBindings.findChildViewById(rootView, id);
-      if (tvProtectionSubtitle == null) {
-        break missingId;
-      }
-
       return new ActivityMainBinding((CoordinatorLayout) rootView, bodyApps, bodyDomains,
           bodyFilters, bodyKeywords, bodyPermissions, btnAddApp, btnAddDomain, btnAddKeyword,
           btnChangePin, btnConfigureMonitoredApps, btnLockApp, btnSelectAppsToBlock, btnSubmitPin,
@@ -623,8 +602,7 @@ public final class ActivityMainBinding implements ViewBinding {
           layoutDashboard, layoutPinAuth, rvBlacklist, rvBlockedApps, rvKeywords,
           switchAccessibility, switchAdultFilter, switchAppBlocking, switchBattery,
           switchDeviceAdmin, switchIncognitoFilter, switchKeywordGuardian, switchMasterProtection,
-          switchWebBlocking, tvPermissionsSummary, tvPinSubtitle, tvPinTitle, tvProtectionStatus,
-          tvProtectionSubtitle);
+          switchWebBlocking, tvPermissionsSummary, tvPinSubtitle, tvPinTitle);
     }
     String missingId = rootView.getResources().getResourceName(id);
     throw new NullPointerException("Missing required view with ID: ".concat(missingId));
