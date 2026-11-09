@@ -216,14 +216,24 @@ class AntiMonoAccessibilityService : AccessibilityService() {
     }
 
     /**
-     * REGLA DE ORO DE AJUSTES: Cualquier pantalla en Ajustes que mencione AntiMono se expulsa de golpe.
+     * REGLA DE ORO DE AJUSTES: Cualquier pantalla en Ajustes que mencione AntiMono se expulsa de golpe,
+     * pero se PERMITE expresamente cuando el instalador del paquete está actualizando la aplicación.
      */
     private fun handleSettingsProtection(rootNode: AccessibilityNodeInfo) {
         val allTexts = mutableListOf<String>()
         collectAllText(rootNode, allTexts)
         val combinedText = allTexts.joinToString(" ").lowercase()
 
-        // Si la pantalla de ajustes menciona AntiMono (impide tocar el switch de accesibilidad o desinstalar)
+        // 1. Si es el instalador de paquetes actualizando AntiMono, PERMITIR sin bloquear
+        val isUpdateOrInstall = combinedText.contains("actualizar") ||
+                combinedText.contains("update") ||
+                combinedText.contains("actualización") ||
+                (combinedText.contains("instalar") && !combinedText.contains("desinstalar"))
+        if (isUpdateOrInstall) {
+            return
+        }
+
+        // 2. Si la pantalla menciona desinstalar AntiMono o alterar Ajustes/Accesibilidad
         val mentionsAntiMono = combinedText.contains("antimono")
 
         val isDeviceAdminScreen = combinedText.contains("administrador de dispositivos") ||
