@@ -30,7 +30,12 @@ class AntiUninstallDeviceAdminReceiver : DeviceAdminReceiver() {
         Toast.makeText(context, "AntiMono: Blindaje de Administrador Activado", Toast.LENGTH_SHORT).show()
     }
 
-    override fun onDisableRequested(context: Context, intent: Intent): CharSequence {
+    override fun onDisableRequested(context: Context, intent: Intent): CharSequence? {
+        val prefs = PreferencesManager(context)
+        // Si el interruptor maestro está APAGADO desde la app con el PIN, permite desinstalar/desactivar sin quejas
+        if (!prefs.isProtectionEnabled) {
+            return null
+        }
         return context.getString(R.string.device_admin_warning)
     }
 

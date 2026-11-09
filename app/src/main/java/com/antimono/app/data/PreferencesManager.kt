@@ -30,7 +30,7 @@ class PreferencesManager(context: Context) {
         )
     }
 
-    // --- PIN Management ---
+    // --- PIN Management (6 a 8 dígitos) ---
     fun hasPin(): Boolean = prefs.contains(KEY_PIN_HASH)
 
     fun setPin(pin: String) {

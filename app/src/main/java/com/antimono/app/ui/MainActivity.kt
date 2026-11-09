@@ -48,31 +48,32 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    // --- 1. Autenticación por PIN ---
+    // --- 1. Autenticación por PIN (6 a 8 dígitos) ---
     private fun setupPinView() {
         val hasPin = prefs.hasPin()
 
         if (!hasPin) {
-            binding.tvPinTitle.text = "Bienvenido a AntiMono"
-            binding.tvPinSubtitle.text = "Crea un PIN seguro de 4 a 8 dígitos"
-            binding.btnSubmitPin.text = "Guardar PIN"
+            binding.tvPinTitle.text = "Configuración Inicial"
+            binding.tvPinSubtitle.text = "Tu esposa debe ingresar un PIN de 6 a 8 dígitos"
+            binding.btnSubmitPin.text = "Guardar PIN y Activar"
         } else {
             binding.tvPinTitle.text = "AntiMono"
-            binding.tvPinSubtitle.text = "Ingresa tu PIN para gestionar la protección"
+            binding.tvPinSubtitle.text = "Ingresa el PIN de 6 a 8 dígitos para acceder"
             binding.btnSubmitPin.text = "Desbloquear"
         }
 
         binding.btnSubmitPin.setOnClickListener {
             val pin = binding.etPin.text?.toString()?.trim() ?: ""
-            if (pin.length < 4) {
-                Toast.makeText(this, "El PIN debe tener al menos 4 dígitos", Toast.LENGTH_SHORT).show()
+            if (pin.length !in 6..8) {
+                Toast.makeText(this, "El PIN debe tener entre 6 y 8 dígitos", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
 
             if (!prefs.hasPin()) {
-                // Registro de PIN por primera vez
+                // Registro de PIN inicial por la esposa
                 prefs.setPin(pin)
-                Toast.makeText(this, "PIN configurado correctamente", Toast.LENGTH_SHORT).show()
+                prefs.isProtectionEnabled = true
+                Toast.makeText(this, "PIN configurado y protección armada", Toast.LENGTH_SHORT).show()
                 unlockDashboard()
             } else {
                 // Verificación
@@ -88,9 +89,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun unlockDashboard() {
         isAuthenticated = true
-        // Otorga 5 minutos de desbloqueo temporal para que el usuario pueda interactuar con ajustes
-        prefs.setTempUnlock(5)
-
+        // Sin temporizadores molestos: mientras la app esté abierta tienes acceso total
         binding.layoutPinAuth.visibility = View.GONE
         binding.layoutDashboard.visibility = View.VISIBLE
         binding.etPin.text?.clear()
@@ -184,11 +183,11 @@ class MainActivity : AppCompatActivity() {
 
     private fun updateProtectionStatusLabel(enabled: Boolean) {
         if (enabled) {
-            binding.tvProtectionStatus.text = "Protección Activa"
+            binding.tvProtectionStatus.text = "🛡️ PROTECCIÓN ACTIVA (Búnker Armado)"
             binding.tvProtectionStatus.setTextColor(ContextCompat.getColor(this, R.color.status_green))
         } else {
-            binding.tvProtectionStatus.text = "Protección Pausada"
-            binding.tvProtectionStatus.setTextColor(ContextCompat.getColor(this, R.color.status_red))
+            binding.tvProtectionStatus.text = "⚪ PROTECCIÓN APAGADA (App Inactiva)"
+            binding.tvProtectionStatus.setTextColor(ContextCompat.getColor(this, R.color.text_secondary))
         }
     }
 
@@ -253,18 +252,19 @@ class MainActivity : AppCompatActivity() {
     private fun showChangePinDialog() {
         val input = com.google.android.material.textfield.TextInputEditText(this).apply {
             inputType = android.text.InputType.TYPE_CLASS_NUMBER or android.text.InputType.TYPE_NUMBER_VARIATION_PASSWORD
-            hint = "Nuevo PIN (4 a 8 dígitos)"
+            hint = "Nuevo PIN (6 a 8 dígitos)"
         }
         AlertDialog.Builder(this)
-            .setTitle("Cambiar PIN")
+            .setTitle("Cambiar PIN de Seguridad")
+            .setMessage("Este PIN solo debe conocerlo tu esposa para evitar desactivar la protección por impulso.")
             .setView(input)
             .setPositiveButton("Guardar") { _, _ ->
                 val newPin = input.text?.toString()?.trim() ?: ""
-                if (newPin.length >= 4) {
+                if (newPin.length in 6..8) {
                     prefs.setPin(newPin)
                     Toast.makeText(this, "PIN actualizado con éxito", Toast.LENGTH_SHORT).show()
                 } else {
-                    Toast.makeText(this, "El PIN debe tener al menos 4 dígitos", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, "El PIN debe tener entre 6 y 8 dígitos", Toast.LENGTH_SHORT).show()
                 }
             }
             .setNegativeButton("Cancelar", null)
