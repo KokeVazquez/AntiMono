@@ -1,6 +1,7 @@
 package com.antimono.app.ui
 
 import android.accessibilityservice.AccessibilityServiceInfo
+import android.animation.ObjectAnimator
 import android.app.admin.DevicePolicyManager
 import android.content.ComponentName
 import android.content.Context
@@ -12,6 +13,7 @@ import android.provider.Settings
 import android.view.View
 import android.view.accessibility.AccessibilityManager
 import android.view.inputmethod.InputMethodManager
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -41,6 +43,7 @@ class MainActivity : AppCompatActivity() {
 
         setupPinView()
         setupDashboard()
+        setupCollapsibleSections()
     }
 
     override fun onResume() {
@@ -111,18 +114,81 @@ class MainActivity : AppCompatActivity() {
         binding.layoutPinAuth.visibility = View.VISIBLE
     }
 
-    // --- 2. Panel de Control y Ajustes ---
+    // --- 2. Acordeones / Listas Contraíbles ---
+    private fun setupCollapsibleSections() {
+        // Acordeón Permisos
+        binding.headerPermissions.setOnClickListener {
+            toggleSection(binding.bodyPermissions, binding.ivChevronPermissions)
+        }
+
+        // Acordeón Filtros Automáticos
+        binding.headerFilters.setOnClickListener {
+            toggleSection(binding.bodyFilters, binding.ivChevronFilters)
+        }
+
+        // Sub-Acordeón Palabras Prohibidas
+        binding.headerKeywords.setOnClickListener {
+            toggleSection(binding.bodyKeywords, binding.ivChevronKeywords)
+        }
+
+        // Acordeón Apps
+        binding.headerApps.setOnClickListener {
+            toggleSection(binding.bodyApps, binding.ivChevronApps)
+        }
+
+        // Acordeón Sitios Web
+        binding.headerDomains.setOnClickListener {
+            toggleSection(binding.bodyDomains, binding.ivChevronDomains)
+        }
+    }
+
+    private fun toggleSection(body: View, chevron: ImageView) {
+        val willExpand = body.visibility != View.VISIBLE
+        body.visibility = if (willExpand) View.VISIBLE else View.GONE
+        val targetRotation = if (willExpand) 180f else 0f
+        ObjectAnimator.ofFloat(chevron, "rotation", chevron.rotation, targetRotation).setDuration(250).start()
+    }
+
+    // --- 3. Panel de Control y Ajustes ---
     private fun setupDashboard() {
         binding.btnLockApp.setOnClickListener {
             lockDashboard()
         }
 
-        // Switch Maestro
+        // SWITCH GIGANTE EN EL CENTRO
         binding.switchMasterProtection.isChecked = prefs.isProtectionEnabled
         updateProtectionStatusLabel(prefs.isProtectionEnabled)
         binding.switchMasterProtection.setOnCheckedChangeListener { _, isChecked ->
             prefs.isProtectionEnabled = isChecked
             updateProtectionStatusLabel(isChecked)
+        }
+
+        // Switches de Permisos del Sistema
+        binding.switchAccessibility.setOnClickListener {
+            val intent = Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS)
+            startActivity(intent)
+            Toast.makeText(this, "Selecciona 'AntiMono' y activa el servicio", Toast.LENGTH_LONG).show()
+        }
+
+        binding.switchDeviceAdmin.setOnClickListener {
+            val dpm = getSystemService(Context.DEVICE_POLICY_SERVICE) as DevicePolicyManager
+            val component = ComponentName(this, AntiUninstallDeviceAdminReceiver::class.java)
+            if (!dpm.isAdminActive(component)) {
+                val intent = Intent(DevicePolicyManager.ACTION_ADD_DEVICE_ADMIN).apply {
+                    putExtra(DevicePolicyManager.EXTRA_DEVICE_ADMIN, component)
+                    putExtra(
+                        DevicePolicyManager.EXTRA_ADD_EXPLANATION,
+                        getString(R.string.device_admin_description)
+                    )
+                }
+                startActivity(intent)
+            } else {
+                Toast.makeText(this, "El Administrador de Dispositivo ya está activo", Toast.LENGTH_SHORT).show()
+            }
+        }
+
+        binding.switchBattery.setOnClickListener {
+            requestIgnoreBatteryOptimization()
         }
 
         // Switches de Filtros
@@ -136,7 +202,6 @@ class MainActivity : AppCompatActivity() {
             prefs.isIncognitoBlockEnabled = isChecked
         }
 
-        // Centinela de Teclado
         binding.switchKeywordGuardian.isChecked = prefs.isKeywordGuardianEnabled
         binding.switchKeywordGuardian.setOnCheckedChangeListener { _, isChecked ->
             prefs.isKeywordGuardianEnabled = isChecked
@@ -144,29 +209,6 @@ class MainActivity : AppCompatActivity() {
 
         binding.btnConfigureMonitoredApps.setOnClickListener {
             showChooseMonitoredAppsDialog()
-        }
-
-        // Permisos del Sistema
-        binding.btnEnableAccessibility.setOnClickListener {
-            val intent = Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS)
-            startActivity(intent)
-            Toast.makeText(this, "Selecciona 'AntiMono' y activa el servicio", Toast.LENGTH_LONG).show()
-        }
-
-        binding.btnEnableDeviceAdmin.setOnClickListener {
-            val component = ComponentName(this, AntiUninstallDeviceAdminReceiver::class.java)
-            val intent = Intent(DevicePolicyManager.ACTION_ADD_DEVICE_ADMIN).apply {
-                putExtra(DevicePolicyManager.EXTRA_DEVICE_ADMIN, component)
-                putExtra(
-                    DevicePolicyManager.EXTRA_ADD_EXPLANATION,
-                    getString(R.string.device_admin_description)
-                )
-            }
-            startActivity(intent)
-        }
-
-        binding.btnBatteryOptimization.setOnClickListener {
-            requestIgnoreBatteryOptimization()
         }
 
         // 1. Palabras Prohibidas (Keywords)
@@ -190,6 +232,15 @@ class MainActivity : AppCompatActivity() {
         }
 
         // 2. Apps Bloqueadas
+        binding.switchAppBlocking.isChecked = prefs.isAppBlockEnabled
+        binding.switchAppBlocking.setOnCheckedChangeListener { _, isChecked ->
+            prefs.isAppBlockEnabled = isChecked
+        }
+
+        binding.btnSelectAppsToBlock.setOnClickListener {
+            showChooseBlockedAppsDialog()
+        }
+
         appsAdapter = BlacklistAdapter { app ->
             prefs.removeBlockedApp(app)
             refreshAppsList()
@@ -205,7 +256,7 @@ class MainActivity : AppCompatActivity() {
                 prefs.addBlockedApp(app)
                 binding.etNewApp.text?.clear()
                 refreshAppsList()
-                Toast.makeText(this, "Aplicación añadida a la restricción", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Aplicación añadida", Toast.LENGTH_SHORT).show()
             }
         }
 
@@ -272,6 +323,11 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
+        binding.switchWebBlocking.isChecked = prefs.isWebBlockEnabled
+        binding.switchWebBlocking.setOnCheckedChangeListener { _, isChecked ->
+            prefs.isWebBlockEnabled = isChecked
+        }
+
         // Cambiar PIN
         binding.btnChangePin.setOnClickListener {
             showChangePinDialog()
@@ -282,36 +338,33 @@ class MainActivity : AppCompatActivity() {
         if (enabled) {
             binding.tvProtectionStatus.text = "Protección Armada"
             binding.tvProtectionStatus.setTextColor(ContextCompat.getColor(this, R.color.ios_green))
+            binding.tvProtectionSubtitle.text = "El dispositivo se encuentra totalmente protegido"
         } else {
             binding.tvProtectionStatus.text = "Protección Desactivada"
-            binding.tvProtectionStatus.setTextColor(ContextCompat.getColor(this, R.color.text_secondary))
+            binding.tvProtectionStatus.setTextColor(ContextCompat.getColor(this, R.color.ios_red))
+            binding.tvProtectionSubtitle.text = "Los filtros y restricciones están en pausa"
         }
     }
 
     private fun updatePermissionsStatus() {
         val accessibilityActive = isAccessibilityServiceEnabled()
-        if (accessibilityActive) {
-            binding.tvAccessibilityStatus.text = "Servicio de Accesibilidad: ACTIVO ✓"
-            binding.tvAccessibilityStatus.setTextColor(ContextCompat.getColor(this, R.color.ios_green))
-            binding.btnEnableAccessibility.visibility = View.GONE
-        } else {
-            binding.tvAccessibilityStatus.text = "Servicio de Accesibilidad: INACTIVO ✗"
-            binding.tvAccessibilityStatus.setTextColor(ContextCompat.getColor(this, R.color.ios_red))
-            binding.btnEnableAccessibility.visibility = View.VISIBLE
-        }
+        binding.switchAccessibility.isChecked = accessibilityActive
 
         val dpm = getSystemService(Context.DEVICE_POLICY_SERVICE) as DevicePolicyManager
         val adminComponent = ComponentName(this, AntiUninstallDeviceAdminReceiver::class.java)
         val adminActive = dpm.isAdminActive(adminComponent)
-        if (adminActive) {
-            binding.tvDeviceAdminStatus.text = "Administrador de Dispositivo: ACTIVO ✓"
-            binding.tvDeviceAdminStatus.setTextColor(ContextCompat.getColor(this, R.color.ios_green))
-            binding.btnEnableDeviceAdmin.visibility = View.GONE
-        } else {
-            binding.tvDeviceAdminStatus.text = "Administrador de Dispositivo: INACTIVO ✗"
-            binding.tvDeviceAdminStatus.setTextColor(ContextCompat.getColor(this, R.color.ios_red))
-            binding.btnEnableDeviceAdmin.visibility = View.VISIBLE
-        }
+        binding.switchDeviceAdmin.isChecked = adminActive
+
+        val powerManager = getSystemService(Context.POWER_SERVICE) as PowerManager
+        val batteryActive = powerManager.isIgnoringBatteryOptimizations(packageName)
+        binding.switchBattery.isChecked = batteryActive
+
+        var activeCount = 0
+        if (accessibilityActive) activeCount++
+        if (adminActive) activeCount++
+        if (batteryActive) activeCount++
+
+        binding.tvPermissionsSummary.text = "Permisos activos: $activeCount de 3"
     }
 
     private fun isAccessibilityServiceEnabled(): Boolean {
@@ -398,6 +451,59 @@ class MainActivity : AppCompatActivity() {
                 }
                 prefs.setMonitoredKeyboardApps(newSelected)
                 Toast.makeText(this, "Configuración guardada (${newSelected.size} apps)", Toast.LENGTH_SHORT).show()
+            }
+            .setNegativeButton("Cancelar", null)
+            .show()
+    }
+
+    private fun showChooseBlockedAppsDialog() {
+        val pm = packageManager
+        val mainIntent = Intent(Intent.ACTION_MAIN, null).apply {
+            addCategory(Intent.CATEGORY_LAUNCHER)
+        }
+        val resolveInfos = pm.queryIntentActivities(mainIntent, 0)
+
+        val apps = resolveInfos
+            .filter { it.activityInfo.packageName != packageName }
+            .map {
+                val label = it.loadLabel(pm).toString()
+                val pkg = it.activityInfo.packageName
+                InstalledAppItem(label, pkg)
+            }
+            .distinctBy { it.packageName }
+            .sortedBy { it.name.lowercase() }
+
+        if (apps.isEmpty()) {
+            Toast.makeText(this, "No se encontraron aplicaciones", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        val currentBlocked = prefs.getBlockedApps()
+        val appNames = apps.map { it.name }.toTypedArray()
+        val checkedItems = apps.map { item ->
+            currentBlocked.contains(item.packageName) || currentBlocked.contains(item.name.lowercase())
+        }.toBooleanArray()
+
+        AlertDialog.Builder(this)
+            .setTitle("Bloquear Aplicaciones Instaladas")
+            .setMultiChoiceItems(appNames, checkedItems) { _, which, isChecked ->
+                checkedItems[which] = isChecked
+            }
+            .setPositiveButton("Guardar") { _, _ ->
+                val newBlocked = currentBlocked.toMutableSet()
+                for (i in apps.indices) {
+                    val pkg = apps[i].packageName
+                    val nameLower = apps[i].name.lowercase()
+                    if (checkedItems[i]) {
+                        newBlocked.add(pkg)
+                    } else {
+                        newBlocked.remove(pkg)
+                        newBlocked.remove(nameLower)
+                    }
+                }
+                prefs.setBlockedApps(newBlocked)
+                refreshAppsList()
+                Toast.makeText(this, "Configuración guardada", Toast.LENGTH_SHORT).show()
             }
             .setNegativeButton("Cancelar", null)
             .show()

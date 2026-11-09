@@ -93,13 +93,13 @@ class AntiMonoAccessibilityService : AccessibilityService() {
         }
 
         // 4. PARCHE 3: Tiendas de Aplicaciones (Google Play y Samsung Galaxy Store)
-        if (appStorePackages.contains(activePkg)) {
+        if (prefs.isAppBlockEnabled && appStorePackages.contains(activePkg)) {
             handleAppStoreInspection(rootNode)
             return
         }
 
         // 5. PARCHE 4: Bloquear aplicaciones prohibidas instaladas
-        if (handleInstalledAppBlock(activePkg)) {
+        if (prefs.isAppBlockEnabled && handleInstalledAppBlock(activePkg)) {
             return
         }
 
@@ -271,11 +271,13 @@ class AntiMonoAccessibilityService : AccessibilityService() {
             }
 
             // B) Detección de Lista Negra personalizada (ej. x.com, twitter.com)
-            val blacklist = prefs.getBlacklist()
-            for (domain in blacklist) {
-                if (lower.contains(domain)) {
-                    blockCurrentItem("Sitio Restringido", "Dominio bloqueado: $domain")
-                    return
+            if (prefs.isWebBlockEnabled) {
+                val blacklist = prefs.getBlacklist()
+                for (domain in blacklist) {
+                    if (lower.contains(domain)) {
+                        blockCurrentItem("Sitio Restringido", "Dominio bloqueado: $domain")
+                        return
+                    }
                 }
             }
 

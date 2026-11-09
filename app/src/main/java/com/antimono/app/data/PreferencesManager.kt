@@ -14,6 +14,8 @@ class PreferencesManager(context: Context) {
         private const val KEY_PROTECTION_ENABLED = "key_protection_enabled"
         private const val KEY_ADULT_BLOCK_ENABLED = "key_adult_block_enabled"
         private const val KEY_INCOGNITO_BLOCK_ENABLED = "key_incognito_block_enabled"
+        private const val KEY_APP_BLOCK_ENABLED = "key_app_block_enabled"
+        private const val KEY_WEB_BLOCK_ENABLED = "key_web_block_enabled"
         private const val KEY_BLACKLIST_DOMAINS = "key_blacklist"
         private const val KEY_BLOCKED_APPS = "key_blocked_apps"
         private const val KEY_KEYWORD_GUARDIAN_ENABLED = "key_keyword_guardian_enabled"
@@ -91,6 +93,16 @@ class PreferencesManager(context: Context) {
         get() = prefs.getBoolean(KEY_INCOGNITO_BLOCK_ENABLED, true)
         set(value) = prefs.edit().putBoolean(KEY_INCOGNITO_BLOCK_ENABLED, value).apply()
 
+    // --- App Blocking Filter ---
+    var isAppBlockEnabled: Boolean
+        get() = prefs.getBoolean(KEY_APP_BLOCK_ENABLED, true)
+        set(value) = prefs.edit().putBoolean(KEY_APP_BLOCK_ENABLED, value).apply()
+
+    // --- Custom Web Domains Filter ---
+    var isWebBlockEnabled: Boolean
+        get() = prefs.getBoolean(KEY_WEB_BLOCK_ENABLED, true)
+        set(value) = prefs.edit().putBoolean(KEY_WEB_BLOCK_ENABLED, value).apply()
+
     // --- Custom Blacklist Domains ---
     fun getBlacklist(): Set<String> {
         return prefs.getStringSet(KEY_BLACKLIST_DOMAINS, null) ?: DEFAULT_BLACKLIST_DOMAINS
@@ -118,6 +130,10 @@ class PreferencesManager(context: Context) {
     // --- Blocked Apps Management ---
     fun getBlockedApps(): Set<String> {
         return prefs.getStringSet(KEY_BLOCKED_APPS, null) ?: DEFAULT_BLOCKED_APPS
+    }
+
+    fun setBlockedApps(apps: Set<String>) {
+        prefs.edit().putStringSet(KEY_BLOCKED_APPS, apps).apply()
     }
 
     fun addBlockedApp(pkgOrKeyword: String) {

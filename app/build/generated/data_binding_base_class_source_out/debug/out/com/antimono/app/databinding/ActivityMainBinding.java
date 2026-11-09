@@ -4,6 +4,7 @@ package com.antimono.app.databinding;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
@@ -26,6 +27,21 @@ public final class ActivityMainBinding implements ViewBinding {
   private final CoordinatorLayout rootView;
 
   @NonNull
+  public final LinearLayout bodyApps;
+
+  @NonNull
+  public final LinearLayout bodyDomains;
+
+  @NonNull
+  public final LinearLayout bodyFilters;
+
+  @NonNull
+  public final LinearLayout bodyKeywords;
+
+  @NonNull
+  public final LinearLayout bodyPermissions;
+
+  @NonNull
   public final MaterialButton btnAddApp;
 
   @NonNull
@@ -35,22 +51,16 @@ public final class ActivityMainBinding implements ViewBinding {
   public final MaterialButton btnAddKeyword;
 
   @NonNull
-  public final MaterialButton btnBatteryOptimization;
-
-  @NonNull
   public final MaterialButton btnChangePin;
 
   @NonNull
   public final MaterialButton btnConfigureMonitoredApps;
 
   @NonNull
-  public final MaterialButton btnEnableAccessibility;
-
-  @NonNull
-  public final MaterialButton btnEnableDeviceAdmin;
-
-  @NonNull
   public final MaterialButton btnLockApp;
+
+  @NonNull
+  public final MaterialButton btnSelectAppsToBlock;
 
   @NonNull
   public final MaterialButton btnSubmitPin;
@@ -89,6 +99,36 @@ public final class ActivityMainBinding implements ViewBinding {
   public final TextInputEditText etPin;
 
   @NonNull
+  public final LinearLayout headerApps;
+
+  @NonNull
+  public final LinearLayout headerDomains;
+
+  @NonNull
+  public final LinearLayout headerFilters;
+
+  @NonNull
+  public final LinearLayout headerKeywords;
+
+  @NonNull
+  public final LinearLayout headerPermissions;
+
+  @NonNull
+  public final ImageView ivChevronApps;
+
+  @NonNull
+  public final ImageView ivChevronDomains;
+
+  @NonNull
+  public final ImageView ivChevronFilters;
+
+  @NonNull
+  public final ImageView ivChevronKeywords;
+
+  @NonNull
+  public final ImageView ivChevronPermissions;
+
+  @NonNull
   public final NestedScrollView layoutDashboard;
 
   @NonNull
@@ -104,7 +144,19 @@ public final class ActivityMainBinding implements ViewBinding {
   public final RecyclerView rvKeywords;
 
   @NonNull
+  public final MaterialSwitch switchAccessibility;
+
+  @NonNull
   public final MaterialSwitch switchAdultFilter;
+
+  @NonNull
+  public final MaterialSwitch switchAppBlocking;
+
+  @NonNull
+  public final MaterialSwitch switchBattery;
+
+  @NonNull
+  public final MaterialSwitch switchDeviceAdmin;
 
   @NonNull
   public final MaterialSwitch switchIncognitoFilter;
@@ -116,10 +168,10 @@ public final class ActivityMainBinding implements ViewBinding {
   public final MaterialSwitch switchMasterProtection;
 
   @NonNull
-  public final TextView tvAccessibilityStatus;
+  public final MaterialSwitch switchWebBlocking;
 
   @NonNull
-  public final TextView tvDeviceAdminStatus;
+  public final TextView tvPermissionsSummary;
 
   @NonNull
   public final TextView tvPinSubtitle;
@@ -130,35 +182,49 @@ public final class ActivityMainBinding implements ViewBinding {
   @NonNull
   public final TextView tvProtectionStatus;
 
-  private ActivityMainBinding(@NonNull CoordinatorLayout rootView,
+  @NonNull
+  public final TextView tvProtectionSubtitle;
+
+  private ActivityMainBinding(@NonNull CoordinatorLayout rootView, @NonNull LinearLayout bodyApps,
+      @NonNull LinearLayout bodyDomains, @NonNull LinearLayout bodyFilters,
+      @NonNull LinearLayout bodyKeywords, @NonNull LinearLayout bodyPermissions,
       @NonNull MaterialButton btnAddApp, @NonNull MaterialButton btnAddDomain,
-      @NonNull MaterialButton btnAddKeyword, @NonNull MaterialButton btnBatteryOptimization,
-      @NonNull MaterialButton btnChangePin, @NonNull MaterialButton btnConfigureMonitoredApps,
-      @NonNull MaterialButton btnEnableAccessibility, @NonNull MaterialButton btnEnableDeviceAdmin,
-      @NonNull MaterialButton btnLockApp, @NonNull MaterialButton btnSubmitPin,
+      @NonNull MaterialButton btnAddKeyword, @NonNull MaterialButton btnChangePin,
+      @NonNull MaterialButton btnConfigureMonitoredApps, @NonNull MaterialButton btnLockApp,
+      @NonNull MaterialButton btnSelectAppsToBlock, @NonNull MaterialButton btnSubmitPin,
       @NonNull MaterialButton chipAddInstagram, @NonNull MaterialButton chipAddLine,
       @NonNull MaterialButton chipAddReddit, @NonNull MaterialButton chipAddTelegram,
       @NonNull MaterialButton chipAddTikTok, @NonNull MaterialButton chipAddTwitter,
       @NonNull MaterialButton chipAddViber, @NonNull TextInputEditText etNewApp,
       @NonNull TextInputEditText etNewDomain, @NonNull TextInputEditText etNewKeyword,
-      @NonNull TextInputEditText etPin, @NonNull NestedScrollView layoutDashboard,
+      @NonNull TextInputEditText etPin, @NonNull LinearLayout headerApps,
+      @NonNull LinearLayout headerDomains, @NonNull LinearLayout headerFilters,
+      @NonNull LinearLayout headerKeywords, @NonNull LinearLayout headerPermissions,
+      @NonNull ImageView ivChevronApps, @NonNull ImageView ivChevronDomains,
+      @NonNull ImageView ivChevronFilters, @NonNull ImageView ivChevronKeywords,
+      @NonNull ImageView ivChevronPermissions, @NonNull NestedScrollView layoutDashboard,
       @NonNull LinearLayout layoutPinAuth, @NonNull RecyclerView rvBlacklist,
       @NonNull RecyclerView rvBlockedApps, @NonNull RecyclerView rvKeywords,
-      @NonNull MaterialSwitch switchAdultFilter, @NonNull MaterialSwitch switchIncognitoFilter,
+      @NonNull MaterialSwitch switchAccessibility, @NonNull MaterialSwitch switchAdultFilter,
+      @NonNull MaterialSwitch switchAppBlocking, @NonNull MaterialSwitch switchBattery,
+      @NonNull MaterialSwitch switchDeviceAdmin, @NonNull MaterialSwitch switchIncognitoFilter,
       @NonNull MaterialSwitch switchKeywordGuardian, @NonNull MaterialSwitch switchMasterProtection,
-      @NonNull TextView tvAccessibilityStatus, @NonNull TextView tvDeviceAdminStatus,
+      @NonNull MaterialSwitch switchWebBlocking, @NonNull TextView tvPermissionsSummary,
       @NonNull TextView tvPinSubtitle, @NonNull TextView tvPinTitle,
-      @NonNull TextView tvProtectionStatus) {
+      @NonNull TextView tvProtectionStatus, @NonNull TextView tvProtectionSubtitle) {
     this.rootView = rootView;
+    this.bodyApps = bodyApps;
+    this.bodyDomains = bodyDomains;
+    this.bodyFilters = bodyFilters;
+    this.bodyKeywords = bodyKeywords;
+    this.bodyPermissions = bodyPermissions;
     this.btnAddApp = btnAddApp;
     this.btnAddDomain = btnAddDomain;
     this.btnAddKeyword = btnAddKeyword;
-    this.btnBatteryOptimization = btnBatteryOptimization;
     this.btnChangePin = btnChangePin;
     this.btnConfigureMonitoredApps = btnConfigureMonitoredApps;
-    this.btnEnableAccessibility = btnEnableAccessibility;
-    this.btnEnableDeviceAdmin = btnEnableDeviceAdmin;
     this.btnLockApp = btnLockApp;
+    this.btnSelectAppsToBlock = btnSelectAppsToBlock;
     this.btnSubmitPin = btnSubmitPin;
     this.chipAddInstagram = chipAddInstagram;
     this.chipAddLine = chipAddLine;
@@ -171,20 +237,35 @@ public final class ActivityMainBinding implements ViewBinding {
     this.etNewDomain = etNewDomain;
     this.etNewKeyword = etNewKeyword;
     this.etPin = etPin;
+    this.headerApps = headerApps;
+    this.headerDomains = headerDomains;
+    this.headerFilters = headerFilters;
+    this.headerKeywords = headerKeywords;
+    this.headerPermissions = headerPermissions;
+    this.ivChevronApps = ivChevronApps;
+    this.ivChevronDomains = ivChevronDomains;
+    this.ivChevronFilters = ivChevronFilters;
+    this.ivChevronKeywords = ivChevronKeywords;
+    this.ivChevronPermissions = ivChevronPermissions;
     this.layoutDashboard = layoutDashboard;
     this.layoutPinAuth = layoutPinAuth;
     this.rvBlacklist = rvBlacklist;
     this.rvBlockedApps = rvBlockedApps;
     this.rvKeywords = rvKeywords;
+    this.switchAccessibility = switchAccessibility;
     this.switchAdultFilter = switchAdultFilter;
+    this.switchAppBlocking = switchAppBlocking;
+    this.switchBattery = switchBattery;
+    this.switchDeviceAdmin = switchDeviceAdmin;
     this.switchIncognitoFilter = switchIncognitoFilter;
     this.switchKeywordGuardian = switchKeywordGuardian;
     this.switchMasterProtection = switchMasterProtection;
-    this.tvAccessibilityStatus = tvAccessibilityStatus;
-    this.tvDeviceAdminStatus = tvDeviceAdminStatus;
+    this.switchWebBlocking = switchWebBlocking;
+    this.tvPermissionsSummary = tvPermissionsSummary;
     this.tvPinSubtitle = tvPinSubtitle;
     this.tvPinTitle = tvPinTitle;
     this.tvProtectionStatus = tvProtectionStatus;
+    this.tvProtectionSubtitle = tvProtectionSubtitle;
   }
 
   @Override
@@ -214,6 +295,36 @@ public final class ActivityMainBinding implements ViewBinding {
     // This is done to optimize the compiled bytecode for size and performance.
     int id;
     missingId: {
+      id = R.id.bodyApps;
+      LinearLayout bodyApps = ViewBindings.findChildViewById(rootView, id);
+      if (bodyApps == null) {
+        break missingId;
+      }
+
+      id = R.id.bodyDomains;
+      LinearLayout bodyDomains = ViewBindings.findChildViewById(rootView, id);
+      if (bodyDomains == null) {
+        break missingId;
+      }
+
+      id = R.id.bodyFilters;
+      LinearLayout bodyFilters = ViewBindings.findChildViewById(rootView, id);
+      if (bodyFilters == null) {
+        break missingId;
+      }
+
+      id = R.id.bodyKeywords;
+      LinearLayout bodyKeywords = ViewBindings.findChildViewById(rootView, id);
+      if (bodyKeywords == null) {
+        break missingId;
+      }
+
+      id = R.id.bodyPermissions;
+      LinearLayout bodyPermissions = ViewBindings.findChildViewById(rootView, id);
+      if (bodyPermissions == null) {
+        break missingId;
+      }
+
       id = R.id.btnAddApp;
       MaterialButton btnAddApp = ViewBindings.findChildViewById(rootView, id);
       if (btnAddApp == null) {
@@ -232,12 +343,6 @@ public final class ActivityMainBinding implements ViewBinding {
         break missingId;
       }
 
-      id = R.id.btnBatteryOptimization;
-      MaterialButton btnBatteryOptimization = ViewBindings.findChildViewById(rootView, id);
-      if (btnBatteryOptimization == null) {
-        break missingId;
-      }
-
       id = R.id.btnChangePin;
       MaterialButton btnChangePin = ViewBindings.findChildViewById(rootView, id);
       if (btnChangePin == null) {
@@ -250,21 +355,15 @@ public final class ActivityMainBinding implements ViewBinding {
         break missingId;
       }
 
-      id = R.id.btnEnableAccessibility;
-      MaterialButton btnEnableAccessibility = ViewBindings.findChildViewById(rootView, id);
-      if (btnEnableAccessibility == null) {
-        break missingId;
-      }
-
-      id = R.id.btnEnableDeviceAdmin;
-      MaterialButton btnEnableDeviceAdmin = ViewBindings.findChildViewById(rootView, id);
-      if (btnEnableDeviceAdmin == null) {
-        break missingId;
-      }
-
       id = R.id.btnLockApp;
       MaterialButton btnLockApp = ViewBindings.findChildViewById(rootView, id);
       if (btnLockApp == null) {
+        break missingId;
+      }
+
+      id = R.id.btnSelectAppsToBlock;
+      MaterialButton btnSelectAppsToBlock = ViewBindings.findChildViewById(rootView, id);
+      if (btnSelectAppsToBlock == null) {
         break missingId;
       }
 
@@ -340,6 +439,66 @@ public final class ActivityMainBinding implements ViewBinding {
         break missingId;
       }
 
+      id = R.id.headerApps;
+      LinearLayout headerApps = ViewBindings.findChildViewById(rootView, id);
+      if (headerApps == null) {
+        break missingId;
+      }
+
+      id = R.id.headerDomains;
+      LinearLayout headerDomains = ViewBindings.findChildViewById(rootView, id);
+      if (headerDomains == null) {
+        break missingId;
+      }
+
+      id = R.id.headerFilters;
+      LinearLayout headerFilters = ViewBindings.findChildViewById(rootView, id);
+      if (headerFilters == null) {
+        break missingId;
+      }
+
+      id = R.id.headerKeywords;
+      LinearLayout headerKeywords = ViewBindings.findChildViewById(rootView, id);
+      if (headerKeywords == null) {
+        break missingId;
+      }
+
+      id = R.id.headerPermissions;
+      LinearLayout headerPermissions = ViewBindings.findChildViewById(rootView, id);
+      if (headerPermissions == null) {
+        break missingId;
+      }
+
+      id = R.id.ivChevronApps;
+      ImageView ivChevronApps = ViewBindings.findChildViewById(rootView, id);
+      if (ivChevronApps == null) {
+        break missingId;
+      }
+
+      id = R.id.ivChevronDomains;
+      ImageView ivChevronDomains = ViewBindings.findChildViewById(rootView, id);
+      if (ivChevronDomains == null) {
+        break missingId;
+      }
+
+      id = R.id.ivChevronFilters;
+      ImageView ivChevronFilters = ViewBindings.findChildViewById(rootView, id);
+      if (ivChevronFilters == null) {
+        break missingId;
+      }
+
+      id = R.id.ivChevronKeywords;
+      ImageView ivChevronKeywords = ViewBindings.findChildViewById(rootView, id);
+      if (ivChevronKeywords == null) {
+        break missingId;
+      }
+
+      id = R.id.ivChevronPermissions;
+      ImageView ivChevronPermissions = ViewBindings.findChildViewById(rootView, id);
+      if (ivChevronPermissions == null) {
+        break missingId;
+      }
+
       id = R.id.layoutDashboard;
       NestedScrollView layoutDashboard = ViewBindings.findChildViewById(rootView, id);
       if (layoutDashboard == null) {
@@ -370,9 +529,33 @@ public final class ActivityMainBinding implements ViewBinding {
         break missingId;
       }
 
+      id = R.id.switchAccessibility;
+      MaterialSwitch switchAccessibility = ViewBindings.findChildViewById(rootView, id);
+      if (switchAccessibility == null) {
+        break missingId;
+      }
+
       id = R.id.switchAdultFilter;
       MaterialSwitch switchAdultFilter = ViewBindings.findChildViewById(rootView, id);
       if (switchAdultFilter == null) {
+        break missingId;
+      }
+
+      id = R.id.switchAppBlocking;
+      MaterialSwitch switchAppBlocking = ViewBindings.findChildViewById(rootView, id);
+      if (switchAppBlocking == null) {
+        break missingId;
+      }
+
+      id = R.id.switchBattery;
+      MaterialSwitch switchBattery = ViewBindings.findChildViewById(rootView, id);
+      if (switchBattery == null) {
+        break missingId;
+      }
+
+      id = R.id.switchDeviceAdmin;
+      MaterialSwitch switchDeviceAdmin = ViewBindings.findChildViewById(rootView, id);
+      if (switchDeviceAdmin == null) {
         break missingId;
       }
 
@@ -394,15 +577,15 @@ public final class ActivityMainBinding implements ViewBinding {
         break missingId;
       }
 
-      id = R.id.tvAccessibilityStatus;
-      TextView tvAccessibilityStatus = ViewBindings.findChildViewById(rootView, id);
-      if (tvAccessibilityStatus == null) {
+      id = R.id.switchWebBlocking;
+      MaterialSwitch switchWebBlocking = ViewBindings.findChildViewById(rootView, id);
+      if (switchWebBlocking == null) {
         break missingId;
       }
 
-      id = R.id.tvDeviceAdminStatus;
-      TextView tvDeviceAdminStatus = ViewBindings.findChildViewById(rootView, id);
-      if (tvDeviceAdminStatus == null) {
+      id = R.id.tvPermissionsSummary;
+      TextView tvPermissionsSummary = ViewBindings.findChildViewById(rootView, id);
+      if (tvPermissionsSummary == null) {
         break missingId;
       }
 
@@ -424,14 +607,24 @@ public final class ActivityMainBinding implements ViewBinding {
         break missingId;
       }
 
-      return new ActivityMainBinding((CoordinatorLayout) rootView, btnAddApp, btnAddDomain,
-          btnAddKeyword, btnBatteryOptimization, btnChangePin, btnConfigureMonitoredApps,
-          btnEnableAccessibility, btnEnableDeviceAdmin, btnLockApp, btnSubmitPin, chipAddInstagram,
-          chipAddLine, chipAddReddit, chipAddTelegram, chipAddTikTok, chipAddTwitter, chipAddViber,
-          etNewApp, etNewDomain, etNewKeyword, etPin, layoutDashboard, layoutPinAuth, rvBlacklist,
-          rvBlockedApps, rvKeywords, switchAdultFilter, switchIncognitoFilter,
-          switchKeywordGuardian, switchMasterProtection, tvAccessibilityStatus, tvDeviceAdminStatus,
-          tvPinSubtitle, tvPinTitle, tvProtectionStatus);
+      id = R.id.tvProtectionSubtitle;
+      TextView tvProtectionSubtitle = ViewBindings.findChildViewById(rootView, id);
+      if (tvProtectionSubtitle == null) {
+        break missingId;
+      }
+
+      return new ActivityMainBinding((CoordinatorLayout) rootView, bodyApps, bodyDomains,
+          bodyFilters, bodyKeywords, bodyPermissions, btnAddApp, btnAddDomain, btnAddKeyword,
+          btnChangePin, btnConfigureMonitoredApps, btnLockApp, btnSelectAppsToBlock, btnSubmitPin,
+          chipAddInstagram, chipAddLine, chipAddReddit, chipAddTelegram, chipAddTikTok,
+          chipAddTwitter, chipAddViber, etNewApp, etNewDomain, etNewKeyword, etPin, headerApps,
+          headerDomains, headerFilters, headerKeywords, headerPermissions, ivChevronApps,
+          ivChevronDomains, ivChevronFilters, ivChevronKeywords, ivChevronPermissions,
+          layoutDashboard, layoutPinAuth, rvBlacklist, rvBlockedApps, rvKeywords,
+          switchAccessibility, switchAdultFilter, switchAppBlocking, switchBattery,
+          switchDeviceAdmin, switchIncognitoFilter, switchKeywordGuardian, switchMasterProtection,
+          switchWebBlocking, tvPermissionsSummary, tvPinSubtitle, tvPinTitle, tvProtectionStatus,
+          tvProtectionSubtitle);
     }
     String missingId = rootView.getResources().getResourceName(id);
     throw new NullPointerException("Missing required view with ID: ".concat(missingId));

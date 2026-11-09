@@ -15,4 +15,11 @@
         <item name="thumbTint">@color/switch_thumb_selector</item>
         <item name="thumbIcon">@null</item>
     </style>
+
+    <!-- iOS Giant Master Switch Style (Green when ON, Red when OFF) -->
+    <style name="Widget.AntiMono.Switch.Master" parent="Widget.Material3.CompoundButton.MaterialSwitch">
+        <item name="trackTint">@color/switch_master_track_selector</item>
+        <item name="thumbTint">@color/switch_thumb_selector</item>
+        <item name="thumbIcon">@null</item>
+    </style>
 </resources>
