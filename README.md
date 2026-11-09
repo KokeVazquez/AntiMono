@@ -14,8 +14,10 @@
 2. **Bloqueo de Modo Incógnito / Pestañas Secretas:**
    - Cierra o expulsa al escritorio cuando se detecta el uso de pestañas de incógnito en los navegadores.
 
-3. **Protección Anti-Desinstalación:**
+3. **Protección Anti-Desinstalación y Blindaje "Anti-Yo":**
    - **Administrador de Dispositivos (`DeviceAdminReceiver`):** Impide que la app sea desinstalada mediante una pulsación larga en la pantalla de inicio de Samsung One UI (el sistema muestra que es un administrador activo).
+   - **Bloqueo de Opciones de Desarrollador / USB Debugging:** Prohíbe acceder a opciones de desarrollador para evitar que se reactive la depuración por cable y se borre la app desde la PC.
+   - **Bloqueo de Modo Seguro:** Impide reiniciar en Modo Seguro mediante restricciones del sistema (`DISALLOW_SAFE_BOOT`) y filtros de pantalla.
    - **Filtro Quirúrgico de Ajustes:** Si se intenta desinstalar o revocar el permiso de administrador desde Ajustes sin ingresar el PIN en AntiMono, el sistema expulsa al usuario al escritorio de inmediato (mientras que Wi-Fi, Bluetooth y demás ajustes siguen funcionando normalmente).
 
 4. **Bajo Consumo de Batería:**

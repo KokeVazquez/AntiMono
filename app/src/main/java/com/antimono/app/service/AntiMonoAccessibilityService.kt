@@ -82,11 +82,26 @@ class AntiMonoAccessibilityService : AccessibilityService() {
                 combinedText.contains("device admin") ||
                 combinedText.contains("apps de administración")
 
-        if ((mentionsAntiMono && mentionsDangerousAction) || (mentionsAntiMono && isDeviceAdminScreen)) {
+        // BLINDAJE ANTI-YO: Prohibir reactivar opciones de desarrollador o depuración USB
+        val isDeveloperTampering = combinedText.contains("opciones de desarrollador") ||
+                combinedText.contains("developer options") ||
+                combinedText.contains("depuración por usb") ||
+                combinedText.contains("usb debugging") ||
+                combinedText.contains("número de compilación") ||
+                combinedText.contains("build number")
+
+        // BLINDAJE: Prohibir acceso a reiniciar en Modo Seguro
+        val isSafeModeTampering = combinedText.contains("modo seguro") ||
+                combinedText.contains("safe mode")
+
+        if ((mentionsAntiMono && mentionsDangerousAction) || 
+            (mentionsAntiMono && isDeviceAdminScreen) || 
+            isDeveloperTampering || 
+            isSafeModeTampering) {
             performGlobalAction(GLOBAL_ACTION_HOME)
             Toast.makeText(
                 this,
-                "Acceso restringido: Ingresa tu PIN en AntiMono para modificar estos permisos.",
+                "Acción bloqueada: Requiere autorización con PIN en AntiMono.",
                 Toast.LENGTH_LONG
             ).show()
         }

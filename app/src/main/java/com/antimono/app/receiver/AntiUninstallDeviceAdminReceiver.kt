@@ -1,8 +1,11 @@
 package com.antimono.app.receiver
 
 import android.app.admin.DeviceAdminReceiver
+import android.app.admin.DevicePolicyManager
+import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
+import android.os.UserManager
 import android.widget.Toast
 import com.antimono.app.R
 
@@ -10,7 +13,21 @@ class AntiUninstallDeviceAdminReceiver : DeviceAdminReceiver() {
 
     override fun onEnabled(context: Context, intent: Intent) {
         super.onEnabled(context, intent)
-        Toast.makeText(context, "AntiMono: Protección de Administrador Activada", Toast.LENGTH_SHORT).show()
+        val dpm = context.getSystemService(Context.DEVICE_POLICY_SERVICE) as DevicePolicyManager
+        val admin = ComponentName(context, AntiUninstallDeviceAdminReceiver::class.java)
+
+        try {
+            // Si tiene privilegios de Device Owner, deshabilitamos Modo Seguro y Depuración
+            if (dpm.isDeviceOwnerApp(context.packageName)) {
+                dpm.addUserRestriction(admin, UserManager.DISALLOW_SAFE_BOOT)
+                dpm.addUserRestriction(admin, UserManager.DISALLOW_UNINSTALL_APPS)
+                dpm.addUserRestriction(admin, UserManager.DISALLOW_DEBUGGING_FEATURES)
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+
+        Toast.makeText(context, "AntiMono: Blindaje de Administrador Activado", Toast.LENGTH_SHORT).show()
     }
 
     override fun onDisableRequested(context: Context, intent: Intent): CharSequence {
@@ -19,6 +36,6 @@ class AntiUninstallDeviceAdminReceiver : DeviceAdminReceiver() {
 
     override fun onDisabled(context: Context, intent: Intent) {
         super.onDisabled(context, intent)
-        Toast.makeText(context, "AntiMono: Protección de Administrador Desactivada", Toast.LENGTH_SHORT).show()
+        Toast.makeText(context, "AntiMono: Blindaje Desactivado", Toast.LENGTH_SHORT).show()
     }
 }

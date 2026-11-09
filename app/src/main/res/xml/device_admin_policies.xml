@@ -3,5 +3,6 @@
     <uses-policies>
         <force-lock />
         <watch-login />
+        <disable-keyguard-features />
     </uses-policies>
 </device-admin>
